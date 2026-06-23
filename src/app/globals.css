@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes scrollLine {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  15%  { opacity: 1; }
+  65%  { transform: translateY(150%); opacity: 1; }
+  100% { transform: translateY(150%); opacity: 0; }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hide scrollbars on scroll containers */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Tour / activity card widths — responsive */
+.ae-card {
+  flex: 0 0 78%;
+}
+@media (min-width: 680px) {
+  .ae-card {
+    flex: 0 0 46%;
+  }
+}
+@media (min-width: 1000px) {
+  .ae-card {
+    flex: 0 0 calc((100% - 3 * 26px) / 3.5);
+  }
+}
+
+/* Activity v2 cards — desktop fixed 320px, mobile 78% */
+.act2-card {
+  flex: none;
+  width: 78%;
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border-radius: 14px;
+  overflow: hidden;
+  text-decoration: none;
+  display: block;
+  background: #26231f;
+  scroll-snap-align: start;
+  outline: none;
+}
+@media (min-width: 768px) {
+  .act2-card {
+    width: 320px;
+  }
+}
+.act2-card:focus-visible { outline: 2.5px solid #C75A37; outline-offset: 3px; }
+.act2-card .act2-img { transition: transform .65s cubic-bezier(.2,.7,.2,1); }
+.act2-card:hover .act2-img,
+.act2-card:focus-visible .act2-img { transform: scale(1.07); }
+.act2-card .act2-view {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .35s ease, transform .35s ease;
+}
+.act2-card:hover .act2-view,
+.act2-card:focus-visible .act2-view { opacity: 1; transform: none; }
+.act2-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1);
+}
+.act2-reveal.is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .act2-card .act2-img,
+  .act2-card:hover .act2-img,
+  .act2-card:focus-visible .act2-img { transition: none; transform: none; }
+  .act2-card .act2-view { transition: none; }
+  .act2-reveal { transition: none; opacity: 1; transform: none; }
+}
+
+/* Card hover — motion safe */
+@media (prefers-reduced-motion: no-preference) {
+  .ae-card-link {
+    transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1),
+                box-shadow 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .ae-card-link:hover {
+    transform: translateY(-7px) scale(1.012);
+    box-shadow: 0 22px 48px -16px rgba(30, 28, 25, 0.3);
+  }
+  .ae-card-photo {
+    transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .ae-card-link:hover .ae-card-photo {
+    transform: scale(1.07);
+  }
+  .ae-btn-arrow {
+    transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .ae-card-link:hover .ae-btn-arrow {
+    transform: translateX(4px);
+  }
+  .ae-card-link:hover .ae-view-btn {
+    background: #a8472a;
+  }
+}
+
+.ae-card-link:focus-visible {
+  outline: 3px solid #C75A37;
+  outline-offset: 4px;
+}
