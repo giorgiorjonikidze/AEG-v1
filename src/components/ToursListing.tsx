@@ -28,6 +28,8 @@ const TOURS_DATA: Tour[] = [
   { id: 'gudauri-ski', name: 'Gudauri Backcountry Ski', region: 'Kazbegi', activity: 'winter', days: 3, difficulty: 'Moderate', price: 590, hook: 'Guided off-piste laps and powder bowls above Gudauri.', isNew: true, beginner: false, family: false, winter: true, order: 13 },
   { id: 'svaneti-splitboard', name: 'Svaneti Winter Splitboard', region: 'Svaneti', activity: 'winter', days: 5, difficulty: 'Challenging', price: 940, hook: 'Skin up and ride untouched lines under Ushba.', isNew: false, beginner: false, family: false, winter: true, order: 14 },
   { id: 'georgia-highlights', name: 'Highlights of Georgia', region: 'Kakheti', activity: 'mixed', days: 7, difficulty: 'Easy', price: 1080, hook: 'Mountains, wine, caves and old towns in one loop.', isNew: false, beginner: false, family: true, winter: false, order: 0 },
+  { id: 'ice-and-towers-svaneti', name: 'Ice and Towers, Svaneti', region: 'Svaneti', activity: 'trekking', days: 9, difficulty: 'Moderate', price: 2490, hook: 'Nine days of glaciers, medieval towers and high-altitude passes in the Caucasus crown.', isNew: true, beginner: false, family: false, winter: false, order: 15 },
+  { id: 'kazbegi-day-trip', name: 'Kazbegi Day Trip', region: 'Kazbegi', activity: 'mixed', days: 1, difficulty: 'Easy', price: 95, hook: 'Ananuri, Gudauri and Gergeti Trinity Church in one perfect day from Tbilisi.', isNew: true, beginner: true, family: true, winter: false, order: 16 },
 ]
 
 const ACTIVITY_META = [
@@ -58,7 +60,7 @@ const SORT_OPTIONS = [
   { key: 'newest',      label: 'Newest' },
 ]
 
-const PMIN = 0, PMAX = 1500, STEP = 10
+const PMIN = 0, PMAX = 3000, STEP = 10
 
 const TOUR_PHOTOS: Record<string, string> = {
   'svaneti-glacier':     '/images/tours/vasily-ledovsky-7Nl6vSXdDhE-unsplash.jpg',
@@ -76,6 +78,8 @@ const TOUR_PHOTOS: Record<string, string> = {
   'gudauri-ski':         '/images/tours/kim-cordenete-3hB68obZnHI-unsplash.jpg',
   'svaneti-splitboard':  '/images/tours/darya-tryfanava-rY1P25plAYg-unsplash.jpg',
   'georgia-highlights':  '/images/tours/nino-gakhokia-24d9N5UsVYs-unsplash.jpg',
+  'ice-and-towers-svaneti': '/images/tours/ice-towers-hero.avif',
+  'kazbegi-day-trip':       '/images/tours/andrew-rusinas-aFFKmsFoldc-unsplash.jpg',
 }
 
 // ── HELPERS ───────────────────────────────────────────────────────────────────
@@ -691,7 +695,7 @@ export default function ToursListing() {
                   <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
                 </span>
                 <h3 style={{ fontFamily: 'var(--font-spectral), serif', fontWeight: 500, fontSize: 27, margin: '0 0 10px', maxWidth: 440 }}>No tours match yet — but we can build one for you</h3>
-                <p style={{ margin: '0 0 26px', fontSize: 16, lineHeight: 1.5, color: '#79736A', maxWidth: 420 }}>Tell us where you'd like to go and we'll design a private trip around your dates, pace and budget.</p>
+                <p style={{ margin: '0 0 26px', fontSize: 16, lineHeight: 1.5, color: '#79736A', maxWidth: 420 }}>Tell us where you&apos;d like to go and we&apos;ll design a private trip around your dates, pace and budget.</p>
                 <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
                   <button type="button" onClick={clearAll} style={{ padding: '13px 20px', borderRadius: 12, border: '1px solid #DAD3C5', background: '#fff', fontFamily: 'var(--font-hanken), sans-serif', fontSize: 15, fontWeight: 600, color: '#1E1C19', cursor: 'pointer' }}>
                     Clear filters

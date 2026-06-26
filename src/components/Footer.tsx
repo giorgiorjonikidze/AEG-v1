@@ -39,7 +39,7 @@ const COLUMNS: { label: string; links: FooterLink[] }[] = [
       { name: 'FAQ', href: '/en/faq' },
       { name: 'What to Bring', href: '/en/what-to-bring' },
       { name: 'Booking & Cancellation Policy', href: '/en/booking-policy' },
-      { name: 'Privacy Policy', href: '/en/privacy' },
+      { name: 'Privacy Policy', href: '/en/privacy-policy' },
       { name: 'Terms', href: '/en/terms' },
     ],
   },
@@ -163,7 +163,7 @@ export default function Footer() {
         <div style={{ maxWidth: 1320, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
           <span style={{ fontSize: 12.5, color: 'rgba(255,255,255,.3)' }}>© 2026 Adventure Experts Georgia · Licensed Tour Operator, Registration No. [TBC]</span>
           <div style={{ display: 'flex', gap: 20 }}>
-            {[['Booking Conditions', '/en/booking-policy'], ['Privacy', '/en/privacy']].map(([name, href]) => (
+            {[['Booking Conditions', '/en/booking-policy'], ['Terms', '/en/terms'], ['Privacy', '/en/privacy-policy']].map(([name, href]) => (
               <Link key={name} href={href} style={{ fontSize: 12.5, color: 'rgba(255,255,255,.3)', textDecoration: 'none' }}>{name}</Link>
             ))}
           </div>

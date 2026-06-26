@@ -25,7 +25,7 @@ export default function Reviews() {
           {REVIEWS.map(r => (
             <div key={r.id} style={{ background: '#fff', borderRadius: 5, padding: '28px', boxShadow: '0 4px 24px -12px rgba(30,28,25,.14)', display: 'flex', flexDirection: 'column', gap: 18 }}>
               <Stars n={r.stars} />
-              <p style={{ fontSize: 15.5, lineHeight: 1.68, color: '#2a2620', margin: 0, flex: 1, fontStyle: 'italic' }}>
+              <p style={{ fontSize: 16, lineHeight: 1.68, color: '#2a2620', margin: 0, flex: 1, fontStyle: 'italic' }}>
                 &ldquo;{r.quote}&rdquo;
               </p>
               <div style={{ borderTop: '1px solid #ECE7DC', paddingTop: 16, display: 'flex', flexDirection: 'column', gap: 6 }}>

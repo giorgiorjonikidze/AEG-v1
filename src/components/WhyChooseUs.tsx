@@ -219,7 +219,7 @@ export default function WhyChooseUs() {
                   <p
                     style={{
                       fontFamily: 'var(--font-spectral), serif',
-                      fontSize: 15.5,
+                      fontSize: 16,
                       lineHeight: 1.55,
                       color: '#46423b',
                       margin: '0 0 18px',

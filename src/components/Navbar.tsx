@@ -3,24 +3,47 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { TOURS, SERVICES } from '@/lib/data'
 
 const TRANS = 'all .35s cubic-bezier(.4,0,.2,1)'
 
 export default function Navbar() {
   const pathname = usePathname()
-  const [solid, setSolid] = useState(pathname !== '/en')
+  const [solid, setSolid] = useState(false)
   const [openKey, setOpenKey] = useState<string | null>(null)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [mobileAcc, setMobileAcc] = useState<string | null>(null)
   const [reduceMotion, setReduceMotion] = useState(false)
+  const [mounted, setMounted] = useState(false)
+  const [mobileHidden, setMobileHidden] = useState(false)
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const lastScrollY = useRef(0)
 
   useEffect(() => {
+    document.documentElement.style.setProperty('--jump-nav-top', mobileHidden ? '0px' : '72px')
+  }, [mobileHidden])
+
+  useEffect(() => {
+    setMounted(true)
     try {
       setReduceMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
     } catch {}
-    const onScroll = () => setSolid(window.scrollY > 40)
+    const onScroll = () => {
+      const y = window.scrollY
+      setSolid(y > 40)
+
+      if (window.innerWidth < 768) {
+        if (y > lastScrollY.current && y > 80) {
+          setMobileHidden(true)
+          setMobileOpen(false)
+        } else {
+          setMobileHidden(false)
+        }
+      }
+      lastScrollY.current = y
+    }
+    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
@@ -68,6 +91,7 @@ export default function Navbar() {
   const servicesOpen = openKey === 'services'
 
   return (
+    <>
     <header style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50 }}>
 
       {/* ── DESKTOP ─────────────────────────────────────────── */}
@@ -137,8 +161,8 @@ export default function Navbar() {
           {/* Services dropdown */}
           <div style={{ position: 'relative' }} onMouseEnter={() => openDrop('services')} onMouseLeave={scheduleDrop}>
             <a
-              href="#"
-              onClick={e => toggleDrop('services', e)}
+              href="/en/services"
+              onClick={e => { e.preventDefault(); toggleDrop('services', e) }}
               onFocus={() => openDrop('services')}
               onKeyDown={onEsc}
               aria-haspopup="true"
@@ -155,11 +179,11 @@ export default function Navbar() {
               <div role="menu" style={{ position: 'absolute', top: 'calc(100% + 18px)', left: '50%', transform: 'translateX(-50%)', minWidth: 300, padding: 12, background: '#FAF8F3', border: '1px solid rgba(30,28,25,.07)', borderRadius: 5, boxShadow: '0 28px 56px -28px rgba(30,28,25,.5), 0 2px 8px -4px rgba(30,28,25,.12)', zIndex: 100 }}>
                 <div style={{ fontSize: 10.5, letterSpacing: '2.5px', textTransform: 'uppercase', color: '#A8A296', padding: '4px 12px 10px' }}>Services</div>
                 {SERVICES.map(sv => (
-                  <a key={sv.label} href="#" role="menuitem" onClick={e => e.preventDefault()} className="nav-drop-item"
+                  <Link key={sv.label} href="/en/services" role="menuitem" className="nav-drop-item"
                     style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 14, padding: '11px 12px', borderRadius: 5, textDecoration: 'none', color: '#1E1C19', fontSize: 14.5 }}>
                     <span>{sv.label}</span>
                     {sv.soon && <span style={{ fontSize: 9.5, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#A8A296', background: 'rgba(168,162,150,.18)', padding: '3px 8px', borderRadius: 5, flex: 'none' }}>Soon</span>}
-                  </a>
+                  </Link>
                 ))}
               </div>
             )}
@@ -195,7 +219,7 @@ export default function Navbar() {
       </div>
 
       {/* ── MOBILE ──────────────────────────────────────────── */}
-      <div className="flex md:hidden flex-col" style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}>
+      <div className="flex md:hidden flex-col" style={{ fontFamily: 'var(--font-dm-sans), sans-serif', transform: mobileHidden ? 'translateY(-100%)' : 'translateY(0)', transition: reduceMotion ? 'none' : 'transform .3s cubic-bezier(.4,0,.2,1)' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '15px 18px', background: mBarBg, boxShadow: mShadow, transition: trans }}>
           <Link href="/en" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', color: mText, transition: trans }}>
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -259,11 +283,11 @@ export default function Navbar() {
               {mobileAcc === 'services' && (
                 <div style={{ padding: '6px 2px 12px', display: 'flex', flexDirection: 'column' }}>
                   {SERVICES.map(sv => (
-                    <a key={sv.label} href="#" onClick={e => e.preventDefault()} className="nav-drop-item"
+                    <Link key={sv.label} href="/en/services" className="nav-drop-item"
                       style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, textDecoration: 'none', color: '#5b554c', fontSize: 14.5, padding: '9px 12px', borderRadius: 5 }}>
                       <span>{sv.label}</span>
                       {sv.soon && <span style={{ fontSize: 9.5, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#A8A296', background: 'rgba(168,162,150,.18)', padding: '3px 8px', borderRadius: 5, flex: 'none' }}>Soon</span>}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               )}
@@ -302,8 +326,25 @@ export default function Navbar() {
         .nav-drop-item:hover { background: rgba(155,78,48,.08); color: #9B4E30; }
         @media (prefers-reduced-motion: reduce) {
           .nav-drop-item { transition: none; }
+          .nav-mob-scrim { transition: none !important; }
         }
       `}</style>
     </header>
+
+    {mounted && createPortal(
+      <div
+        className="nav-mob-scrim"
+        onClick={() => setMobileOpen(false)}
+        style={{
+          position: 'fixed', inset: 0, zIndex: 49,
+          background: 'rgba(10,8,6,.55)',
+          opacity: mobileOpen ? 1 : 0,
+          pointerEvents: mobileOpen ? 'auto' : 'none',
+          transition: 'opacity .28s ease',
+        }}
+      />,
+      document.body
+    )}
+    </>
   )
 }

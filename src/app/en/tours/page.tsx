@@ -40,7 +40,7 @@ export default function ToursPage() {
             Our Adventures
           </h1>
           <p style={{ margin: 0, maxWidth: 580, fontSize: 'clamp(16px,1.4vw,18px)', lineHeight: 1.55, color: 'rgba(255,255,255,.72)', fontFamily: 'var(--font-hanken), sans-serif' }}>
-            Guided treks, summits, caves and overland journeys across the Caucasus — every trip is tailored, so browse, then enquire and we'll build it around you.
+            Guided treks, summits, caves and overland journeys across the Caucasus — every trip is tailored, so browse, then enquire and we&apos;ll build it around you.
           </p>
         </div>
       </section>
