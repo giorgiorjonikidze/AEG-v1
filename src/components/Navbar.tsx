@@ -95,12 +95,11 @@ export default function Navbar() {
 
   const LANGS = [
     { code: 'EN', label: 'English', native: 'English', soon: false },
-    { code: 'KA', label: 'Georgian', native: 'ქართული', soon: true },
+    { code: 'DE', label: 'German', native: 'Deutsch', soon: true },
   ]
   const CURRENCIES = [
     { code: 'USD', symbol: '$', label: 'US Dollar' },
     { code: 'EUR', symbol: '€', label: 'Euro' },
-    { code: 'GEL', symbol: '₾', label: 'Georgian Lari' },
   ]
 
   return (
@@ -327,7 +326,7 @@ export default function Navbar() {
             >
               <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/></svg>
-                {activeLang === 'EN' ? 'English' : 'ქართული'} · {activeCurrency}
+                {activeLang === 'EN' ? 'English' : 'Deutsch'} · {activeCurrency}
               </span>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
                 style={{ transition: reduceMotion ? 'none' : 'transform .3s', transform: mobileAcc === 'lang' ? 'rotate(180deg)' : 'rotate(0deg)', color: '#A8A296' }}>
