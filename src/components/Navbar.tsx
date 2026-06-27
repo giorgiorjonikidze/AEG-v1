@@ -14,6 +14,8 @@ export default function Navbar() {
   const [openKey, setOpenKey] = useState<string | null>(null)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [mobileAcc, setMobileAcc] = useState<string | null>(null)
+  const [activeLang, setActiveLang] = useState('EN')
+  const [activeCurrency, setActiveCurrency] = useState('USD')
   const [reduceMotion, setReduceMotion] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [mobileHidden, setMobileHidden] = useState(false)
@@ -89,6 +91,17 @@ export default function Navbar() {
 
   const toursOpen = openKey === 'tours'
   const servicesOpen = openKey === 'services'
+  const langOpen = openKey === 'lang'
+
+  const LANGS = [
+    { code: 'EN', label: 'English', native: 'English', soon: false },
+    { code: 'KA', label: 'Georgian', native: 'ქართული', soon: true },
+  ]
+  const CURRENCIES = [
+    { code: 'USD', symbol: '$', label: 'US Dollar' },
+    { code: 'EUR', symbol: '€', label: 'Euro' },
+    { code: 'GEL', symbol: '₾', label: 'Georgian Lari' },
+  ]
 
   return (
     <>
@@ -195,13 +208,72 @@ export default function Navbar() {
 
         {/* Right cluster */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 16, flex: 'none' }}>
-          <button style={{ display: 'inline-flex', alignItems: 'center', gap: 7, fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: 13, color: text, background: 'transparent', border: `1px solid ${hairline}`, padding: '8px 11px', borderRadius: 5, cursor: 'pointer', transition: trans }}>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/>
-            </svg>
-            EN · USD
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-          </button>
+          {/* Language / Currency dropdown */}
+          <div style={{ position: 'relative' }} onMouseEnter={() => openDrop('lang')} onMouseLeave={scheduleDrop}>
+            <button
+              onClick={e => toggleDrop('lang', e as unknown as React.MouseEvent)}
+              onKeyDown={onEsc}
+              aria-haspopup="true"
+              aria-expanded={langOpen}
+              aria-label="Language and currency"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: 7, fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: 13, color: text, background: 'transparent', border: `1px solid ${hairline}`, padding: '8px 11px', borderRadius: 5, cursor: 'pointer', transition: trans }}
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/>
+              </svg>
+              {activeLang} · {activeCurrency}
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                style={{ transition: reduceMotion ? 'none' : 'transform .3s', transform: langOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </button>
+            {langOpen && (
+              <div role="dialog" aria-label="Language and currency" style={{ position: 'absolute', top: 'calc(100% + 14px)', right: 0, width: 280, background: '#FAF8F3', border: '1px solid rgba(30,28,25,.07)', borderRadius: 5, boxShadow: '0 28px 56px -28px rgba(30,28,25,.5), 0 2px 8px -4px rgba(30,28,25,.12)', zIndex: 100, overflow: 'hidden' }}>
+                {/* Language */}
+                <div style={{ padding: '14px 16px 8px' }}>
+                  <div style={{ fontSize: 10.5, letterSpacing: '2.5px', textTransform: 'uppercase', color: '#A8A296', marginBottom: 8 }}>Language</div>
+                  {LANGS.map(l => (
+                    <button key={l.code} disabled={l.soon}
+                      onClick={() => { if (!l.soon) { setActiveLang(l.code); setOpenKey(null) } }}
+                      style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, padding: '10px 10px', borderRadius: 5, border: 'none', background: activeLang === l.code ? 'rgba(46,64,52,.08)' : 'transparent', cursor: l.soon ? 'default' : 'pointer', marginBottom: 2, fontFamily: 'var(--font-dm-sans), sans-serif' }}>
+                      <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 1 }}>
+                        <span style={{ fontSize: 14, color: l.soon ? '#A8A296' : '#1E1C19', fontWeight: activeLang === l.code ? 600 : 400 }}>{l.label}</span>
+                        <span style={{ fontSize: 11.5, color: '#A8A296' }}>{l.native}</span>
+                      </span>
+                      <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                        {l.soon && <span style={{ fontSize: 9.5, letterSpacing: '1px', textTransform: 'uppercase', color: '#A8A296', background: 'rgba(168,162,150,.18)', padding: '2px 7px', borderRadius: 4 }}>Soon</span>}
+                        {activeLang === l.code && !l.soon && (
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2E4034" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                        )}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+                {/* Divider */}
+                <div style={{ height: 1, background: 'rgba(30,28,25,.07)', margin: '4px 0' }} />
+                {/* Currency */}
+                <div style={{ padding: '8px 16px 14px' }}>
+                  <div style={{ fontSize: 10.5, letterSpacing: '2.5px', textTransform: 'uppercase', color: '#A8A296', marginBottom: 8 }}>Currency</div>
+                  {CURRENCIES.map(c => (
+                    <button key={c.code}
+                      onClick={() => { setActiveCurrency(c.code); setOpenKey(null) }}
+                      style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, padding: '10px 10px', borderRadius: 5, border: 'none', background: activeCurrency === c.code ? 'rgba(46,64,52,.08)' : 'transparent', cursor: 'pointer', marginBottom: 2, fontFamily: 'var(--font-dm-sans), sans-serif' }}>
+                      <span style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                        <span style={{ width: 28, height: 28, borderRadius: '50%', background: 'rgba(30,28,25,.07)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, color: '#4A463E', fontWeight: 500, flex: 'none' }}>{c.symbol}</span>
+                        <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 1 }}>
+                          <span style={{ fontSize: 14, color: '#1E1C19', fontWeight: activeCurrency === c.code ? 600 : 400 }}>{c.code}</span>
+                          <span style={{ fontSize: 11.5, color: '#A8A296' }}>{c.label}</span>
+                        </span>
+                      </span>
+                      {activeCurrency === c.code && (
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2E4034" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
 
           <a href="https://wa.me/995555123456" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer"
             style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 44, height: 44, color: text, border: `1px solid ${hairline}`, borderRadius: '50%', transition: trans, textDecoration: 'none' }}>
@@ -247,10 +319,53 @@ export default function Navbar() {
 
         {mobileOpen && (
           <div style={{ background: '#FAF8F3', padding: '18px 18px 24px', borderTop: '1px solid rgba(30,28,25,.06)' }}>
-            <button style={{ marginTop: 0, width: '100%', boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: 14, color: '#1E1C19', background: 'transparent', border: '1px solid rgba(30,28,25,.14)', padding: 12, borderRadius: 5, cursor: 'pointer' }}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/></svg>
-              English · USD
+            {/* Mobile lang/currency accordion */}
+            <button
+              onClick={() => setMobileAcc(p => p === 'lang' ? null : 'lang')}
+              aria-expanded={mobileAcc === 'lang'}
+              style={{ marginTop: 0, width: '100%', boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: 14, color: '#1E1C19', background: 'transparent', border: '1px solid rgba(30,28,25,.14)', padding: '12px 14px', borderRadius: 5, cursor: 'pointer' }}
+            >
+              <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/></svg>
+                {activeLang === 'EN' ? 'English' : 'ქართული'} · {activeCurrency}
+              </span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                style={{ transition: reduceMotion ? 'none' : 'transform .3s', transform: mobileAcc === 'lang' ? 'rotate(180deg)' : 'rotate(0deg)', color: '#A8A296' }}>
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
             </button>
+            {mobileAcc === 'lang' && (
+              <div style={{ border: '1px solid rgba(30,28,25,.10)', borderTop: 'none', borderRadius: '0 0 5px 5px', marginTop: -1, background: '#fff' }}>
+                <div style={{ padding: '12px 14px 6px' }}>
+                  <div style={{ fontSize: 10, letterSpacing: '2px', textTransform: 'uppercase', color: '#A8A296', marginBottom: 8, fontFamily: 'var(--font-dm-sans), sans-serif' }}>Language</div>
+                  {LANGS.map(l => (
+                    <button key={l.code} disabled={l.soon}
+                      onClick={() => { if (!l.soon) setActiveLang(l.code) }}
+                      style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '9px 8px', border: 'none', background: activeLang === l.code ? 'rgba(46,64,52,.08)' : 'transparent', borderRadius: 5, cursor: l.soon ? 'default' : 'pointer', fontFamily: 'var(--font-dm-sans), sans-serif', marginBottom: 2 }}>
+                      <span style={{ fontSize: 14, color: l.soon ? '#A8A296' : '#1E1C19', fontWeight: activeLang === l.code ? 600 : 400 }}>{l.label} {l.native !== l.label ? `· ${l.native}` : ''}</span>
+                      <span style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+                        {l.soon && <span style={{ fontSize: 9, letterSpacing: '1px', textTransform: 'uppercase', color: '#A8A296', background: 'rgba(168,162,150,.18)', padding: '2px 6px', borderRadius: 4 }}>Soon</span>}
+                        {activeLang === l.code && !l.soon && <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2E4034" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+                <div style={{ height: 1, background: 'rgba(30,28,25,.07)' }} />
+                <div style={{ padding: '8px 14px 12px' }}>
+                  <div style={{ fontSize: 10, letterSpacing: '2px', textTransform: 'uppercase', color: '#A8A296', marginBottom: 8, fontFamily: 'var(--font-dm-sans), sans-serif' }}>Currency</div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 6 }}>
+                    {CURRENCIES.map(c => (
+                      <button key={c.code}
+                        onClick={() => setActiveCurrency(c.code)}
+                        style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3, padding: '10px 6px', border: `1px solid ${activeCurrency === c.code ? '#2E4034' : 'rgba(30,28,25,.12)'}`, borderRadius: 6, background: activeCurrency === c.code ? 'rgba(46,64,52,.07)' : 'transparent', cursor: 'pointer', fontFamily: 'var(--font-dm-sans), sans-serif' }}>
+                        <span style={{ fontSize: 17, color: '#1E1C19', fontWeight: 500 }}>{c.symbol}</span>
+                        <span style={{ fontSize: 12, color: activeCurrency === c.code ? '#2E4034' : '#6B655C', fontWeight: activeCurrency === c.code ? 600 : 400 }}>{c.code}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
 
             <nav style={{ marginTop: 8 }}>
               <button onClick={() => setMobileAcc(p => p === 'tours' ? null : 'tours')} aria-expanded={mobileAcc === 'tours'}
