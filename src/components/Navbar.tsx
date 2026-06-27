@@ -208,7 +208,7 @@ export default function Navbar() {
         {/* Right cluster */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 16, flex: 'none' }}>
           {/* Language / Currency dropdown */}
-          <div style={{ position: 'relative' }} onMouseEnter={() => openDrop('lang')} onMouseLeave={scheduleDrop}>
+          <div style={{ position: 'relative' }}>
             <button
               onClick={e => toggleDrop('lang', e as unknown as React.MouseEvent)}
               onKeyDown={onEsc}
@@ -352,7 +352,7 @@ export default function Navbar() {
                 <div style={{ height: 1, background: 'rgba(30,28,25,.07)' }} />
                 <div style={{ padding: '8px 14px 12px' }}>
                   <div style={{ fontSize: 10, letterSpacing: '2px', textTransform: 'uppercase', color: '#A8A296', marginBottom: 8, fontFamily: 'var(--font-dm-sans), sans-serif' }}>Currency</div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 6 }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }}>
                     {CURRENCIES.map(c => (
                       <button key={c.code}
                         onClick={() => setActiveCurrency(c.code)}
@@ -448,12 +448,12 @@ export default function Navbar() {
     {mounted && createPortal(
       <div
         className="nav-mob-scrim"
-        onClick={() => setMobileOpen(false)}
+        onClick={() => { setMobileOpen(false); setOpenKey(null) }}
         style={{
           position: 'fixed', inset: 0, zIndex: 49,
-          background: 'rgba(10,8,6,.55)',
-          opacity: mobileOpen ? 1 : 0,
-          pointerEvents: mobileOpen ? 'auto' : 'none',
+          background: mobileOpen ? 'rgba(10,8,6,.55)' : 'transparent',
+          opacity: mobileOpen || langOpen ? 1 : 0,
+          pointerEvents: mobileOpen || langOpen ? 'auto' : 'none',
           transition: 'opacity .28s ease',
         }}
       />,
