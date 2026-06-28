@@ -6,6 +6,7 @@ import TailorMadeCTA from '@/components/TailorMadeCTA'
 import Footer from '@/components/Footer'
 import FloatingWhatsApp from '@/components/FloatingWhatsApp'
 import ActivityJumpNav from '@/components/ActivityJumpNav'
+import ActivityGallery from '@/components/ActivityGallery'
 
 const css = `
   .act-hero{position:relative;height:clamp(480px,70vh,780px);overflow:hidden;}
@@ -62,14 +63,7 @@ const css = `
   .act-tour-pill{font-size:12px;color:#7a7469;display:flex;align-items:center;gap:5px;}
   .act-tour-cta{margin-top:auto;display:inline-flex;align-items:center;gap:6px;font-size:13.5px;color:#C75A37;font-weight:500;}
 
-  .act-gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
-  .act-gallery-grid .act-gallery-main{grid-column:1/2;grid-row:1/3;aspect-ratio:3/4;}
-  .act-gallery-img{position:relative;overflow:hidden;border-radius:6px;aspect-ratio:4/3;}
-  .act-gallery-img img{object-fit:cover;transition:transform .5s ease;}
-  .act-gallery-img:hover img{transform:scale(1.04);}
-  .act-gallery-note{margin-top:14px;font-size:12.5px;color:#A8A296;display:flex;align-items:center;gap:7px;}
-
-  .act-diff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.act-diff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
   .act-diff-card{border-radius:8px;padding:28px 24px;border:1px solid rgba(30,28,25,.09);}
   .act-diff-easy{background:#f0f7f2;border-color:#b5d9be;}
   .act-diff-moderate{background:#fdf6ee;border-color:#f0d3a8;}
@@ -111,10 +105,7 @@ const css = `
 
   @media(max-width:900px){
     .act-intro-grid{grid-template-columns:1fr;gap:36px;padding:48px 0 40px;}
-    .act-gallery-grid{grid-template-columns:1fr 1fr;}
-    .act-gallery-grid .act-gallery-main{grid-column:1/3;aspect-ratio:16/9;}
-    .act-gallery-img{aspect-ratio:4/3;}
-    .act-diff-grid,.act-season-grid{grid-template-columns:1fr;}
+.act-diff-grid,.act-season-grid{grid-template-columns:1fr;}
     .act-nudge{flex-direction:column;align-items:flex-start;padding:32px 24px;}
   }
   @media(max-width:640px){
@@ -303,23 +294,7 @@ export default function ActivityPageTemplate({ activity, tours }: Props) {
               <p className="act-eyebrow">In the field</p>
               <h2 className="act-h2">Our photos</h2>
               <p className="act-sub">Every photo taken by our team and guides on location in Georgia — no stock images.</p>
-              <div className="act-gallery-grid">
-                {activity.gallery.slice(0, 6).map((src, i) => (
-                  <div key={src} className={`act-gallery-img${i === 0 ? ' act-gallery-main' : ''}`}>
-                    <Image
-                      src={src}
-                      alt={`${activity.name} in Georgia — photo ${i + 1}`}
-                      fill
-                      sizes="(max-width:900px) 50vw, 33vw"
-                      style={{ objectFit: 'cover' }}
-                    />
-                  </div>
-                ))}
-              </div>
-              <p className="act-gallery-note">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-                All photos shot by Adventure Experts Georgia guides on location
-              </p>
+              <ActivityGallery images={activity.gallery} activityName={activity.name} />
             </section>
           )}
 
