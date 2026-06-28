@@ -290,7 +290,7 @@ export default function Navbar() {
       </div>
 
       {/* ── MOBILE ──────────────────────────────────────────── */}
-      <div className="flex md:hidden flex-col" style={{ fontFamily: 'var(--font-dm-sans), sans-serif', transform: mobileHidden ? 'translateY(-100%)' : 'translateY(0)', transition: reduceMotion ? 'none' : 'transform .3s cubic-bezier(.4,0,.2,1)' }}>
+      <div className="flex md:hidden flex-col" style={{ fontFamily: 'var(--font-dm-sans), sans-serif', transform: mobileHidden ? 'translateY(-100%)' : 'translateY(0)', transition: reduceMotion ? 'none' : 'transform .3s cubic-bezier(.4,0,.2,1)', pointerEvents: mobileHidden ? 'none' : 'auto' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '15px 18px', background: mBarBg, boxShadow: mShadow, transition: trans }}>
           <Link href="/en" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', color: mText, transition: trans }}>
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
