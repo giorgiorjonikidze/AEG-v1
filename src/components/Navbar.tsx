@@ -104,7 +104,7 @@ export default function Navbar() {
 
   return (
     <>
-    <header style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50 }}>
+    <header style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, pointerEvents: mobileHidden ? 'none' : 'auto' }}>
 
       {/* ── DESKTOP ─────────────────────────────────────────── */}
       <div
