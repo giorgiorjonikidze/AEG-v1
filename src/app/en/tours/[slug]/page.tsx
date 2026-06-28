@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getTourBySlug, TOURS } from '@/data/tours'
-import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import TailorMadeCTA from '@/components/TailorMadeCTA'
 import TourHero from '@/components/tour/TourHero'
@@ -59,8 +58,6 @@ export default function TourPage({ params }: { params: { slug: string } }) {
           }),
         }}
       />
-
-      <Navbar />
 
       <main>
         <TourHero tour={tour} priceStr={priceStr} />

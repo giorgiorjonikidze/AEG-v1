@@ -2,7 +2,6 @@
 import { useEffect, useReducer, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
 // ── Icons ─────────────────────────────────────────────────────────────────────
@@ -188,8 +187,6 @@ export default function ContactPage() {
         .cx-view-faq:hover{color:#C75A37;}
         .cx-dec:hover,.cx-inc:hover{background:#F1ECE1;}
       `}</style>
-
-      <Navbar />
 
       <main style={{ background: '#FAF8F3' }}>
 

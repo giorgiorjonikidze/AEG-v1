@@ -1,12 +1,12 @@
 export const TOURS = [
-  'Trekking & Hiking',
-  'Biking',
-  'Caving',
-  'Canyoning',
-  'Overlanding',
-  'Mixed Tours',
-  'Summit Experience',
-  'Climbing',
+  { name: 'Trekking & Hiking', href: '/en/tours/trekking' },
+  { name: 'Biking',            href: '/en/tours/biking' },
+  { name: 'Caving',            href: '/en/tours/caving' },
+  { name: 'Canyoning',         href: '/en/tours/canyoning' },
+  { name: 'Overlanding',       href: '/en/tours/overlanding' },
+  { name: 'Mixed Tours',       href: '/en/tours/mixed-tours' },
+  { name: 'Summit Experience', href: '/en/tours/summit-experience' },
+  { name: 'Climbing',          href: '/en/tours/climbing' },
 ] as const
 
 export const SERVICES = [

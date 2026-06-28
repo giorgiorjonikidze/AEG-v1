@@ -157,9 +157,9 @@ export default function Navbar() {
                 <div style={{ fontSize: 10.5, letterSpacing: '2.5px', textTransform: 'uppercase', color: '#A8A296', padding: '4px 12px 12px' }}>Tours</div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2px 24px' }}>
                   {TOURS.map(t => (
-                    <Link key={t} href={`/en/tours#${t.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-')}`} role="menuitem" className="nav-drop-item"
+                    <Link key={t.name} href={t.href} role="menuitem" className="nav-drop-item"
                       style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, padding: '11px 12px', borderRadius: 5, textDecoration: 'none', color: '#1E1C19', fontSize: 14.5 }}>
-                      <span>{t}</span>
+                      <span>{t.name}</span>
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: .35 }}><path d="m9 18 6-6-6-6"/></svg>
                     </Link>
                   ))}
@@ -378,8 +378,8 @@ export default function Navbar() {
               {mobileAcc === 'tours' && (
                 <div style={{ padding: '6px 2px 12px', display: 'flex', flexDirection: 'column' }}>
                   {TOURS.map(t => (
-                    <Link key={t} href={`/en/tours#${t.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-')}`} className="nav-drop-item"
-                      style={{ textDecoration: 'none', color: '#5b554c', fontSize: 14.5, padding: '9px 12px', borderRadius: 5 }}>{t}</Link>
+                    <Link key={t.name} href={t.href} className="nav-drop-item"
+                      style={{ textDecoration: 'none', color: '#5b554c', fontSize: 14.5, padding: '9px 12px', borderRadius: 5 }}>{t.name}</Link>
                   ))}
                 </div>
               )}

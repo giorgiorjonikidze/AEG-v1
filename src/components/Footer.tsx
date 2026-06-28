@@ -21,7 +21,7 @@ const COLUMNS: { label: string; links: FooterLink[] }[] = [
   {
     label: 'Tours & Activities',
     links: [
-      ...TOURS.map(t => ({ name: t, href: `/en/tours#${t.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-')}` })),
+      ...TOURS.map(t => ({ name: t.name, href: t.href })),
       { name: 'Day Tours', href: '/en/tours/day-tours' },
     ],
   },

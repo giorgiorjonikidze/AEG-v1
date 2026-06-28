@@ -2,7 +2,6 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import TailorMadeCTA from '@/components/TailorMadeCTA'
 
@@ -136,8 +135,6 @@ export default function GuidesPage() {
         }
         .trust-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:clamp(24px,3vw,40px);}
       `}</style>
-
-      <Navbar />
 
       <main style={{ background: '#FAF8F3' }}>
 

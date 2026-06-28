@@ -2,7 +2,6 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import TailorMadeCTA from '@/components/TailorMadeCTA'
 
@@ -111,8 +110,6 @@ export default function ServicesPage() {
         .svc-wa-submit:hover { filter: brightness(1.1); }
         @media(prefers-reduced-motion:reduce){ .svc-card,.svc-cta { transition: none !important; } }
       `}</style>
-
-      <Navbar />
 
       <main>
         {/* ── Hero Banner ── */}

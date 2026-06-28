@@ -1,0 +1,29 @@
+{
+  "projectId": "334fdc04-838d-467f-8e7d-f26a8201475d",
+  "shape": "package",
+  "pkg": "adventure-experts-georgia",
+  "globalName": "AEG",
+  "entry": "./src/components/index.ts",
+  "srcDir": "src/components",
+  "tsconfig": "./tsconfig.json",
+  "cssEntry": "src/app/globals.css",
+  "componentSrcMap": {
+    "ActivitiesSection": "src/components/ActivitiesSection.tsx",
+    "DayToursSection": "src/components/DayToursSection.tsx",
+    "FeaturedAdventures": "src/components/FeaturedAdventures.tsx",
+    "FloatingWhatsApp": "src/components/FloatingWhatsApp.tsx",
+    "Footer": "src/components/Footer.tsx",
+    "Hero": "src/components/Hero.tsx",
+    "HowItWorks": "src/components/HowItWorks.tsx",
+    "LocalTeamSection": "src/components/LocalTeamSection.tsx",
+    "Navbar": "src/components/Navbar.tsx",
+    "RegionMap": "src/components/RegionMap.tsx",
+    "Reviews": "src/components/Reviews.tsx",
+    "TailorMadeCTA": "src/components/TailorMadeCTA.tsx",
+    "ToursListing": "src/components/ToursListing.tsx",
+    "WhyChooseUs": "src/components/WhyChooseUs.tsx"
+  },
+  "libOverrides": {
+    "bundle.mjs": "AEG-v1 is a Next.js app — shim next/image, next/link, next/navigation to avoid bundling Next.js runtime (process references break the browser IIFE)"
+  }
+}
