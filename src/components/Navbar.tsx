@@ -379,12 +379,13 @@ export default function Navbar() {
                 <div style={{ padding: '6px 2px 12px', display: 'flex', flexDirection: 'column' }}>
                   {TOURS.map(t => (
                     <Link key={t.name} href={t.href} className="nav-drop-item"
+                      onClick={() => { setMobileOpen(false); setMobileAcc(null) }}
                       style={{ textDecoration: 'none', color: '#5b554c', fontSize: 14.5, padding: '9px 12px', borderRadius: 5 }}>{t.name}</Link>
                   ))}
                 </div>
               )}
 
-              <Link href="/en/tours?toggle=day" style={{ display: 'block', fontSize: 16, color: '#1E1C19', textDecoration: 'none', borderBottom: '1px solid rgba(30,28,25,.08)', padding: '15px 2px' }}>Day Tours</Link>
+              <Link href="/en/tours?toggle=day" onClick={() => { setMobileOpen(false); setMobileAcc(null) }} style={{ display: 'block', fontSize: 16, color: '#1E1C19', textDecoration: 'none', borderBottom: '1px solid rgba(30,28,25,.08)', padding: '15px 2px' }}>Day Tours</Link>
 
               <button onClick={() => setMobileAcc(p => p === 'services' ? null : 'services')} aria-expanded={mobileAcc === 'services'}
                 style={{ width: '100%', boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: 16, color: '#1E1C19', background: 'transparent', border: 'none', borderBottom: '1px solid rgba(30,28,25,.08)', padding: '15px 2px', cursor: 'pointer' }}>
@@ -398,6 +399,7 @@ export default function Navbar() {
                 <div style={{ padding: '6px 2px 12px', display: 'flex', flexDirection: 'column' }}>
                   {SERVICES.map(sv => (
                     <Link key={sv.label} href="/en/services" className="nav-drop-item"
+                      onClick={() => { setMobileOpen(false); setMobileAcc(null) }}
                       style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, textDecoration: 'none', color: '#5b554c', fontSize: 14.5, padding: '9px 12px', borderRadius: 5 }}>
                       <span>{sv.label}</span>
                       {sv.soon && <span style={{ fontSize: 9.5, letterSpacing: '1.2px', textTransform: 'uppercase', color: '#A8A296', background: 'rgba(168,162,150,.18)', padding: '3px 8px', borderRadius: 5, flex: 'none' }}>Soon</span>}
@@ -406,9 +408,9 @@ export default function Navbar() {
                 </div>
               )}
 
-              <Link href="/en/guides" style={{ display: 'block', fontSize: 16, color: '#1E1C19', textDecoration: 'none', borderBottom: '1px solid rgba(30,28,25,.08)', padding: '15px 2px' }}>Guides</Link>
-              <Link href="/en/about" style={{ display: 'block', fontSize: 16, color: '#1E1C19', textDecoration: 'none', borderBottom: '1px solid rgba(30,28,25,.08)', padding: '15px 2px' }}>About Us</Link>
-              <Link href="/en/contact" style={{ display: 'block', fontSize: 16, color: '#1E1C19', textDecoration: 'none', borderBottom: '1px solid rgba(30,28,25,.08)', padding: '15px 2px' }}>Contact</Link>
+              <Link href="/en/guides"  onClick={() => { setMobileOpen(false); setMobileAcc(null) }} style={{ display: 'block', fontSize: 16, color: '#1E1C19', textDecoration: 'none', borderBottom: '1px solid rgba(30,28,25,.08)', padding: '15px 2px' }}>Guides</Link>
+              <Link href="/en/about"   onClick={() => { setMobileOpen(false); setMobileAcc(null) }} style={{ display: 'block', fontSize: 16, color: '#1E1C19', textDecoration: 'none', borderBottom: '1px solid rgba(30,28,25,.08)', padding: '15px 2px' }}>About Us</Link>
+              <Link href="/en/contact" onClick={() => { setMobileOpen(false); setMobileAcc(null) }} style={{ display: 'block', fontSize: 16, color: '#1E1C19', textDecoration: 'none', borderBottom: '1px solid rgba(30,28,25,.08)', padding: '15px 2px' }}>Contact</Link>
             </nav>
 
             <div style={{ marginTop: 20, paddingTop: 18, borderTop: '1px solid rgba(30,28,25,.1)', display: 'flex', flexDirection: 'column', gap: 16 }}>
