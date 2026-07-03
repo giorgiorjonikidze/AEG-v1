@@ -50,6 +50,7 @@ export function InquiryCard({ tourName, tourMeta, whatsappNumber = WHATSAPP_NUMB
   const [sending, setSending] = useState(false)
   const [sendError, setSendError] = useState<string | null>(null)
   const mountedAt = useRef(Date.now())
+  const hpRef = useRef<HTMLInputElement>(null)
   const refPrivate = useRef<HTMLButtonElement>(null)
   const refGroup = useRef<HTMLButtonElement>(null)
   const refExpNone = useRef<HTMLButtonElement>(null)
@@ -116,12 +117,13 @@ export function InquiryCard({ tourName, tourMeta, whatsappNumber = WHATSAPP_NUMB
       email: s.email.trim() || undefined,
       phone: s.whatsapp.trim() || undefined,
       dates: s.flexible ? 'Flexible / not sure yet' : s.dateStart,
-      travelers: hideTravelers ? undefined : s.travelers,
+      travelers: s.travelers,
       country: s.country.trim() || undefined,
       tourType: s.tourType ? (s.tourType === 'private' ? 'Private' : 'Group') : undefined,
       experience: s.experience || undefined,
       message: s.notes.trim() || undefined,
       elapsedMs: Date.now() - mountedAt.current,
+      company: hpRef.current?.checked ? 'bot' : undefined,
     }
   }
 
@@ -363,6 +365,12 @@ export function InquiryCard({ tourName, tourMeta, whatsappNumber = WHATSAPP_NUMB
               ))}
             </div>
           </div>
+
+          {/* Honeypot — a hidden CHECKBOX (browsers never autofill checkboxes,
+              so unlike a text field this can't drop real submissions). Bots that
+              tick everything get silently dropped server-side. */}
+          <input ref={hpRef} type="checkbox" name="confirm" tabIndex={-1} aria-hidden="true"
+            autoComplete="off" style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }} />
 
           {/* Buttons */}
           <div style={{ padding: '18px 32px 0', display: 'flex', flexDirection: 'column', gap: 11 }}>

@@ -103,43 +103,83 @@ function buildInquiryText(p: EnquiryPayload, meta: { source: string; page: strin
 }
 
 // ── Auto-reply (to the customer) ──────────────────────────────────────────────
+const WA_URL = 'https://wa.me/995595360083'
+const WA_LABEL = '+995 595 36 00 83'
+
+function firstNameOf(name: string): string {
+  return (name.trim().split(/\s+/)[0] || name).trim()
+}
+
+function autoReplySubject(p: EnquiryPayload): string {
+  return p.tourName
+    ? `We've received your inquiry — ${p.tourName}`
+    : `We've received your inquiry, ${firstNameOf(p.name)}!`
+}
+
+// Table-based, web-safe-font, cream/terracotta layout — renders reliably in
+// Gmail / Outlook / Apple Mail. Keep it simple; no flexbox/grid/web fonts.
 function buildAutoReplyHtml(p: EnquiryPayload): string {
-  const about = p.tourName ? esc(p.tourName) : 'your Georgian adventure'
-  // NOTE: placeholder copy — swap for the final wording when provided.
-  return `<div style="font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;max-width:540px;margin:0 auto;padding:32px 8px;color:#1E1C19">
-    <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#C75A37;font-weight:700;margin-bottom:14px">Adventure Experts Georgia</div>
-    <h1 style="font-size:23px;line-height:1.3;margin:0 0 16px">Thanks for reaching out, ${esc(p.name.split(' ')[0] || p.name)}!</h1>
-    <p style="font-size:15.5px;line-height:1.65;color:#3f3b34;margin:0 0 16px">
-      We've received your inquiry about <strong>${about}</strong> and we'll get back to you within 24 hours.
-    </p>
-    <p style="font-size:15.5px;line-height:1.65;color:#3f3b34;margin:0 0 16px">
-      In the meantime, if anything's urgent you can reach us any time on WhatsApp at
-      <a href="https://wa.me/995595360083" style="color:#C75A37;font-weight:600;text-decoration:none">+995 595 36 00 83</a>.
-    </p>
-    <p style="font-size:15.5px;line-height:1.65;color:#3f3b34;margin:0 0 24px">
-      Talk soon,<br/>The Adventure Experts Georgia team
-    </p>
-    <div style="padding-top:16px;border-top:1px solid #ECE8DE;font-size:12px;color:#A8A296;line-height:1.6">
-      Adventure Experts Georgia · Tbilisi, Georgia<br/>
-      <a href="mailto:info@adventureexpertsgeorgia.com" style="color:#A8A296">info@adventureexpertsgeorgia.com</a>
-    </div>
-  </div>`
+  const first = esc(firstNameOf(p.name))
+  const line2 = p.tourName
+    ? `Thank you for reaching out to Adventure Experts Georgia! We've received your inquiry about <strong>${esc(p.tourName)}</strong> and we're excited to help you plan it.`
+    : `Thank you for reaching out to Adventure Experts Georgia! We've received your message and we're excited to help you plan your adventure.`
+  const p_ = 'margin:0 0 16px;font-size:16px;line-height:1.65;color:#3f3b34;font-family:Arial,Helvetica,sans-serif'
+  const steps = [
+    'Our team is reviewing your details right now.',
+    "We'll get back to you within 24 hours to answer your questions and, if you're ready, set up a quick call to plan the details together.",
+    "Once everything's confirmed, we'll send you a secure payment link to lock in your spot.",
+  ].map((s, i) => `<tr>
+      <td valign="top" style="padding:0 12px 12px 0;font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:700;color:#C75A37;line-height:1.5">${i + 1}.</td>
+      <td valign="top" style="padding:0 0 12px 0;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.55;color:#3f3b34">${s}</td>
+    </tr>`).join('')
+
+  return `<!--[if mso]><style>body,table,td{font-family:Arial,Helvetica,sans-serif !important}</style><![endif]-->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F3EEE4;margin:0;padding:0">
+  <tr><td align="center" style="padding:28px 14px">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#FAF8F3;border:1px solid #ECE8DE;border-radius:14px">
+      <tr><td style="padding:34px 34px 30px">
+        <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#C75A37;font-weight:700;margin-bottom:18px">Adventure Experts Georgia</div>
+        <p style="${p_}">Hi ${first},</p>
+        <p style="${p_}">${line2}</p>
+        <p style="margin:0 0 12px;font-size:15px;font-weight:700;color:#1E1C19;font-family:Arial,Helvetica,sans-serif">Here's what happens next:</p>
+        <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 18px">${steps}</table>
+        <p style="${p_}">No payment is needed now — this is just the start of the conversation.</p>
+        <p style="${p_}">In the meantime, if you'd like to chat sooner, message us directly on WhatsApp: <a href="${WA_URL}" style="color:#C75A37;font-weight:700;text-decoration:none">${WA_LABEL}</a></p>
+        <p style="${p_}">We can't wait to help you explore Georgia.</p>
+        <p style="margin:22px 0 0;font-size:16px;line-height:1.6;color:#1E1C19;font-family:Arial,Helvetica,sans-serif">
+          Warmly,<br/>The Adventure Experts Georgia Team<br/>
+          <a href="https://adventureexpertsgeorgia.com" style="color:#C75A37;text-decoration:none">adventureexpertsgeorgia.com</a>
+        </p>
+      </td></tr>
+    </table>
+  </td></tr>
+</table>`
 }
 
 function buildAutoReplyText(p: EnquiryPayload): string {
-  const about = p.tourName || 'your Georgian adventure'
-  const first = p.name.split(' ')[0] || p.name
+  const first = firstNameOf(p.name)
+  const line2 = p.tourName
+    ? `Thank you for reaching out to Adventure Experts Georgia! We've received your inquiry about ${p.tourName} and we're excited to help you plan it.`
+    : `Thank you for reaching out to Adventure Experts Georgia! We've received your message and we're excited to help you plan your adventure.`
   return [
-    `Thanks for reaching out, ${first}!`,
+    `Hi ${first},`,
     '',
-    `We've received your inquiry about ${about} and we'll get back to you within 24 hours.`,
+    line2,
     '',
-    'If anything is urgent, reach us any time on WhatsApp at +995 595 36 00 83.',
+    "Here's what happens next:",
+    '1. Our team is reviewing your details right now.',
+    "2. We'll get back to you within 24 hours to answer your questions and, if you're ready, set up a quick call to plan the details together.",
+    "3. Once everything's confirmed, we'll send you a secure payment link to lock in your spot.",
     '',
-    'Talk soon,',
-    'The Adventure Experts Georgia team',
+    'No payment is needed now — this is just the start of the conversation.',
     '',
-    'Adventure Experts Georgia · Tbilisi, Georgia · info@adventureexpertsgeorgia.com',
+    `In the meantime, if you'd like to chat sooner, message us directly on WhatsApp: ${WA_LABEL} (${WA_URL})`,
+    '',
+    "We can't wait to help you explore Georgia.",
+    '',
+    'Warmly,',
+    'The Adventure Experts Georgia Team',
+    'adventureexpertsgeorgia.com',
   ].join('\n')
 }
 
@@ -169,10 +209,15 @@ export async function POST(req: Request) {
   const name = (body.name || '').trim()
   const email = (body.email || '').trim()
   const phone = (body.phone || '').trim()
+  const dates = (body.dates || '').trim()
   if (!name) return Response.json({ error: 'Please provide your name.' }, { status: 400 })
   if (!email && !phone) return Response.json({ error: 'Please provide an email or WhatsApp/phone number.' }, { status: 400 })
   if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
     return Response.json({ error: "That email address doesn't look right." }, { status: 400 })
+  }
+  if (!dates) return Response.json({ error: 'Please tell us your preferred dates, or choose “Flexible”.' }, { status: 400 })
+  if (typeof body.travelers !== 'number' || body.travelers < 1) {
+    return Response.json({ error: 'Please tell us how many travelers.' }, { status: 400 })
   }
 
   const apiKey = process.env.RESEND_API_KEY
@@ -217,7 +262,7 @@ export async function POST(req: Request) {
         from: FROM_ADDRESS,
         to: email,
         replyTo: BUSINESS_INBOX,
-        subject: "We've received your inquiry — Adventure Experts Georgia",
+        subject: autoReplySubject(body),
         html: buildAutoReplyHtml(body),
         text: buildAutoReplyText(body),
       })

@@ -70,6 +70,7 @@ function validate(form: FormState, touched: Record<string, boolean>) {
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) e.email = "That email doesn't look right."
   }
   if (touched.phone && !form.phone.trim()) e.phone = 'Add a WhatsApp or phone number.'
+  if (touched.dates && !form.flexible && !form.dates.trim()) e.dates = 'Add your dates, or tick “Flexible”.'
   if (touched.message && form.message.trim().length < 4) e.message = 'Tell us a little about your trip.'
   return e
 }
@@ -111,7 +112,7 @@ function formReducer(s: FormState, a: Action): FormState {
     case 'flexible': return { ...s, flexible: a.value, dates: a.value ? '' : s.dates }
     case 'travelers': return { ...s, travelers: Math.min(20, Math.max(1, s.travelers + a.delta)) }
     case 'submit': {
-      const touched = { ...s.touched, name: true, email: true, phone: true, message: true }
+      const touched = { ...s.touched, name: true, email: true, phone: true, dates: true, message: true }
       const errors = validate(s, touched)
       if (Object.keys(errors).length) return { ...s, touched, errors }
       return { ...s, submitted: true }
@@ -137,6 +138,7 @@ export default function ContactPage() {
   const [sending, setSending] = useState(false)
   const [sendError, setSendError] = useState<string | null>(null)
   const mountedAt = useRef(Date.now())
+  const hpRef = useRef<HTMLInputElement>(null)
   const revRefs = {
     banner: useRef<HTMLDivElement>(null),
     body: useRef<HTMLDivElement>(null),
@@ -301,7 +303,7 @@ export default function ContactPage() {
               {!form.submitted ? (
                 <form onSubmit={async e => {
                   e.preventDefault()
-                  const touched = { ...form.touched, name: true, email: true, phone: true, message: true }
+                  const touched = { ...form.touched, name: true, email: true, phone: true, dates: true, message: true }
                   if (Object.keys(validate(form, touched)).length > 0) { dispatch({ type: 'submit' }); return }
                   setSendError(null)
                   setSending(true)
@@ -317,6 +319,7 @@ export default function ContactPage() {
                     heard: form.heard || undefined,
                     message: form.message.trim() || undefined,
                     elapsedMs: Date.now() - mountedAt.current,
+                    company: hpRef.current?.checked ? 'bot' : undefined,
                   }
                   const res = await submitEnquiry(payload)
                   setSending(false)
@@ -409,15 +412,17 @@ export default function ContactPage() {
                   {/* Dates + Travelers */}
                   <div className="cx-row2" style={{ marginBottom: 18 }}>
                     <div>
-                      <label htmlFor="cf-dates" style={{ display: 'block', fontSize: 13, fontWeight: 500, color: '#6E685D', marginBottom: 7 }}>Preferred travel dates</label>
+                      <label htmlFor="cf-dates" style={{ display: 'block', fontSize: 13, fontWeight: 500, color: '#6E685D', marginBottom: 7 }}>Preferred travel dates<span style={{ color: '#C75A37' }}> *</span></label>
                       <input id="cf-dates" type="text" value={form.dates} disabled={form.flexible} placeholder="e.g. Mid-July 2026"
                         onChange={e => dispatch({ type: 'set', field: 'dates', value: e.target.value })}
-                        onFocus={() => setFocused('opt-dates')} onBlur={() => setFocused(null)}
-                        style={{ ...focusStyle('opt-dates'), background: form.flexible ? '#F1ECE1' : '#FCFBF7' }} />
+                        onFocus={() => setFocused('opt-dates')} onBlur={() => { setFocused(null); dispatch({ type: 'blur', field: 'dates' }) }}
+                        aria-invalid={!!form.errors.dates}
+                        style={{ ...focusStyle('opt-dates', !!form.errors.dates), background: form.flexible ? '#F1ECE1' : '#FCFBF7' }} />
                       <label style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 9, fontSize: 13, color: '#6E685D', cursor: 'pointer' }}>
                         <input type="checkbox" checked={form.flexible} onChange={e => dispatch({ type: 'flexible', value: e.target.checked })} style={{ width: 16, height: 16, accentColor: '#C75A37', cursor: 'pointer' }} />
                         Flexible / not sure
                       </label>
+                      {form.errors.dates && <span style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 7, fontSize: 12.5, color: '#C0492B' }}><Ico n="alert" size={14} color="#C0492B" />{form.errors.dates}</span>}
                     </div>
                     <div>
                       <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: '#6E685D', marginBottom: 7 }}>Number of travelers</label>
@@ -434,6 +439,11 @@ export default function ContactPage() {
                       </div>
                     </div>
                   </div>
+
+                  {/* Honeypot — hidden CHECKBOX (never autofilled). Bots ticking
+                      everything get silently dropped server-side. */}
+                  <input ref={hpRef} type="checkbox" name="confirm" tabIndex={-1} aria-hidden="true"
+                    autoComplete="off" style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }} />
 
                   {/* How did you hear */}
                   <div style={{ marginBottom: 28 }}>
