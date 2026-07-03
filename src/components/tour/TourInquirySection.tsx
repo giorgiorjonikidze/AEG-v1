@@ -364,8 +364,11 @@ export function InquiryCard({ tourName, tourMeta, whatsappNumber = WHATSAPP_NUMB
             </div>
           </div>
 
-          {/* Honeypot — hidden from humans, catches bots */}
-          <input ref={honeypotRef} type="text" name="company" tabIndex={-1} autoComplete="off" aria-hidden="true"
+          {/* Honeypot — hidden from humans, catches bots. Named to avoid browser
+              autofill (a "company" field gets filled by autofill and would drop
+              real submissions). */}
+          <input ref={honeypotRef} type="text" name="contact_time_hp" tabIndex={-1} autoComplete="off" aria-hidden="true"
+            data-lpignore="true" data-1p-ignore data-form-type="other"
             style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }} />
 
           {/* Buttons */}
