@@ -49,7 +49,7 @@ export function InquiryCard({ tourName, tourMeta, whatsappNumber = WHATSAPP_NUMB
   const [s, dispatch] = useReducer(formReducer, { ...initialForm, travelers: defaultTravelers ?? initialForm.travelers })
   const [sending, setSending] = useState(false)
   const [sendError, setSendError] = useState<string | null>(null)
-  const honeypotRef = useRef<HTMLInputElement>(null)
+  const mountedAt = useRef(Date.now())
   const refPrivate = useRef<HTMLButtonElement>(null)
   const refGroup = useRef<HTMLButtonElement>(null)
   const refExpNone = useRef<HTMLButtonElement>(null)
@@ -121,7 +121,7 @@ export function InquiryCard({ tourName, tourMeta, whatsappNumber = WHATSAPP_NUMB
       tourType: s.tourType ? (s.tourType === 'private' ? 'Private' : 'Group') : undefined,
       experience: s.experience || undefined,
       message: s.notes.trim() || undefined,
-      company: honeypotRef.current?.value || '',
+      elapsedMs: Date.now() - mountedAt.current,
     }
   }
 
@@ -363,13 +363,6 @@ export function InquiryCard({ tourName, tourMeta, whatsappNumber = WHATSAPP_NUMB
               ))}
             </div>
           </div>
-
-          {/* Honeypot — hidden from humans, catches bots. Named to avoid browser
-              autofill (a "company" field gets filled by autofill and would drop
-              real submissions). */}
-          <input ref={honeypotRef} type="text" name="contact_time_hp" tabIndex={-1} autoComplete="off" aria-hidden="true"
-            data-lpignore="true" data-1p-ignore data-form-type="other"
-            style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }} />
 
           {/* Buttons */}
           <div style={{ padding: '18px 32px 0', display: 'flex', flexDirection: 'column', gap: 11 }}>

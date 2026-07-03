@@ -17,8 +17,13 @@ export interface EnquiryPayload {
   interest?: string
   heard?: string
   message?: string
-  /** Honeypot — must stay empty. Bots that fill it are silently dropped. */
+  /** Honeypot — must stay empty. Bots that fill it are silently dropped.
+      NOTE: no visible or hidden input maps to this — browser autofill was
+      filling a hidden input and dropping real submissions. It only catches
+      bots that POST the API directly with a generic "company" field. */
   company?: string
+  /** Milliseconds between form mount and submit. Instant submits are bots. */
+  elapsedMs?: number
 }
 
 export type EnquiryResult = { ok: boolean; error?: string }

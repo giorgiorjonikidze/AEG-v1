@@ -136,7 +136,7 @@ export default function ContactPage() {
   const [reduced, setReduced] = useState(false)
   const [sending, setSending] = useState(false)
   const [sendError, setSendError] = useState<string | null>(null)
-  const honeypotRef = useRef<HTMLInputElement>(null)
+  const mountedAt = useRef(Date.now())
   const revRefs = {
     banner: useRef<HTMLDivElement>(null),
     body: useRef<HTMLDivElement>(null),
@@ -316,7 +316,7 @@ export default function ContactPage() {
                     interest: form.interest || undefined,
                     heard: form.heard || undefined,
                     message: form.message.trim() || undefined,
-                    company: honeypotRef.current?.value || '',
+                    elapsedMs: Date.now() - mountedAt.current,
                   }
                   const res = await submitEnquiry(payload)
                   setSending(false)
@@ -443,12 +443,6 @@ export default function ContactPage() {
                       onFocus={() => setFocused('opt-heard')} onBlur={() => setFocused(null)}
                       style={focusStyle('opt-heard')} />
                   </div>
-
-                  {/* Honeypot — hidden from humans, catches bots. Named to avoid
-                      browser autofill dropping real submissions. */}
-                  <input ref={honeypotRef} type="text" name="contact_time_hp" tabIndex={-1} autoComplete="off" aria-hidden="true"
-                    data-lpignore="true" data-1p-ignore data-form-type="other"
-                    style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }} />
 
                   {sendError && (
                     <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, background: '#FDF0ED', border: '1px solid #F0BDB0', borderRadius: 11, padding: '11px 14px', margin: '0 0 14px', fontSize: 13.5, color: '#8A2A15', lineHeight: 1.5 }}>

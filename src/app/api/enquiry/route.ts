@@ -87,8 +87,17 @@ export async function POST(req: Request) {
     return Response.json({ error: 'Invalid request.' }, { status: 400 })
   }
 
-  // Honeypot: silently accept (so bots think they succeeded) without sending.
+  // Spam checks — silently accept (so bots think they succeeded) without sending.
+  // 1. Generic bots that POST the API directly often include a "company" field.
+  //    (No form input maps to this — a hidden input was being browser-autofilled,
+  //    which silently dropped REAL enquiries. Do not reintroduce a hidden input.)
   if (body.company && body.company.trim()) {
+    console.log('[enquiry] dropped: honeypot field present | source:', body.source)
+    return Response.json({ ok: true }, { status: 200 })
+  }
+  // 2. Humans need seconds to fill the form; bots submit instantly.
+  if (typeof body.elapsedMs === 'number' && body.elapsedMs >= 0 && body.elapsedMs < 2000) {
+    console.log('[enquiry] dropped: submitted in', body.elapsedMs, 'ms | source:', body.source)
     return Response.json({ ok: true }, { status: 200 })
   }
 
@@ -126,6 +135,7 @@ export async function POST(req: Request) {
       console.error('[enquiry] Resend error:', error)
       return Response.json({ error: 'We could not send your enquiry just now. Please try WhatsApp or email.' }, { status: 502 })
     }
+    console.log('[enquiry] SENT OK →', TO_EMAIL, '| source:', body.source)
     return Response.json({ ok: true })
   } catch (err) {
     console.error('[enquiry] Unexpected error:', err)
