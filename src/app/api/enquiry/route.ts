@@ -135,7 +135,6 @@ export async function POST(req: Request) {
       console.error('[enquiry] Resend error:', error)
       return Response.json({ error: 'We could not send your enquiry just now. Please try WhatsApp or email.' }, { status: 502 })
     }
-    console.log('[enquiry] SENT OK →', TO_EMAIL, '| source:', body.source)
     return Response.json({ ok: true })
   } catch (err) {
     console.error('[enquiry] Unexpected error:', err)
