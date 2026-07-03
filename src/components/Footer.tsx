@@ -1,8 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { TOURS, SERVICES } from '@/lib/data'
+import { subscribeNewsletter } from '@/lib/newsletter'
 
 const REGIONS_NAV = [
   { name: 'Svaneti', slug: 'samegrelo' },
@@ -93,6 +94,21 @@ function FooterColumn({ col }: { col: typeof COLUMNS[0] }) {
 
 export default function Footer() {
   const [email, setEmail] = useState('')
+  const [nlStatus, setNlStatus] = useState<'idle' | 'sending' | 'done' | 'error'>('idle')
+  const [nlError, setNlError] = useState('')
+  const nlMountedAt = useRef(Date.now())
+  const nlHoneypot = useRef<HTMLInputElement>(null)
+
+  async function handleSubscribe(e: React.FormEvent) {
+    e.preventDefault()
+    if (nlStatus === 'sending') return
+    const value = email.trim()
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(value)) { setNlStatus('error'); setNlError('Please enter a valid email address.'); return }
+    setNlStatus('sending'); setNlError('')
+    const res = await subscribeNewsletter(value, nlHoneypot.current?.checked, nlMountedAt.current)
+    if (res.ok) { setNlStatus('done'); setEmail('') }
+    else { setNlStatus('error'); setNlError(res.error || 'Could not subscribe just now.') }
+  }
 
   return (
     <footer style={{ background: '#14120F', color: '#fff', fontFamily: 'var(--font-dm-sans), sans-serif' }}>
@@ -125,20 +141,33 @@ export default function Footer() {
           <div>
             <div style={{ fontSize: 10.5, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'rgba(255,255,255,.5)', marginBottom: 10, fontWeight: 500 }}>Stay Inspired</div>
             <div style={{ fontSize: 14, color: 'rgba(255,255,255,.65)', marginBottom: 14 }}>Get adventure inspiration & Georgia travel tips</div>
-            <form onSubmit={e => { e.preventDefault(); setEmail('') }} style={{ display: 'flex', gap: 0, maxWidth: 420 }}>
-              <label htmlFor="footer-email" className="sr-only">Email address</label>
-              <input
-                id="footer-email"
-                type="email"
-                placeholder="Your email"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                style={{ flex: 1, background: 'rgba(255,255,255,.06)', border: '1px solid rgba(255,255,255,.14)', borderRight: 'none', borderRadius: '5px 0 0 5px', padding: '11px 16px', fontSize: 14, color: '#fff', outline: 'none', fontFamily: 'var(--font-dm-sans), sans-serif' }}
-              />
-              <button type="submit" style={{ background: '#9B4E30', border: 'none', borderRadius: '0 5px 5px 0', padding: '0 18px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
-              </button>
-            </form>
+            {nlStatus === 'done' ? (
+              <div style={{ display: 'flex', alignItems: 'center', gap: 9, maxWidth: 420, background: 'rgba(255,255,255,.06)', border: '1px solid rgba(255,255,255,.14)', borderRadius: 5, padding: '11px 16px', fontSize: 14, color: 'rgba(255,255,255,.85)' }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9CC6A6" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><path d="M20 6 9 17l-5-5"/></svg>
+                You&rsquo;re in! Check your inbox for a welcome note.
+              </div>
+            ) : (
+              <form onSubmit={handleSubscribe} style={{ display: 'flex', gap: 0, maxWidth: 420 }} noValidate>
+                <label htmlFor="footer-email" className="sr-only">Email address</label>
+                {/* Honeypot — hidden checkbox (never autofilled) */}
+                <input ref={nlHoneypot} type="checkbox" name="confirm" tabIndex={-1} aria-hidden="true" autoComplete="off" style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }} />
+                <input
+                  id="footer-email"
+                  type="email"
+                  placeholder="Your email"
+                  value={email}
+                  onChange={e => { setEmail(e.target.value); if (nlStatus === 'error') setNlStatus('idle') }}
+                  disabled={nlStatus === 'sending'}
+                  style={{ flex: 1, background: 'rgba(255,255,255,.06)', border: `1px solid ${nlStatus === 'error' ? 'rgba(224,122,95,.7)' : 'rgba(255,255,255,.14)'}`, borderRight: 'none', borderRadius: '5px 0 0 5px', padding: '11px 16px', fontSize: 14, color: '#fff', outline: 'none', fontFamily: 'var(--font-dm-sans), sans-serif' }}
+                />
+                <button type="submit" disabled={nlStatus === 'sending'} aria-label="Subscribe" style={{ background: '#9B4E30', border: 'none', borderRadius: '0 5px 5px 0', padding: '0 18px', cursor: nlStatus === 'sending' ? 'wait' : 'pointer', opacity: nlStatus === 'sending' ? 0.7 : 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
+                  {nlStatus === 'sending'
+                    ? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"><animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="0.7s" repeatCount="indefinite"/></path></svg>
+                    : <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>}
+                </button>
+              </form>
+            )}
+            {nlStatus === 'error' && <div style={{ marginTop: 8, fontSize: 12.5, color: '#E9A98F' }}>{nlError}</div>}
           </div>
 
           {/* Social + contact */}
