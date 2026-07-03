@@ -119,7 +119,7 @@ export default function ActivitiesSection() {
               <span style={{ display: 'block', width: 30, height: 1.5, background: ACCENT }} />
               <span style={{ color: ACCENT, fontSize: 13, fontWeight: 700, letterSpacing: '.18em', textTransform: 'uppercase' }}>Activities</span>
             </div>
-            <h2 style={{ margin: '0 0 14px', color: '#FAF8F3', fontFamily: 'var(--font-bricolage), sans-serif', fontWeight: 700, fontSize: 54, lineHeight: 1.0, letterSpacing: '-.022em', width: 'max-content' }}>Choose Your Adventure</h2>
+            <h2 style={{ margin: '0 0 14px', color: '#FAF8F3', fontFamily: 'var(--font-hanken), sans-serif', fontWeight: 700, fontSize: 54, lineHeight: 1.0, letterSpacing: '-.022em', width: 'max-content' }}>Choose Your Adventure</h2>
             <p style={{ margin: 0, color: 'rgba(250,248,243,.62)', fontSize: 17, lineHeight: 1.5 }}>Swipe to explore what&apos;s possible in Georgia.</p>
           </div>
           <div style={{ display: 'flex', gap: 12, flexShrink: 0 }}>
@@ -159,7 +159,7 @@ export default function ActivitiesSection() {
                   View tours
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><line x1="4" y1="12" x2="18" y2="12"/><polyline points="12 6 18 12 12 18"/></svg>
                 </span>
-                <h3 style={{ margin: 0, color: '#FAF8F3', fontFamily: 'var(--font-bricolage), sans-serif', fontWeight: 600, fontSize: 22, lineHeight: 1.06, textShadow: '0 1px 16px rgba(0,0,0,.45)' }}>{act.name}</h3>
+                <h3 style={{ margin: 0, color: '#FAF8F3', fontFamily: 'var(--font-hanken), sans-serif', fontWeight: 600, fontSize: 22, lineHeight: 1.06, textShadow: '0 1px 16px rgba(0,0,0,.45)' }}>{act.name}</h3>
               </div>
             </Link>
           ))}
@@ -174,7 +174,7 @@ export default function ActivitiesSection() {
             <span style={{ display: 'block', width: 24, height: 1.5, background: ACCENT }} />
             <span style={{ color: ACCENT, fontSize: 12, fontWeight: 700, letterSpacing: '.18em', textTransform: 'uppercase' }}>Activities</span>
           </div>
-          <h2 style={{ margin: '0 0 11px', color: '#FAF8F3', fontFamily: 'var(--font-bricolage), sans-serif', fontWeight: 700, fontSize: 31, lineHeight: 1.02, letterSpacing: '-.02em', width: 'max-content' }}>Choose Your Adventure</h2>
+          <h2 style={{ margin: '0 0 11px', color: '#FAF8F3', fontFamily: 'var(--font-hanken), sans-serif', fontWeight: 700, fontSize: 31, lineHeight: 1.02, letterSpacing: '-.02em', width: 'max-content' }}>Choose Your Adventure</h2>
           <p style={{ margin: 0, color: 'rgba(250,248,243,.62)', fontSize: 14.5, lineHeight: 1.45 }}>Swipe to explore what&apos;s possible in Georgia.</p>
         </div>
 
@@ -194,7 +194,7 @@ export default function ActivitiesSection() {
                   View tours
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><line x1="4" y1="12" x2="18" y2="12"/><polyline points="12 6 18 12 12 18"/></svg>
                 </span>
-                <h3 style={{ margin: 0, color: '#FAF8F3', fontFamily: 'var(--font-bricolage), sans-serif', fontWeight: 600, fontSize: 20, lineHeight: 1.06, textShadow: '0 1px 16px rgba(0,0,0,.45)' }}>{act.name}</h3>
+                <h3 style={{ margin: 0, color: '#FAF8F3', fontFamily: 'var(--font-hanken), sans-serif', fontWeight: 600, fontSize: 20, lineHeight: 1.06, textShadow: '0 1px 16px rgba(0,0,0,.45)' }}>{act.name}</h3>
               </div>
             </Link>
           ))}

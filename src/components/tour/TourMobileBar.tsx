@@ -2,13 +2,14 @@
 import { useEffect, useRef, useState } from 'react'
 import type { TourData } from '@/data/tours'
 import { InquiryCard } from './TourInquirySection'
+import { WHATSAPP_NUMBER } from '@/lib/contact'
 
 export default function TourMobileBar({ tour, priceStr }: { tour: TourData; priceStr: string }) {
   const [open, setOpen] = useState(false)
   const sheetRef = useRef<HTMLDivElement>(null)
   const scrimRef = useRef<HTMLDivElement>(null)
 
-  const waNum = '995555123456'
+  const waNum = WHATSAPP_NUMBER
   const waHref = `https://wa.me/${waNum}`
 
   useEffect(() => {

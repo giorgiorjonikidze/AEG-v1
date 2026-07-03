@@ -4,7 +4,14 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { TOURS, SERVICES } from '@/lib/data'
 
-const REGIONS_NAV = ['Svaneti', 'Kazbegi', 'Imereti', 'Kakheti', 'Adjara', 'Racha']
+const REGIONS_NAV = [
+  { name: 'Svaneti', slug: 'samegrelo' },
+  { name: 'Kazbegi', slug: 'mtskheta-mtianeti' },
+  { name: 'Imereti', slug: 'imereti' },
+  { name: 'Kakheti', slug: 'kakheti' },
+  { name: 'Adjara', slug: 'adjara' },
+  { name: 'Racha', slug: 'racha-lechkhumi' },
+]
 
 type FooterLink = { name: string; href: string; soon?: boolean }
 
@@ -14,7 +21,6 @@ const COLUMNS: { label: string; links: FooterLink[] }[] = [
     links: [
       { name: 'About Us', href: '/en/about' },
       { name: 'Our Guides', href: '/en/guides' },
-      { name: 'Reviews', href: '/en/reviews' },
       { name: 'Contact', href: '/en/contact' },
     ],
   },
@@ -22,12 +28,12 @@ const COLUMNS: { label: string; links: FooterLink[] }[] = [
     label: 'Tours & Activities',
     links: [
       ...TOURS.map(t => ({ name: t.name, href: t.href })),
-      { name: 'Day Tours', href: '/en/tours/day-tours' },
+      { name: 'Day Tours', href: '/en/tours?toggle=day' },
     ],
   },
   {
     label: 'Destinations',
-    links: REGIONS_NAV.map(r => ({ name: r, href: `/en/regions/${r.toLowerCase()}` })),
+    links: REGIONS_NAV.map(r => ({ name: r.name, href: `/en/regions/${r.slug}` })),
   },
   {
     label: 'Services',
@@ -36,9 +42,6 @@ const COLUMNS: { label: string; links: FooterLink[] }[] = [
   {
     label: 'Useful Information',
     links: [
-      { name: 'FAQ', href: '/en/faq' },
-      { name: 'What to Bring', href: '/en/what-to-bring' },
-      { name: 'Booking & Cancellation Policy', href: '/en/booking-policy' },
       { name: 'Privacy Policy', href: '/en/privacy-policy' },
       { name: 'Terms', href: '/en/terms' },
     ],
@@ -46,7 +49,7 @@ const COLUMNS: { label: string; links: FooterLink[] }[] = [
 ]
 
 const SOCIALS = [
-  { label: 'WhatsApp', href: 'https://wa.me/995555123456', icon: <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.5 8.5 0 0 1-.9-3.8A8.38 8.38 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/><path d="M8.6 8.8c-.2 0-.5.1-.7.3-.2.2-.6.7-.6 1.6s.7 1.9.8 2c.1.2 1.4 2.3 3.5 3.1 1.7.7 2.1.6 2.4.5.4-.1 1.2-.5 1.4-1 .2-.5.2-.9.1-1l-.6-.3s-1-.5-1.1-.5c-.2-.1-.3-.1-.4.1l-.5.6c-.1.1-.2.1-.4.1-.2-.1-.8-.3-1.6-1-.6-.5-1-1.1-1.1-1.3-.1-.2 0-.3.1-.4l.3-.3.2-.3v-.3l-.5-1.3c-.1-.4-.3-.3-.4-.4z"/></svg> },
+  { label: 'WhatsApp', href: 'https://wa.me/995595360083', icon: <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.5 8.5 0 0 1-.9-3.8A8.38 8.38 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/><path d="M8.6 8.8c-.2 0-.5.1-.7.3-.2.2-.6.7-.6 1.6s.7 1.9.8 2c.1.2 1.4 2.3 3.5 3.1 1.7.7 2.1.6 2.4.5.4-.1 1.2-.5 1.4-1 .2-.5.2-.9.1-1l-.6-.3s-1-.5-1.1-.5c-.2-.1-.3-.1-.4.1l-.5.6c-.1.1-.2.1-.4.1-.2-.1-.8-.3-1.6-1-.6-.5-1-1.1-1.1-1.3-.1-.2 0-.3.1-.4l.3-.3.2-.3v-.3l-.5-1.3c-.1-.4-.3-.3-.4-.4z"/></svg> },
   { label: 'Instagram', href: '#', icon: <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg> },
   { label: 'Facebook', href: '#', icon: <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M15 3h-2.5A4.5 4.5 0 0 0 8 7.5V10H5.5v4H8v7"/><path d="M8 14h4"/><path d="M12 21v-7"/></svg> },
   { label: 'Email', href: 'mailto:info@adventure-experts-georgia.com', icon: <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg> },
@@ -151,7 +154,7 @@ export default function Footer() {
             </div>
             <div style={{ fontSize: 13, color: 'rgba(255,255,255,.45)', lineHeight: 1.8 }}>
               Tbilisi, Georgia<br/>
-              +995 555 12 34 56<br/>
+              +995 595 36 00 83<br/>
               info@adventure-experts-georgia.com
             </div>
           </div>
@@ -163,7 +166,7 @@ export default function Footer() {
         <div style={{ maxWidth: 1320, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
           <span style={{ fontSize: 12.5, color: 'rgba(255,255,255,.3)' }}>© 2026 Adventure Experts Georgia · Licensed Tour Operator, Registration No. [TBC]</span>
           <div style={{ display: 'flex', gap: 20 }}>
-            {[['Booking Conditions', '/en/booking-policy'], ['Terms', '/en/terms'], ['Privacy', '/en/privacy-policy']].map(([name, href]) => (
+            {[['Terms', '/en/terms'], ['Privacy', '/en/privacy-policy']].map(([name, href]) => (
               <Link key={name} href={href} style={{ fontSize: 12.5, color: 'rgba(255,255,255,.3)', textDecoration: 'none' }}>{name}</Link>
             ))}
           </div>

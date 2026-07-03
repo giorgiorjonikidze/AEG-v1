@@ -3,6 +3,8 @@ import { useEffect, useReducer, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Footer from '@/components/Footer'
+import { waLink, mailtoLink } from '@/lib/contact'
+import { submitEnquiry, type EnquiryPayload } from '@/lib/enquiry'
 
 // ── Icons ─────────────────────────────────────────────────────────────────────
 const PATHS: Record<string, string> = {
@@ -79,6 +81,23 @@ const INIT: FormState = {
   errors: {}, touched: {}, submitted: false,
 }
 
+function composeMessage(f: FormState) {
+  const lines = [
+    'New enquiry — Contact page',
+    '',
+    `Name: ${f.name.trim()}`,
+    `Email: ${f.email.trim()}`,
+    `Phone: ${f.phone.trim()}`,
+  ]
+  if (f.country.trim()) lines.push(`Country: ${f.country.trim()}`)
+  if (f.interest) lines.push(`Interested in: ${f.interest}`)
+  lines.push(`Dates: ${f.flexible ? 'Flexible / not sure yet' : (f.dates || 'Not specified')}`)
+  lines.push(`Travelers: ${f.travelers}`)
+  if (f.heard) lines.push(`Heard about us: ${f.heard}`)
+  lines.push('', `Message: ${f.message.trim()}`)
+  return lines.join('\n')
+}
+
 function formReducer(s: FormState, a: Action): FormState {
   switch (a.type) {
     case 'set': {
@@ -115,6 +134,9 @@ const fieldOpt: React.CSSProperties = { ...fieldBase, background: '#FCFBF7', bor
 export default function ContactPage() {
   const [form, dispatch] = useReducer(formReducer, INIT)
   const [reduced, setReduced] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [sendError, setSendError] = useState<string | null>(null)
+  const honeypotRef = useRef<HTMLInputElement>(null)
   const revRefs = {
     banner: useRef<HTMLDivElement>(null),
     body: useRef<HTMLDivElement>(null),
@@ -221,14 +243,14 @@ export default function ContactPage() {
               <p style={{ fontSize: 15, lineHeight: 1.62, color: '#4A463E', margin: '0 0 26px', maxWidth: '42ch' }}>Prefer to message us straight away? We&rsquo;re quickest on WhatsApp.</p>
 
               {/* WhatsApp card */}
-              <a href="https://wa.me/995555123456" target="_blank" rel="noopener noreferrer" className="cx-wa"
+              <a href="https://wa.me/995595360083" target="_blank" rel="noopener noreferrer" className="cx-wa"
                 style={{ display: 'flex', alignItems: 'center', gap: 13, background: '#FFFFFF', border: '1px solid #ECE7DC', borderRadius: 16, boxShadow: '0 16px 40px -30px rgba(30,28,25,.45)', padding: '18px 22px', marginBottom: 18, textDecoration: 'none', transition: 'transform .25s ease,box-shadow .25s ease,border-color .25s ease' }}>
                 <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 46, height: 46, borderRadius: 13, background: 'rgba(37,211,102,.12)', color: '#1FAE55', flexShrink: 0 }}>
                   <WaIco size={22} />
                 </span>
                 <span style={{ display: 'flex', flexDirection: 'column' }}>
                   <span style={{ fontSize: 11, letterSpacing: '.16em', textTransform: 'uppercase', color: '#A8A296', fontWeight: 600 }}>WhatsApp</span>
-                  <span style={{ fontSize: 17, fontWeight: 600, color: '#1E1C19', letterSpacing: '-.1px' }}>+995 555 123 456</span>
+                  <span style={{ fontSize: 17, fontWeight: 600, color: '#1E1C19', letterSpacing: '-.1px' }}>+995 595 36 00 83</span>
                 </span>
               </a>
 
@@ -236,7 +258,7 @@ export default function ContactPage() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: 2, background: '#FFFFFF', border: '1px solid #ECE7DC', borderRadius: 16, overflow: 'hidden' }}>
                 {[
                   { icon: 'mail', label: 'Email', value: 'info@adventure-experts-georgia.com', href: 'mailto:info@adventure-experts-georgia.com' },
-                  { icon: 'phone', label: 'Phone / office', value: '+995 32 2 00 00 00', href: 'tel:+99532200000' },
+                  { icon: 'phone', label: 'Phone / office', value: '+995 595 36 00 83', href: 'tel:+995595360083' },
                 ].map((row, i) => (
                   <a key={row.label} href={row.href} className="cx-contact-row"
                     style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 20px', textDecoration: 'none', color: '#1E1C19', borderBottom: '1px solid #F1ECE1', transition: 'background .2s ease' }}>
@@ -277,7 +299,30 @@ export default function ContactPage() {
             <div style={{ background: '#FFFFFF', border: '1px solid #ECE7DC', borderRadius: 22, boxShadow: '0 26px 60px -36px rgba(30,28,25,.5)', padding: 'clamp(26px,3.4vw,42px)' }}>
 
               {!form.submitted ? (
-                <form onSubmit={e => { e.preventDefault(); dispatch({ type: 'submit' }) }} noValidate>
+                <form onSubmit={async e => {
+                  e.preventDefault()
+                  const touched = { ...form.touched, name: true, email: true, phone: true, message: true }
+                  if (Object.keys(validate(form, touched)).length > 0) { dispatch({ type: 'submit' }); return }
+                  setSendError(null)
+                  setSending(true)
+                  const payload: EnquiryPayload = {
+                    source: 'contact',
+                    name: form.name.trim(),
+                    email: form.email.trim() || undefined,
+                    phone: form.phone.trim() || undefined,
+                    dates: form.flexible ? 'Flexible / not sure yet' : (form.dates || undefined),
+                    travelers: form.travelers,
+                    country: form.country.trim() || undefined,
+                    interest: form.interest || undefined,
+                    heard: form.heard || undefined,
+                    message: form.message.trim() || undefined,
+                    company: honeypotRef.current?.value || '',
+                  }
+                  const res = await submitEnquiry(payload)
+                  setSending(false)
+                  if (res.ok) dispatch({ type: 'submit' })
+                  else setSendError(res.error || 'Something went wrong.')
+                }} noValidate>
                   <h2 style={{ fontFamily: "'Spectral',serif", fontWeight: 500, fontSize: 'clamp(24px,3vw,31px)', lineHeight: 1.1, letterSpacing: '-.3px', margin: '0 0 7px' }}>Send Us a Message</h2>
                   <p style={{ fontSize: 14.5, lineHeight: 1.6, color: '#6E685D', margin: '0 0 26px' }}>A few details is all we need to start planning. Fields marked <span style={{ color: '#C75A37' }}>*</span> are required.</p>
 
@@ -399,11 +444,22 @@ export default function ContactPage() {
                       style={focusStyle('opt-heard')} />
                   </div>
 
+                  {/* Honeypot — hidden from humans, catches bots */}
+                  <input ref={honeypotRef} type="text" name="company" tabIndex={-1} autoComplete="off" aria-hidden="true"
+                    style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }} />
+
+                  {sendError && (
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, background: '#FDF0ED', border: '1px solid #F0BDB0', borderRadius: 11, padding: '11px 14px', margin: '0 0 14px', fontSize: 13.5, color: '#8A2A15', lineHeight: 1.5 }}>
+                      <Ico n="alert" size={16} color="#8A2A15" />
+                      <span>{sendError} You can still reach us on WhatsApp, or <a href={mailtoLink('Enquiry — Adventure Experts Georgia', composeMessage(form))} style={{ color: '#8A2A15', fontWeight: 700 }}>by email</a>.</span>
+                    </div>
+                  )}
+
                   {/* Submit */}
                   <div className="cx-btns">
-                    <button type="submit" className="cx-send"
-                      style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 9, background: '#C75A37', color: '#FFFFFF', border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontWeight: 600, fontSize: 15.5, padding: '15px 28px', borderRadius: 12, transition: 'transform .25s ease,filter .25s ease', flexShrink: 0 }}>
-                      Send Message <Ico n="send" size={17} color="#fff" />
+                    <button type="submit" className="cx-send" disabled={sending} aria-busy={sending}
+                      style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 9, background: '#C75A37', color: '#FFFFFF', border: 'none', cursor: sending ? 'wait' : 'pointer', opacity: sending ? 0.75 : 1, fontFamily: 'inherit', fontWeight: 600, fontSize: 15.5, padding: '15px 28px', borderRadius: 12, transition: 'transform .25s ease,filter .25s ease', flexShrink: 0 }}>
+                      {sending ? 'Sending…' : <>Send Message <Ico n="send" size={17} color="#fff" /></>}
                     </button>
                   </div>
 
@@ -422,9 +478,15 @@ export default function ContactPage() {
                   <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 78, height: 78, borderRadius: '50%', background: 'rgba(46,64,52,.10)', color: '#2E4034', margin: '0 auto 22px', animation: 'aegPop .55s cubic-bezier(.22,.61,.36,1) both' }}>
                     <Ico n="check" size={36} color="#2E4034" />
                   </span>
-                  <h2 style={{ fontFamily: "'Spectral',serif", fontWeight: 500, fontSize: 'clamp(26px,3.4vw,36px)', lineHeight: 1.08, letterSpacing: '-.3px', margin: '0 0 14px' }}>Your message is on its way</h2>
-                  <p style={{ fontSize: 16, lineHeight: 1.62, color: '#4A463E', margin: '0 auto 28px', maxWidth: '46ch' }}>
-                    Thanks! Check your inbox for a confirmation — we&rsquo;ll be in touch within 24 hours to start planning your adventure.
+                  <h2 style={{ fontFamily: "'Spectral',serif", fontWeight: 500, fontSize: 'clamp(26px,3.4vw,36px)', lineHeight: 1.08, letterSpacing: '-.3px', margin: '0 0 14px' }}>One tap to go!</h2>
+                  <p style={{ fontSize: 16, lineHeight: 1.62, color: '#4A463E', margin: '0 auto 14px', maxWidth: '46ch' }}>
+                    WhatsApp should have opened with your message ready — just press <strong>Send</strong> there and we&rsquo;ll be in touch within 24 hours.
+                  </p>
+                  <p style={{ fontSize: 13.5, lineHeight: 1.55, color: '#8C8576', margin: '0 auto 28px', maxWidth: '46ch' }}>
+                    Didn&rsquo;t open?{' '}
+                    <a href={waLink(composeMessage(form))} target="_blank" rel="noopener noreferrer" style={{ color: '#C75A37', fontWeight: 600, textDecoration: 'none' }}>Tap here to send it</a>
+                    {' '}or{' '}
+                    <a href={mailtoLink('Enquiry — Adventure Experts Georgia', composeMessage(form))} style={{ color: '#C75A37', fontWeight: 600, textDecoration: 'none' }}>email us instead</a>.
                   </p>
                   <button type="button" className="cx-reset" onClick={() => dispatch({ type: 'reset' })}
                     style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'transparent', border: '1.5px solid #E2DCCE', cursor: 'pointer', fontFamily: 'inherit', fontWeight: 600, fontSize: 15, color: '#1E1C19', padding: '14px 22px', borderRadius: 12, transition: 'all .22s ease' }}>

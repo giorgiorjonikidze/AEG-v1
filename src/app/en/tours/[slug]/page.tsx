@@ -82,7 +82,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
             <TourInclusions tour={tour} />
             <TourGallery tour={tour} />
             <TourFAQ tour={tour} />
-            <Reviews />
+            <Reviews rows />
           </div>
 
           {/* Sticky sidebar — desktop only */}

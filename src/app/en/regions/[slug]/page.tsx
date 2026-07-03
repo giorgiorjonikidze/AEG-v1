@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation'
 import { REGIONS_DATA, getRegionBySlug } from '@/data/regions'
 import TailorMadeCTA from '@/components/TailorMadeCTA'
 import Footer from '@/components/Footer'
-import FloatingWhatsApp from '@/components/FloatingWhatsApp'
 import RegionPageContent from '@/components/region/RegionPageContent'
 
 export async function generateStaticParams() {
@@ -33,7 +32,6 @@ export default function RegionPage({ params }: { params: { slug: string } }) {
       <RegionPageContent region={region} />
       <TailorMadeCTA />
       <Footer />
-      <FloatingWhatsApp />
     </>
   )
 }

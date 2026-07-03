@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import Footer from '@/components/Footer'
-import FloatingWhatsApp from '@/components/FloatingWhatsApp'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy | Adventure Experts Georgia',
@@ -613,7 +612,6 @@ export default function PrivacyPolicyPage() {
       </div>{/* /pp-body */}
 
       <Footer />
-      <FloatingWhatsApp />
     </>
   )
 }

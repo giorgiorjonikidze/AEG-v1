@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react'
 import type { TourData } from '@/data/tours'
 import { InquiryCard } from './TourInquirySection'
+import { waLink } from '@/lib/contact'
 
 const MIN = 1
 const RATE = (tour: TourData) => tour.perPersonRate ?? tour.price
@@ -65,7 +66,7 @@ export default function DayTourMobileBar({ tour }: { tour: TourData }) {
         <button onClick={() => setOpen(true)} type="button" style={{ flex: 'none', border: 'none', borderRadius: 12, background: '#C75A37', color: '#fff', fontFamily: 'inherit', fontSize: 15, fontWeight: 700, padding: '12px 22px', cursor: 'pointer', boxShadow: '0 8px 18px -8px rgba(199,90,55,.8)' }}>
           Enquire
         </button>
-        <a href={`https://wa.me/995555123456?text=${encodeURIComponent(waMsg)}`} target="_blank" rel="noopener noreferrer" aria-label="Contact on WhatsApp"
+        <a href={waLink(waMsg)} target="_blank" rel="noopener noreferrer" aria-label="Contact on WhatsApp"
           style={{ flex: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 46, height: 46, borderRadius: 12, background: 'rgba(37,211,102,.14)', color: '#1B8043', textDecoration: 'none' }}>
           <svg width={22} height={22} viewBox="0 0 24 24" fill="#25D366"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.05c-.24.68-1.42 1.31-1.96 1.36-.5.05-.96.24-3.23-.67-2.72-1.07-4.45-3.84-4.58-4.02-.13-.18-1.1-1.46-1.1-2.79 0-1.33.7-1.98.94-2.25.25-.27.54-.34.72-.34.18 0 .36 0 .52.01.17.01.39-.06.61.47.24.56.79 1.94.86 2.08.07.14.12.31.02.49-.09.18-.14.29-.27.45-.14.16-.29.36-.41.48-.14.14-.28.29-.12.57.16.27.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.21 1.37.27.14.43.12.59-.07.16-.18.68-.79.86-1.07.18-.27.36-.22.61-.13.25.09 1.6.75 1.87.89.27.14.45.2.52.31.07.12.07.68-.17 1.36Z"/></svg>
         </a>
@@ -145,7 +146,7 @@ export default function DayTourMobileBar({ tour }: { tour: TourData }) {
           </div>
 
           {/* Inquiry form */}
-          <InquiryCard tourName={tour.name} tourMeta={`Full day · ${tour.region}`} whatsappNumber="995555123456" compact defaultTravelers={travelers} hideTravelers />
+          <InquiryCard tourName={tour.name} tourMeta={`Full day · ${tour.region}`} compact defaultTravelers={travelers} hideTravelers />
         </div>
       </div>
     </>

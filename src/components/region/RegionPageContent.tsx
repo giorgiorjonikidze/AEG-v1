@@ -236,6 +236,7 @@ export default function RegionPageContent({ region }: { region: RegionData }) {
       </section>
 
       {/* ── TOURS ── */}
+      {region.tours.length > 0 && (
       <section style={{ background: '#FAF8F3', color: '#1E1C19', fontFamily: 'var(--font-hanken), system-ui, sans-serif', padding: `${SEC_PY} ${PAD}` }}>
         <div ref={toursRef} className="rp-reveal" style={{ maxWidth: 1180, margin: '0 auto' }}>
           <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', justifyContent: 'space-between', gap: 16, marginBottom: 'clamp(28px,3.5vw,44px)' }}>
@@ -293,7 +294,7 @@ export default function RegionPageContent({ region }: { region: RegionData }) {
                       {t.difficulty}
                     </span>
                     <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: '#C75A37', color: '#fff', padding: '9px 13px', borderRadius: 10, fontSize: 13, fontWeight: 600 }}>
-                      Enquire <Icon name="arrowRight" size={14} />
+                      View Tour <Icon name="arrowRight" size={14} />
                     </span>
                   </div>
                 </div>
@@ -302,6 +303,7 @@ export default function RegionPageContent({ region }: { region: RegionData }) {
           </div>
         </div>
       </section>
+      )}
 
       {/* ── ACTIVITIES ── */}
       <section style={{ background: '#FAF8F3', color: '#1E1C19', fontFamily: 'var(--font-hanken), system-ui, sans-serif', padding: `0 ${PAD} clamp(58px,8vh,96px)` }}>

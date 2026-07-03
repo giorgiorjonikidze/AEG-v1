@@ -1,6 +1,8 @@
 'use client'
-import { useRef, useReducer, useEffect, useCallback } from 'react'
+import { useRef, useReducer, useEffect, useCallback, useState } from 'react'
 import type { TourData } from '@/data/tours'
+import { WHATSAPP_NUMBER, waLink, mailtoLink } from '@/lib/contact'
+import { submitEnquiry, type EnquiryPayload } from '@/lib/enquiry'
 
 interface InquiryCardProps {
   tourName: string
@@ -43,8 +45,11 @@ const initialForm: FormState = {
   errors: {}, submitted: false,
 }
 
-export function InquiryCard({ tourName, tourMeta, whatsappNumber = '995555123456', compact = false, hideTravelers = false, defaultTravelers }: InquiryCardProps) {
+export function InquiryCard({ tourName, tourMeta, whatsappNumber = WHATSAPP_NUMBER, compact = false, hideTravelers = false, defaultTravelers }: InquiryCardProps) {
   const [s, dispatch] = useReducer(formReducer, { ...initialForm, travelers: defaultTravelers ?? initialForm.travelers })
+  const [sending, setSending] = useState(false)
+  const [sendError, setSendError] = useState<string | null>(null)
+  const honeypotRef = useRef<HTMLInputElement>(null)
   const refPrivate = useRef<HTMLButtonElement>(null)
   const refGroup = useRef<HTMLButtonElement>(null)
   const refExpNone = useRef<HTMLButtonElement>(null)
@@ -84,15 +89,55 @@ export function InquiryCard({ tourName, tourMeta, whatsappNumber = '995555123456
     return e
   }
 
-  function handleSubmit(ev: React.FormEvent) {
+  function composeMessage() {
+    const lines = [
+      `New enquiry — ${tourName}`,
+      `(${tourMeta})`,
+      '',
+      `Name: ${s.name.trim()}`,
+    ]
+    if (s.email.trim()) lines.push(`Email: ${s.email.trim()}`)
+    if (s.whatsapp.trim()) lines.push(`Phone: ${s.whatsapp.trim()}`)
+    lines.push(`Dates: ${s.flexible ? 'Flexible / not sure yet' : s.dateStart}`)
+    if (!hideTravelers) lines.push(`Travelers: ${s.travelers}`)
+    if (s.country.trim()) lines.push(`Country: ${s.country.trim()}`)
+    if (s.tourType) lines.push(`Tour type: ${s.tourType === 'private' ? 'Private' : 'Group'}`)
+    if (s.experience) lines.push(`Experience: ${s.experience === 'none' ? 'None' : s.experience === 'some' ? 'Some' : 'Experienced'}`)
+    if (s.notes.trim()) lines.push('', `Message: ${s.notes.trim()}`)
+    return lines.join('\n')
+  }
+
+  function buildPayload(): EnquiryPayload {
+    return {
+      source: 'tour',
+      tourName,
+      tourMeta,
+      name: s.name.trim(),
+      email: s.email.trim() || undefined,
+      phone: s.whatsapp.trim() || undefined,
+      dates: s.flexible ? 'Flexible / not sure yet' : s.dateStart,
+      travelers: hideTravelers ? undefined : s.travelers,
+      country: s.country.trim() || undefined,
+      tourType: s.tourType ? (s.tourType === 'private' ? 'Private' : 'Group') : undefined,
+      experience: s.experience || undefined,
+      message: s.notes.trim() || undefined,
+      company: honeypotRef.current?.value || '',
+    }
+  }
+
+  async function handleSubmit(ev: React.FormEvent) {
     ev.preventDefault()
     const e = validate()
     if (Object.keys(e).some(k => e[k])) { dispatch({ type: 'setErrors', e }); return }
-    dispatch({ type: 'submit' })
+    setSendError(null)
+    setSending(true)
+    const res = await submitEnquiry(buildPayload())
+    setSending(false)
+    if (res.ok) dispatch({ type: 'submit' })
+    else setSendError(res.error || 'Something went wrong.')
   }
 
-  const waNum = whatsappNumber.replace(/\D/g, '')
-  const waHref = `https://wa.me/${waNum}?text=${encodeURIComponent(`Hi Adventure Experts — I'd like to enquire about ${tourName}.`)}`
+  const waHref = waLink(`Hi Adventure Experts — I'd like to enquire about ${tourName}.`)
   const E = s.errors
 
   const inputBase: React.CSSProperties = {
@@ -122,9 +167,12 @@ export function InquiryCard({ tourName, tourMeta, whatsappNumber = '995555123456
               <svg width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="#FAF8F3" strokeWidth={2.6} strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
             </span>
           </div>
-          <h2 style={{ fontFamily: "'Spectral',Georgia,serif", fontWeight: 600, fontSize: 26, lineHeight: 1.15, margin: '0 0 10px' }}>Thanks! Your inquiry&apos;s on its way</h2>
-          <p style={{ margin: '0 0 6px', fontSize: 14.5, lineHeight: 1.55, color: '#6F6A60', maxWidth: '38ch' }}>
-            Check <strong style={{ color: '#1E1C19', fontWeight: 600 }}>{s.email || 'your inbox'}</strong> for a confirmation. We&apos;ll reply within 24 hours to plan it together.
+          <h2 style={{ fontFamily: "'Spectral',Georgia,serif", fontWeight: 600, fontSize: 26, lineHeight: 1.15, margin: '0 0 10px' }}>Enquiry sent — thank you!</h2>
+          <p style={{ margin: '0 0 6px', fontSize: 14.5, lineHeight: 1.55, color: '#6F6A60', maxWidth: '40ch' }}>
+            We&apos;ve received your enquiry about <strong style={{ color: '#1E1C19', fontWeight: 600 }}>{tourName}</strong> and will reply within 24 hours{s.email.trim() ? <> to <strong style={{ color: '#1E1C19', fontWeight: 600 }}>{s.email.trim()}</strong></> : ''}.
+          </p>
+          <p style={{ margin: '0 0 6px', fontSize: 13, lineHeight: 1.5, color: '#A8A296', maxWidth: '40ch' }}>
+            Prefer to chat now? Message us on WhatsApp below.
           </p>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#FAF8F3', border: '1px solid rgba(30,28,25,.09)', borderRadius: 11, padding: '10px 15px', margin: '20px 0 0' }}>
             <span style={{ display: 'inline-flex', width: 26, height: 26, borderRadius: 7, background: '#2E4034', alignItems: 'center', justifyContent: 'center', flex: 'none' }}>
@@ -198,7 +246,7 @@ export function InquiryCard({ tourName, tourMeta, whatsappNumber = '995555123456
                   <span style={{ position: 'absolute', left: 13, color: '#A8A296', pointerEvents: 'none', display: 'inline-flex' }}>
                     <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
                   </span>
-                  <input type="tel" placeholder="Phone (e.g. +995 555 12 34 56)" value={s.whatsapp}
+                  <input type="tel" placeholder="Phone / WhatsApp (with country code)" value={s.whatsapp}
                     onChange={e => dispatch({ type: 'set', k: 'whatsapp', v: e.target.value })}
                     className="aeg-input"
                     style={{ ...inputBase, paddingLeft: 38, border: E.contact ? '1.5px solid #C75A37' : '1.5px solid rgba(30,28,25,.14)' }} />
@@ -316,12 +364,22 @@ export function InquiryCard({ tourName, tourMeta, whatsappNumber = '995555123456
             </div>
           </div>
 
+          {/* Honeypot — hidden from humans, catches bots */}
+          <input ref={honeypotRef} type="text" name="company" tabIndex={-1} autoComplete="off" aria-hidden="true"
+            style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }} />
+
           {/* Buttons */}
           <div style={{ padding: '18px 32px 0', display: 'flex', flexDirection: 'column', gap: 11 }}>
-            <button type="submit" className="aeg-submit"
-              style={{ width: '100%', border: 'none', borderRadius: 13, background: '#C75A37', color: '#fff', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: 16, fontWeight: 700, padding: 15, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 9, boxShadow: '0 12px 24px -12px rgba(199,90,55,.7)', transition: 'transform .15s ease,box-shadow .15s ease,background .15s ease' }}>
-              Send Inquiry
-              <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.9} strokeLinecap="round" strokeLinejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+            {sendError && (
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, background: '#FDF0ED', border: '1px solid #F0BDB0', borderRadius: 11, padding: '11px 14px', fontSize: 13, color: '#8A2A15', lineHeight: 1.5 }}>
+                <svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" style={{ flex: 'none', marginTop: 1 }}><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+                <span>{sendError} You can still reach us on WhatsApp or <a href={mailtoLink(`Enquiry — ${tourName}`, composeMessage())} style={{ color: '#8A2A15', fontWeight: 700 }}>by email</a>.</span>
+              </div>
+            )}
+            <button type="submit" className="aeg-submit" disabled={sending} aria-busy={sending}
+              style={{ width: '100%', border: 'none', borderRadius: 13, background: '#C75A37', color: '#fff', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: 16, fontWeight: 700, padding: 15, cursor: sending ? 'wait' : 'pointer', opacity: sending ? 0.75 : 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 9, boxShadow: '0 12px 24px -12px rgba(199,90,55,.7)', transition: 'transform .15s ease,box-shadow .15s ease,background .15s ease' }}>
+              {sending ? 'Sending…' : 'Send Inquiry'}
+              {!sending && <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.9} strokeLinecap="round" strokeLinejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>}
             </button>
             <a href={waHref} target="_blank" rel="noopener noreferrer" className="aeg-wa"
               style={{ width: '100%', boxSizing: 'border-box', borderRadius: 13, background: '#25D366', color: '#0B3A1E', textDecoration: 'none', fontSize: 15, fontWeight: 700, padding: 13, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 9, transition: 'transform .15s ease,box-shadow .15s ease' }}>
@@ -380,7 +438,6 @@ export default function TourInquirySection({ tour, priceStr }: { tour: TourData;
       <InquiryCard
         tourName={tour.name}
         tourMeta={`${tour.quickFacts.duration} · from ${priceStr}`}
-        whatsappNumber="995555123456"
       />
     </section>
   )

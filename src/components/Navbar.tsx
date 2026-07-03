@@ -133,7 +133,7 @@ export default function Navbar() {
         </Link>
 
         {/* Center nav */}
-        <nav style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
+        <nav style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
 
           {/* Tours dropdown */}
           <div style={{ position: 'relative' }} onMouseEnter={() => openDrop('tours')} onMouseLeave={scheduleDrop}>
@@ -144,7 +144,8 @@ export default function Navbar() {
               onKeyDown={onEsc}
               aria-haspopup="true"
               aria-expanded={toursOpen}
-              style={{ display: 'inline-flex', alignItems: 'center', gap: 6, textDecoration: 'none', fontSize: 14.5, color: text, cursor: 'pointer', transition: trans }}
+              className="nav-top-link"
+              style={{ textDecoration: 'none', fontSize: 14.5, color: text }}
             >
               Tours
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
@@ -164,11 +165,18 @@ export default function Navbar() {
                     </Link>
                   ))}
                 </div>
+                <div style={{ borderTop: '1px solid rgba(30,28,25,.09)', margin: '10px 0 0', paddingTop: 8 }}>
+                  <Link href="/en/tours" role="menuitem" className="nav-drop-item"
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, padding: '12px 12px', borderRadius: 5, textDecoration: 'none', color: '#213A29', fontSize: 14.5, fontWeight: 600 }}>
+                    <span>View all tours</span>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                  </Link>
+                </div>
               </div>
             )}
           </div>
 
-          <Link href="/en/tours?toggle=day" style={{ textDecoration: 'none', fontSize: 14.5, color: text, transition: trans }}>Day Tours</Link>
+          <Link href="/en/tours?toggle=day" className="nav-top-link" style={{ textDecoration: 'none', fontSize: 14.5, color: text }}>Day Tours</Link>
 
           {/* Services dropdown */}
           <div style={{ position: 'relative' }} onMouseEnter={() => openDrop('services')} onMouseLeave={scheduleDrop}>
@@ -179,7 +187,8 @@ export default function Navbar() {
               onKeyDown={onEsc}
               aria-haspopup="true"
               aria-expanded={servicesOpen}
-              style={{ display: 'inline-flex', alignItems: 'center', gap: 6, textDecoration: 'none', fontSize: 14.5, color: text, cursor: 'pointer', transition: trans }}
+              className="nav-top-link"
+              style={{ textDecoration: 'none', fontSize: 14.5, color: text }}
             >
               Services
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
@@ -201,8 +210,8 @@ export default function Navbar() {
             )}
           </div>
 
-          <Link href="/en/guides" style={{ textDecoration: 'none', fontSize: 14.5, color: text, transition: trans }}>Guides</Link>
-          <Link href="/en/about" style={{ textDecoration: 'none', fontSize: 14.5, color: text, transition: trans }}>About Us</Link>
+          <Link href="/en/guides" className="nav-top-link" style={{ textDecoration: 'none', fontSize: 14.5, color: text }}>Guides</Link>
+          <Link href="/en/about" className="nav-top-link" style={{ textDecoration: 'none', fontSize: 14.5, color: text }}>About Us</Link>
         </nav>
 
         {/* Right cluster */}
@@ -274,7 +283,7 @@ export default function Navbar() {
             )}
           </div>
 
-          <a href="https://wa.me/995555123456" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer"
+          <a href="https://wa.me/995595360083" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer"
             style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 44, height: 44, color: text, border: `1px solid ${hairline}`, borderRadius: '50%', transition: trans, textDecoration: 'none' }}>
             <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
               <path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.5 8.5 0 0 1-.9-3.8A8.38 8.38 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/>
@@ -382,6 +391,9 @@ export default function Navbar() {
                       onClick={() => { setMobileOpen(false); setMobileAcc(null) }}
                       style={{ textDecoration: 'none', color: '#5b554c', fontSize: 14.5, padding: '9px 12px', borderRadius: 5 }}>{t.name}</Link>
                   ))}
+                  <Link href="/en/tours" className="nav-drop-item"
+                    onClick={() => { setMobileOpen(false); setMobileAcc(null) }}
+                    style={{ textDecoration: 'none', color: '#213A29', fontWeight: 600, fontSize: 14.5, padding: '10px 12px', marginTop: 4, borderTop: '1px solid rgba(30,28,25,.09)', borderRadius: 5 }}>View all tours →</Link>
                 </div>
               )}
 
@@ -414,12 +426,12 @@ export default function Navbar() {
             </nav>
 
             <div style={{ marginTop: 20, paddingTop: 18, borderTop: '1px solid rgba(30,28,25,.1)', display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <a href="https://wa.me/995555123456" style={{ display: 'flex', alignItems: 'center', gap: 11, textDecoration: 'none', color: '#213A29', fontSize: 15 }}>
+              <a href="https://wa.me/995595360083" style={{ display: 'flex', alignItems: 'center', gap: 11, textDecoration: 'none', color: '#213A29', fontSize: 15 }}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.5 8.5 0 0 1-.9-3.8A8.38 8.38 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/>
                   <path d="M8.6 8.8c-.2 0-.5.1-.7.3-.2.2-.6.7-.6 1.6s.7 1.9.8 2c.1.2 1.4 2.3 3.5 3.1 1.7.7 2.1.6 2.4.5.4-.1 1.2-.5 1.4-1 .2-.5.2-.9.1-1l-.6-.3s-1-.5-1.1-.5c-.2-.1-.3-.1-.4.1l-.5.6c-.1.1-.2.1-.4.1-.2-.1-.8-.3-1.6-1-.6-.5-1-1.1-1.1-1.3-.1-.2 0-.3.1-.4l.3-.3.2-.3v-.3l-.5-1.3c-.1-.4-.3-.3-.4-.4z"/>
                 </svg>
-                +995 555 12 34 56
+                +995 595 36 00 83
               </a>
               <div style={{ display: 'flex', gap: 12 }}>
                 {[
@@ -440,6 +452,8 @@ export default function Navbar() {
       <style>{`
         .nav-drop-item { transition: background .2s ease, color .2s ease; }
         .nav-drop-item:hover { background: rgba(155,78,48,.08); color: #9B4E30; }
+        .nav-top-link { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; padding: 9px 14px; border-radius: 8px; transition: background .2s ease, color .2s ease; }
+        .nav-top-link:hover { background: rgba(155,78,48,.10); }
         @media (prefers-reduced-motion: reduce) {
           .nav-drop-item { transition: none; }
           .nav-mob-scrim { transition: none !important; }

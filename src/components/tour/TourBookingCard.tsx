@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import type { TourData } from '@/data/tours'
 import { InquiryCard } from './TourInquirySection'
+import { WHATSAPP_NUMBER } from '@/lib/contact'
 
 interface Props {
   tour: TourData
@@ -12,7 +13,7 @@ interface Props {
 export default function TourBookingCard({ tour, priceStr }: Props) {
   const [open, setOpen] = useState(false)
   const scrimRef = useRef<HTMLDivElement>(null)
-  const waNum = '995555123456'
+  const waNum = WHATSAPP_NUMBER
   const waMsg = `Hi! I'd like to ask a question about "${tour.name}".`
 
   function askWhatsApp() {

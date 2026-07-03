@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import Footer from '@/components/Footer'
-import FloatingWhatsApp from '@/components/FloatingWhatsApp'
 
 export const metadata: Metadata = {
   title: 'Terms & Conditions | Adventure Experts Georgia',
@@ -627,7 +626,6 @@ export default function TermsPage() {
       </div>{/* /t-body */}
 
       <Footer />
-      <FloatingWhatsApp />
     </>
   )
 }

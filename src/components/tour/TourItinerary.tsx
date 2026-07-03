@@ -61,16 +61,21 @@ export default function TourItinerary({ tour }: { tour: TourData }) {
   const [mobile, setMobile] = useStateVal(false)
 
   useEffect(() => {
+    const cleanups: (() => void)[] = []
     try {
       const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
       const set = () => setReduced(mq.matches); set()
-      if (mq.addEventListener) mq.addEventListener('change', set); else mq.addListener(set)
+      if (mq.addEventListener) { mq.addEventListener('change', set); cleanups.push(() => mq.removeEventListener('change', set)) }
+      else { mq.addListener(set); cleanups.push(() => mq.removeListener(set)) }
     } catch {}
     try {
       const mq = window.matchMedia('(max-width: 640px)')
       const set = () => setMobile(mq.matches); set()
-      if (mq.addEventListener) mq.addEventListener('change', set); else mq.addListener(set)
+      if (mq.addEventListener) { mq.addEventListener('change', set); cleanups.push(() => mq.removeEventListener('change', set)) }
+      else { mq.addListener(set); cleanups.push(() => mq.removeListener(set)) }
     } catch {}
+    return () => cleanups.forEach(fn => fn())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const allOpen = tour.itinerary.every((_, i) => !!open[i])

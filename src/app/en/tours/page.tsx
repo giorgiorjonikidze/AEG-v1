@@ -6,7 +6,6 @@ import TailorMadeCTA from '@/components/TailorMadeCTA'
 import HowItWorks from '@/components/HowItWorks'
 import Footer from '@/components/Footer'
 import ToursListing from '@/components/ToursListing'
-import FloatingWhatsApp from '@/components/FloatingWhatsApp'
 
 export const metadata: Metadata = {
   title: 'Our Adventures — Adventure Experts Georgia',
@@ -60,7 +59,6 @@ export default function ToursPage() {
       <Footer />
 
       {/* Floating WhatsApp */}
-      <FloatingWhatsApp />
     </>
   )
 }

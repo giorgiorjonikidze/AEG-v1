@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import type { TourData } from '@/data/tours'
 import { InquiryCard } from './TourInquirySection'
+import { waLink } from '@/lib/contact'
 
 interface Props { tour: TourData }
 
@@ -117,7 +118,7 @@ export default function DayTourBookingCard({ tour }: Props) {
             style={{ appearance: 'none', border: 'none', cursor: 'pointer', width: '100%', padding: '14px 16px', borderRadius: 11, background: '#C75A37', color: '#FFFFFF', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: 15, fontWeight: 600, boxShadow: '0 6px 16px -10px rgba(30,28,25,.5)', transition: 'transform .15s ease,box-shadow .15s ease,filter .15s ease' }}>
             Send Enquiry
           </button>
-          <button type="button" onClick={() => window.open(`https://wa.me/995555123456?text=${encodeURIComponent(waMsg)}`, '_blank', 'noopener')} className="dtbc-btn dtbc-secondary"
+          <button type="button" onClick={() => window.open(waLink(waMsg), '_blank', 'noopener')} className="dtbc-btn dtbc-secondary"
             style={{ appearance: 'none', cursor: 'pointer', width: '100%', padding: '13px 16px', borderRadius: 11, background: 'transparent', color: '#2E4034', border: '1.5px solid #2E4034', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: 15, fontWeight: 600, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8, transition: 'transform .15s ease,background .15s ease,color .15s ease' }}>
             <svg width={17} height={17} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.5 8.5 0 0 1-.9-3.8A8.38 8.38 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5Z"/></svg>
             Ask a Question
@@ -143,7 +144,7 @@ export default function DayTourBookingCard({ tour }: Props) {
               <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
             </button>
             <div style={{ padding: '28px 28px 32px' }}>
-              <InquiryCard tourName={tour.name} tourMeta={`Full day · ${tour.region}`} whatsappNumber="995555123456" defaultTravelers={travelers} />
+              <InquiryCard tourName={tour.name} tourMeta={`Full day · ${tour.region}`} defaultTravelers={travelers} />
             </div>
           </div>
         </div>,

@@ -13,23 +13,16 @@ type Tour = {
 }
 
 const TOURS_DATA: Tour[] = [
-  { id: 'svaneti-glacier', name: 'Svaneti Glacier Trek', region: 'Svaneti', activity: 'trekking', days: 4, difficulty: 'Moderate', price: 690, hook: 'Glacier crossings and tower-village nights in upper Svaneti.', isNew: true, beginner: false, family: false, winter: false, order: 8 },
-  { id: 'mestia-ushguli', name: 'Mestia to Ushguli Trek', region: 'Svaneti', activity: 'trekking', days: 4, difficulty: 'Moderate', price: 620, hook: "Four valleys, two ranges, and Europe's highest village.", isNew: false, beginner: false, family: false, winter: false, order: 5 },
-  { id: 'black-rock-lake', name: 'Black Rock Lake Hike', region: 'Racha', activity: 'trekking', days: 1, difficulty: 'Easy', price: 70, hook: 'An easy forest loop to a mirror-calm alpine lake.', isNew: true, beginner: true, family: true, winter: false, order: 11 },
-  { id: 'kazbegi-summit', name: 'Kazbegi Summit Adventure', region: 'Kazbegi', activity: 'summit', days: 6, difficulty: 'Challenging', price: 1150, hook: 'Rope up for the 5,054 m crown of the Caucasus.', isNew: true, beginner: false, family: false, winter: false, order: 9 },
-  { id: 'tetnuldi-ascent', name: 'Mount Tetnuldi Ascent', region: 'Svaneti', activity: 'summit', days: 7, difficulty: 'Challenging', price: 1390, hook: 'A guided high-altitude ascent above the Svan glaciers.', isNew: false, beginner: false, family: false, winter: false, order: 4 },
-  { id: 'martvili-canyon', name: 'Martvili Canyon Day Trip', region: 'Imereti', activity: 'canyoning', days: 1, difficulty: 'Easy', price: 95, hook: 'Boat the emerald gorge and swim beneath waterfalls.', isNew: false, beginner: true, family: true, winter: false, order: 7 },
-  { id: 'tusheti-overland', name: 'Tusheti Overland Expedition', region: 'Tusheti', activity: 'overlanding', days: 5, difficulty: 'Moderate', price: 880, hook: "4x4 over Abano Pass into Georgia's wildest highlands.", isNew: true, beginner: false, family: false, winter: false, order: 10 },
-  { id: 'vashlovani-overland', name: 'Vashlovani Semi-Desert Overland', region: 'Kakheti', activity: 'overlanding', days: 3, difficulty: 'Moderate', price: 540, hook: 'Canyons, mud volcanoes and big skies on the Azeri border.', isNew: false, beginner: false, family: false, winter: false, order: 3 },
-  { id: 'prometheus-cave', name: 'Prometheus Cave Explorer', region: 'Imereti', activity: 'caving', days: 1, difficulty: 'Easy', price: 80, hook: 'Lit galleries of stalactites along an underground river.', isNew: false, beginner: true, family: true, winter: false, order: 6 },
-  { id: 'kakheti-wine-bike', name: 'Kakheti Wine & Bike Tour', region: 'Kakheti', activity: 'biking', days: 2, difficulty: 'Easy', price: 240, hook: "Pedal vineyard to vineyard through Georgia's wine country.", isNew: true, beginner: true, family: true, winter: false, order: 2 },
-  { id: 'adjara-coast-ride', name: 'Adjara Coast & Mountain Ride', region: 'Adjara', activity: 'biking', days: 3, difficulty: 'Moderate', price: 420, hook: 'From Black Sea beaches up into the Adjara highlands.', isNew: false, beginner: false, family: false, winter: false, order: 1 },
-  { id: 'chaukhi-climb', name: 'Chaukhi Towers Climb', region: 'Kazbegi', activity: 'climbing', days: 4, difficulty: 'Challenging', price: 760, hook: 'Multi-pitch granite on the dramatic Chaukhi massif.', isNew: true, beginner: false, family: false, winter: false, order: 12 },
-  { id: 'gudauri-ski', name: 'Gudauri Backcountry Ski', region: 'Kazbegi', activity: 'winter', days: 3, difficulty: 'Moderate', price: 590, hook: 'Guided off-piste laps and powder bowls above Gudauri.', isNew: true, beginner: false, family: false, winter: true, order: 13 },
-  { id: 'svaneti-splitboard', name: 'Svaneti Winter Splitboard', region: 'Svaneti', activity: 'winter', days: 5, difficulty: 'Challenging', price: 940, hook: 'Skin up and ride untouched lines under Ushba.', isNew: false, beginner: false, family: false, winter: true, order: 14 },
-  { id: 'georgia-highlights', name: 'Highlights of Georgia', region: 'Kakheti', activity: 'mixed', days: 7, difficulty: 'Easy', price: 1080, hook: 'Mountains, wine, caves and old towns in one loop.', isNew: false, beginner: false, family: true, winter: false, order: 0 },
-  { id: 'ice-and-towers-svaneti', name: 'Ice and Towers, Svaneti', region: 'Svaneti', activity: 'trekking', days: 9, difficulty: 'Moderate', price: 2490, hook: 'Nine days of glaciers, medieval towers and high-altitude passes in the Caucasus crown.', isNew: true, beginner: false, family: false, winter: false, order: 15 },
-  { id: 'kazbegi-day-trip', name: 'Kazbegi Day Trip', region: 'Kazbegi', activity: 'mixed', days: 1, difficulty: 'Easy', price: 95, hook: 'Ananuri, Gudauri and Gergeti Trinity Church in one perfect day from Tbilisi.', isNew: true, beginner: true, family: true, winter: false, order: 16 },
+  { id: 'discover-georgia-as-a-local', name: 'Discover Georgia as a Local', region: 'Svaneti', activity: 'overlanding', days: 10, difficulty: 'Moderate', price: 1000, hook: 'Ten days, one 4x4, six regions — cave cities, glacier valleys and villages the road forgot.', isNew: true, beginner: false, family: false, winter: false, order: 0 },
+  { id: 'vashlovani-overland-expedition', name: 'Vashlovani Semi-Desert Overland Expedition', region: 'Kakheti', activity: 'overlanding', days: 7, difficulty: 'Moderate', price: 600, hook: 'Canyons, mud volcanoes and big skies on the Azeri border — 7 days of semi-desert off-road.', isNew: true, beginner: false, family: false, winter: false, order: 1 },
+  { id: 'overland-guria-adjara', name: 'Overland Adventure: Mystical Mountains of Guria & Adjara', region: 'Adjara', activity: 'overlanding', days: 7, difficulty: 'Moderate', price: 800, hook: 'Misty cloud-kingdoms, hidden alpine lakes and a fortress above the clouds — off-road through Upper Adjara.', isNew: true, beginner: false, family: false, winter: false, order: 2 },
+  { id: 'ice-and-towers-svaneti', name: 'Ice and Towers, Svaneti', region: 'Svaneti', activity: 'trekking', days: 9, difficulty: 'Moderate', price: 2490, hook: 'Nine days of glaciers, medieval towers and high-altitude passes in the Caucasus crown.', isNew: true, beginner: false, family: false, winter: false, order: 3 },
+  { id: 'chaukhi-mountaineering-camp', name: 'Chaukhi Massif Mountaineering Camp', region: 'Kazbegi', activity: 'summit', days: 8, difficulty: 'Challenging', price: 1500, hook: 'Learn the ropes and stand on three summits in the "Georgian Dolomites".', isNew: true, beginner: false, family: false, winter: false, order: 4 },
+  { id: 'enduro-mtb-tusheti', name: 'Enduro MTB Expedition in Tusheti', region: 'Tusheti', activity: 'biking', days: 4, difficulty: 'Challenging', price: 734, hook: 'Big-mountain enduro beyond the Abano Pass — remote villages and endless descents.', isNew: true, beginner: false, family: false, winter: false, order: 5 },
+  { id: 'cycling-expedition-tusheti', name: 'Cycling Expedition in Tusheti', region: 'Tusheti', activity: 'biking', days: 6, difficulty: 'Challenging', price: 850, hook: '6-day gravel endurance expedition — big climbs, remote villages, full board.', isNew: true, beginner: false, family: false, winter: false, order: 6 },
+  { id: 'canyoning-day-adventure', name: 'Canyoning Day Adventure in Imereti', region: 'Imereti', activity: 'canyoning', days: 1, difficulty: 'Moderate', price: 110, hook: 'Rappel live waterfalls, slide natural chutes and jump into cold green pools — a full day in a wild canyon.', isNew: true, beginner: true, family: false, winter: false, order: 7 },
+  { id: 'melouri-cave-caving', name: 'Wild Caving Experience in Melouri Cave', region: 'Imereti', activity: 'caving', days: 1, difficulty: 'Moderate', price: 95, hook: 'Wade an underground river by headlamp into a genuine wild cave near Kutaisi.', isNew: true, beginner: true, family: false, winter: false, order: 8 },
+  { id: 'kazbegi-day-trip', name: 'Kazbegi Day Trip', region: 'Kazbegi', activity: 'mixed', days: 1, difficulty: 'Easy', price: 95, hook: 'Ananuri, Gudauri and Gergeti Trinity Church in one perfect day from Tbilisi.', isNew: true, beginner: true, family: true, winter: false, order: 9 },
 ]
 
 const ACTIVITY_META = [
@@ -63,23 +56,16 @@ const SORT_OPTIONS = [
 const PMIN = 0, PMAX = 3000, STEP = 10
 
 const TOUR_PHOTOS: Record<string, string> = {
-  'svaneti-glacier':     '/images/tours/vasily-ledovsky-7Nl6vSXdDhE-unsplash.jpg',
-  'mestia-ushguli':      '/images/tours/johannes-andersson-pmtllkyavOk-unsplash.jpg',
-  'black-rock-lake':     '/images/tours/nadav-fima-ULn5jbPuHx8-unsplash.jpg',
-  'kazbegi-summit':      '/images/tours/andrew-rusinas-aFFKmsFoldc-unsplash.jpg',
-  'tetnuldi-ascent':     '/images/tours/tomas-malik-EtvlvO4cF5I-unsplash.jpg',
-  'martvili-canyon':     '/images/tours/wander-creative-6i3O_w7wOyE-unsplash.jpg',
-  'tusheti-overland':    '/images/tours/iman-gozal-5iQWgow3_S0-unsplash.jpg',
-  'vashlovani-overland': '/images/tours/jason-gardner-LU-o3CbeZhU-unsplash.jpg',
-  'prometheus-cave':     '/images/tours/jairph-Edx0NpJ29fQ-unsplash.jpg',
-  'kakheti-wine-bike':   '/images/tours/gio-chanturia-2aGoA1zcWfI-unsplash.jpg',
-  'adjara-coast-ride':   '/images/tours/zviad-pharsenadze--cIcGJX4Gxk-unsplash.jpg',
-  'chaukhi-climb':       '/images/tours/k-t-xVLdFIxcDCc-unsplash.jpg',
-  'gudauri-ski':         '/images/tours/kim-cordenete-3hB68obZnHI-unsplash.jpg',
-  'svaneti-splitboard':  '/images/tours/darya-tryfanava-rY1P25plAYg-unsplash.jpg',
-  'georgia-highlights':  '/images/tours/nino-gakhokia-24d9N5UsVYs-unsplash.jpg',
+  'vashlovani-overland-expedition': '/images/tours/overlanding/dg-05.jpg',
   'ice-and-towers-svaneti': '/images/tours/ice-towers-hero.avif',
   'kazbegi-day-trip':       '/images/tours/andrew-rusinas-aFFKmsFoldc-unsplash.jpg',
+  'discover-georgia-as-a-local': '/images/tours/overlanding/dg-04.jpg',
+  'enduro-mtb-tusheti':          '/images/tours/biking/mtb-group.jpg',
+  'chaukhi-mountaineering-camp': '/images/tours/summit/chaukhi-ridge-team.jpg',
+  'melouri-cave-caving':         '/images/tours/caving/melouri-river-passage.jpg',
+  'cycling-expedition-tusheti':  '/images/tours/biking/mtb-open-road.jpg',
+  'overland-guria-adjara':       '/images/tours/overlanding/dg-06.jpg',
+  'canyoning-day-adventure':     '/images/tours/canyoning/canyoning-waterfall-rappel.jpg',
 }
 
 // ── HELPERS ───────────────────────────────────────────────────────────────────
@@ -307,7 +293,7 @@ function TourCard({ tour, reduced, globalIdx, isMobile }: {
               boxShadow: hov ? '0 10px 20px -8px rgba(199,90,55,.6)' : 'none',
               transition: reduced ? 'none' : 'box-shadow .3s ease',
             }}>
-              Enquire
+              View Tour
               <span style={{ display: 'inline-flex', transform: hov && !reduced ? 'translateX(3px)' : 'none', transition: reduced ? 'none' : 'transform .3s ease' }}>
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
               </span>

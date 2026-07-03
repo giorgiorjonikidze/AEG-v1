@@ -75,8 +75,8 @@ export const ACTIVITIES_DATA: ActivityData[] = [
       { icon: 'check',      label: 'Usually included',  value: 'Guide, transport, route planning; meals & accom on multi-day' },
     ],
     regions: [
-      { slug: 'svaneti',           name: 'Svaneti',                    description: 'Tower villages, glaciers, and the classic Mestia–Ushguli route.',          image: '/images/svaneti.jpg' },
-      { slug: 'kazbegi',           name: 'Kazbegi / Mtskheta-Mtianeti', description: 'Gergeti Trinity Church, the Juta–Chaukhi loop, and the wild Truso Valley.', image: '/images/kazbegi.jpg' },
+      { slug: 'samegrelo',           name: 'Svaneti',                    description: 'Tower villages, glaciers, and the classic Mestia–Ushguli route.',          image: '/images/svaneti.jpg' },
+      { slug: 'mtskheta-mtianeti',           name: 'Kazbegi / Mtskheta-Mtianeti', description: 'Gergeti Trinity Church, the Juta–Chaukhi loop, and the wild Truso Valley.', image: '/images/kazbegi.jpg' },
       { slug: 'racha-lechkhumi',   name: 'Racha',                      description: 'Quieter forests, alpine lakes, and unspoiled high-mountain scenery.',         image: '/images/tours/nadav-fima-ULn5jbPuHx8-unsplash.jpg' },
       { slug: 'kakheti',           name: 'Kakheti (Lagodekhi)',         description: 'Beech forest trails, waterfalls, and the Lagodekhi Protected Areas.',        image: '/images/tours/gio-chanturia-2aGoA1zcWfI-unsplash.jpg' },
     ],
@@ -157,8 +157,8 @@ export const ACTIVITIES_DATA: ActivityData[] = [
       { icon: 'check',      label: 'Usually included',  value: 'Guide, transport, bike hire option; meals on multi-day' },
     ],
     regions: [
-      { slug: 'svaneti',         name: 'Svaneti',    description: 'Epic mountain roads and forest tracks in the shadow of 5,000 m peaks.',        image: '/images/svaneti.jpg' },
-      { slug: 'kazbegi',         name: 'Kazbegi',    description: 'The Military Highway and stunning high-altitude gravel tracks to Juta and Truso.', image: '/images/kazbegi.jpg' },
+      { slug: 'samegrelo',         name: 'Svaneti',    description: 'Epic mountain roads and forest tracks in the shadow of 5,000 m peaks.',        image: '/images/svaneti.jpg' },
+      { slug: 'mtskheta-mtianeti',         name: 'Kazbegi',    description: 'The Military Highway and stunning high-altitude gravel tracks to Juta and Truso.', image: '/images/kazbegi.jpg' },
       { slug: 'kakheti',         name: 'Kakheti',    description: 'Rolling vineyard roads, ancient monasteries, and golden autumn light.',            image: '/images/tours/gio-chanturia-2aGoA1zcWfI-unsplash.jpg' },
       { slug: 'adjara',          name: 'Adjara',     description: 'Coastal forest tracks and sub-alpine roads above Batumi.',                         image: '/images/tours/zviad-pharsenadze--cIcGJX4Gxk-unsplash.jpg' },
     ],
@@ -343,7 +343,7 @@ export const ACTIVITIES_DATA: ActivityData[] = [
     ],
     regions: [
       { slug: 'kakheti',         name: 'Tusheti (Kakheti)',  description: 'The legendary Abano Pass and the remote tower villages of the Tush highlands.',  image: '/images/tours/gio-chanturia-2aGoA1zcWfI-unsplash.jpg' },
-      { slug: 'svaneti',         name: 'Upper Svaneti',      description: 'The Svaneti Military Road and remote valley tracks above Mestia.',                 image: '/images/svaneti.jpg' },
+      { slug: 'samegrelo',         name: 'Upper Svaneti',      description: 'The Svaneti Military Road and remote valley tracks above Mestia.',                 image: '/images/svaneti.jpg' },
       { slug: 'shida-kartli',    name: 'Khevsureti',         description: 'Medieval fortresses and stone villages at the end of mountain dirt tracks.',        image: '/images/tours/jason-gardner-LU-o3CbeZhU-unsplash.jpg' },
       { slug: 'racha-lechkhumi', name: 'Racha',              description: 'Wild river valleys and empty highland roads far from the tourist trail.',           image: '/images/tours/nadav-fima-ULn5jbPuHx8-unsplash.jpg' },
     ],
@@ -404,7 +404,7 @@ export const ACTIVITIES_DATA: ActivityData[] = [
       { icon: 'check',      label: 'Usually included',  value: 'Guide, transport, accommodation, most meals, all activities' },
     ],
     regions: [
-      { slug: 'svaneti',             name: 'Svaneti',        description: 'Tower villages, glaciers, and trekking combined with mountain culture.',           image: '/images/svaneti.jpg' },
+      { slug: 'samegrelo',             name: 'Svaneti',        description: 'Tower villages, glaciers, and trekking combined with mountain culture.',           image: '/images/svaneti.jpg' },
       { slug: 'kakheti',             name: 'Kakheti',        description: 'Wine country, monasteries, and vineyard landscapes of east Georgia.',              image: '/images/tours/gio-chanturia-2aGoA1zcWfI-unsplash.jpg' },
       { slug: 'tbilisi',             name: 'Tbilisi',        description: 'The beating heart of Georgia — Old Town, Narikala, sulphur baths, and incredible food.', image: '/images/georgia-hero.avif' },
       { slug: 'samtskhe-javakheti',  name: 'Samtskhe-Javakheti', description: 'Vardzia cave monastery, Akhaltsikhe fortress, and dramatic volcanic plateaus.', image: '/images/tours/jason-gardner-LU-o3CbeZhU-unsplash.jpg' },
@@ -464,8 +464,8 @@ export const ACTIVITIES_DATA: ActivityData[] = [
       { icon: 'check',      label: 'Usually included',  value: 'Guide, permits, base camp support, technical equipment guidance' },
     ],
     regions: [
-      { slug: 'kazbegi',   name: 'Kazbegi',  description: 'Mount Kazbek (5,047 m) — the iconic Caucasus summit and Georgia\'s most sought-after high peak.',   image: '/images/kazbegi.jpg' },
-      { slug: 'svaneti',   name: 'Svaneti',  description: 'Tetnuldi, Ushba, Shkhara — world-class alpine objectives above the tower villages of Mestia.',      image: '/images/svaneti.jpg' },
+      { slug: 'mtskheta-mtianeti',   name: 'Kazbegi',  description: 'Mount Kazbek (5,047 m) — the iconic Caucasus summit and Georgia\'s most sought-after high peak.',   image: '/images/kazbegi.jpg' },
+      { slug: 'samegrelo',   name: 'Svaneti',  description: 'Tetnuldi, Ushba, Shkhara — world-class alpine objectives above the tower villages of Mestia.',      image: '/images/svaneti.jpg' },
       { slug: 'racha-lechkhumi', name: 'Racha', description: 'Lesser-known high summits with dramatic approaches through remote mountain terrain.',             image: '/images/tours/nadav-fima-ULn5jbPuHx8-unsplash.jpg' },
     ],
     difficultyLevels: [
@@ -526,8 +526,8 @@ export const ACTIVITIES_DATA: ActivityData[] = [
     ],
     regions: [
       { slug: 'tbilisi',   name: 'Tbilisi area',     description: 'Accessible sport climbing crags within an hour of the city. Great for day sessions.',    image: '/images/georgia-hero.avif' },
-      { slug: 'kazbegi',   name: 'Kazbegi',          description: 'Granite walls and multi-pitch routes beneath the shadow of Kazbek.',                     image: '/images/kazbegi.jpg' },
-      { slug: 'svaneti',   name: 'Svaneti',          description: 'Big walls and virgin granite in one of the world\'s most spectacular mountain settings.', image: '/images/svaneti.jpg' },
+      { slug: 'mtskheta-mtianeti',   name: 'Kazbegi',          description: 'Granite walls and multi-pitch routes beneath the shadow of Kazbek.',                     image: '/images/kazbegi.jpg' },
+      { slug: 'samegrelo',   name: 'Svaneti',          description: 'Big walls and virgin granite in one of the world\'s most spectacular mountain settings.', image: '/images/svaneti.jpg' },
       { slug: 'adjara',    name: 'Adjara',           description: 'Coastal limestone crags and gorge walls with a backdrop of the Black Sea.',              image: '/images/tours/zviad-pharsenadze--cIcGJX4Gxk-unsplash.jpg' },
     ],
     difficultyLevels: [

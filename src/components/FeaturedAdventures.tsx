@@ -79,7 +79,7 @@ export default function FeaturedAdventures() {
   const goTo = (i: number) => scrollerRef.current?.scrollTo({ left: i * cardStep(), behavior: 'smooth' })
 
   return (
-    <section style={{ position: 'relative', background: '#FAF6EE', fontFamily: 'var(--font-plus-jakarta), sans-serif', padding: '64px 0 72px', color: '#1E1C19', overflow: 'hidden' }}>
+    <section style={{ position: 'relative', background: '#FAF6EE', fontFamily: 'var(--font-hanken), sans-serif', padding: '64px 0 72px', color: '#1E1C19', overflow: 'hidden' }}>
       {/* Contours texture */}
       <div aria-hidden="true" style={{ position: 'absolute', inset: 0, pointerEvents: 'none', backgroundImage: "url('/images/contours.png')", backgroundSize: '1100px auto', backgroundRepeat: 'repeat', opacity: .85 }} />
 
@@ -89,7 +89,7 @@ export default function FeaturedAdventures() {
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 24, marginBottom: 32 }}>
           <div style={{ width: 'max-content' }}>
             <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.16em', textTransform: 'uppercase', color: '#C75A37', marginBottom: 10, whiteSpace: 'nowrap' }}>Adventure Experts Georgia</div>
-            <h2 style={{ fontFamily: 'var(--font-source-serif), serif', fontWeight: 600, fontSize: 'clamp(28px,4vw,40px)', lineHeight: 1.05, margin: 0, letterSpacing: '-.01em', whiteSpace: 'nowrap', width: 'max-content' }}>Featured Adventures</h2>
+            <h2 style={{ fontFamily: 'var(--font-spectral), serif', fontWeight: 600, fontSize: 'clamp(28px,4vw,40px)', lineHeight: 1.05, margin: 0, letterSpacing: '-.01em', whiteSpace: 'nowrap', width: 'max-content' }}>Featured Adventures</h2>
           </div>
 
           {/* Arrow buttons — desktop only */}
@@ -143,7 +143,7 @@ export default function FeaturedAdventures() {
               {/* Info */}
               <div style={{ padding: '20px 20px 22px', display: 'flex', flexDirection: 'column', gap: 11, flex: 1 }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                  <h3 style={{ fontFamily: 'var(--font-montserrat), sans-serif', fontWeight: 700, fontSize: 21, lineHeight: 1.18, margin: 0, letterSpacing: '-.01em' }}>{t.name}</h3>
+                  <h3 style={{ fontFamily: 'var(--font-hanken), sans-serif', fontWeight: 700, fontSize: 21, lineHeight: 1.18, margin: 0, letterSpacing: '-.01em' }}>{t.name}</h3>
                   <p style={{ margin: 0, fontSize: 14, color: '#A8A296', fontWeight: 500 }}>{t.hook}</p>
                 </div>
 
@@ -172,7 +172,7 @@ export default function FeaturedAdventures() {
                       {t.badge}
                     </span>
                     <span style={{ fontSize: 13, color: '#A8A296', fontWeight: 500 }}>
-                      From <strong style={{ fontFamily: 'var(--font-source-serif), serif', color: '#1E1C19', fontSize: 20, fontWeight: 700 }}>{t.price}</strong>{' '}
+                      From <strong style={{ fontFamily: 'var(--font-spectral), serif', color: '#1E1C19', fontSize: 20, fontWeight: 700 }}>{t.price}</strong>{' '}
                       <span style={{ color: '#A8A296' }}>/ person</span>
                     </span>
                   </div>
@@ -193,7 +193,7 @@ export default function FeaturedAdventures() {
               <div style={{ width: 48, height: 48, borderRadius: 999, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C75A37" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
               </div>
-              <div style={{ fontFamily: 'var(--font-montserrat), sans-serif', fontWeight: 600, fontSize: 15, color: '#1E1C19', marginBottom: 6 }}>View All Tours</div>
+              <div style={{ fontFamily: 'var(--font-hanken), sans-serif', fontWeight: 600, fontSize: 15, color: '#1E1C19', marginBottom: 6 }}>View All Tours</div>
               <div style={{ fontSize: 13, color: '#A8A296' }}>Browse our full collection</div>
             </div>
           </Link>

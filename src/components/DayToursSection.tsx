@@ -52,7 +52,7 @@ export default function DayToursSection() {
                   <h3 style={{ fontFamily: 'var(--font-cormorant), serif', fontWeight: 500, fontSize: 22, lineHeight: 1.18, margin: '0 0 6px', color: '#fff' }}>{t.name}</h3>
                   <p style={{ fontSize: 13.5, color: 'rgba(255,255,255,.6)', margin: '0 0 16px' }}>{t.hook}</p>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <span style={{ fontSize: 13.5, color: 'rgba(255,255,255,.55)' }}>From <strong style={{ color: '#fff', fontFamily: 'var(--font-source-serif), serif', fontSize: 18 }}>{t.price}</strong></span>
+                    <span style={{ fontSize: 13.5, color: 'rgba(255,255,255,.55)' }}>From <strong style={{ color: '#fff', fontFamily: 'var(--font-spectral), serif', fontSize: 18 }}>{t.price}</strong></span>
                     <span style={{ fontSize: 13, fontWeight: 500, color: '#C75A37', display: 'flex', alignItems: 'center', gap: 5 }}>
                       View tour
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
@@ -63,7 +63,7 @@ export default function DayToursSection() {
             ))}
           </div>
           <div style={{ marginTop: 32, textAlign: 'center' }}>
-            <Link href="/en/tours/day-tours" style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: 14, fontWeight: 500, color: 'rgba(255,255,255,.7)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 7, borderBottom: '1px solid rgba(255,255,255,.25)', paddingBottom: 2 }}>
+            <Link href="/en/tours?toggle=day" style={{ fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: 14, fontWeight: 500, color: 'rgba(255,255,255,.7)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 7, borderBottom: '1px solid rgba(255,255,255,.25)', paddingBottom: 2 }}>
               See all day tours
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
             </Link>

@@ -4,7 +4,6 @@ import type { ActivityData } from '@/data/activities'
 import type { TourData } from '@/data/tours'
 import TailorMadeCTA from '@/components/TailorMadeCTA'
 import Footer from '@/components/Footer'
-import FloatingWhatsApp from '@/components/FloatingWhatsApp'
 import ActivityJumpNav from '@/components/ActivityJumpNav'
 import ActivityGallery from '@/components/ActivityGallery'
 
@@ -51,17 +50,26 @@ const css = `
   .act-region-desc{font-size:12.5px;color:rgba(255,255,255,.75);line-height:1.5;}
 
   .act-tours-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;}
-  .act-tour-card{border-radius:8px;overflow:hidden;border:1px solid rgba(30,28,25,.09);background:#fff;text-decoration:none;display:flex;flex-direction:column;transition:box-shadow .25s;}
-  .act-tour-card:hover{box-shadow:0 16px 40px -16px rgba(30,28,25,.22);}
-  .act-tour-img-wrap{position:relative;height:200px;overflow:hidden;flex:none;}
-  .act-tour-img-wrap img{object-fit:cover;transition:transform .5s ease;}
-  .act-tour-card:hover .act-tour-img-wrap img{transform:scale(1.04);}
-  .act-tour-body{padding:20px 22px 24px;display:flex;flex-direction:column;gap:10px;flex:1;}
-  .act-tour-tag{display:inline-block;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#C75A37;margin-bottom:2px;}
-  .act-tour-name{font-family:var(--font-spectral),serif;font-size:19px;font-weight:500;color:#1E1C19;line-height:1.3;}
-  .act-tour-meta{display:flex;gap:14px;flex-wrap:wrap;}
-  .act-tour-pill{font-size:12px;color:#7a7469;display:flex;align-items:center;gap:5px;}
-  .act-tour-cta{margin-top:auto;display:inline-flex;align-items:center;gap:6px;font-size:13.5px;color:#C75A37;font-weight:500;}
+  .act-tour-card{border-radius:16px;overflow:hidden;border:1px solid #ECE8DE;background:#fff;text-decoration:none;color:#1E1C19;display:flex;flex-direction:column;height:100%;box-shadow:0 1px 3px rgba(30,28,25,.05);transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s ease,border-color .35s ease;}
+  .act-tour-card:hover{transform:translateY(-6px);box-shadow:0 22px 46px -16px rgba(30,28,25,.28);border-color:#E2DCCF;}
+  .act-tour-img-wrap{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;flex:none;background:#EBE6DB;}
+  .act-tour-img-wrap img{object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1);}
+  .act-tour-card:hover .act-tour-img-wrap img{transform:scale(1.06);}
+  .act-tour-daypill{position:absolute;top:12px;left:12px;display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.92);backdrop-filter:blur(4px);color:#1E1C19;font-size:12px;font-weight:600;padding:7px 10px;border-radius:99px;box-shadow:0 2px 8px rgba(30,28,25,.12);}
+  .act-tour-newbadge{position:absolute;top:12px;right:12px;background:#C75A37;color:#fff;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:6px 9px;border-radius:99px;box-shadow:0 2px 8px rgba(199,90,55,.4);}
+  .act-tour-body{padding:18px 19px 20px;display:flex;flex-direction:column;gap:9px;flex:1;}
+  .act-tour-name{font-family:var(--font-spectral),serif;font-size:21px;font-weight:500;color:#1E1C19;line-height:1.2;margin:0;}
+  .act-tour-hook{margin:0;font-size:14.5px;line-height:1.45;color:#79736A;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+  .act-tour-place{display:flex;align-items:center;gap:6px;font-size:13.5px;color:#8C8576;}
+  .act-tour-meta{display:flex;align-items:center;gap:16px;padding:12px 0 2px;border-top:1px solid #F1EDE3;font-size:13.5px;color:#5C564E;}
+  .act-tour-pill{display:inline-flex;align-items:center;gap:5px;}
+  .act-tour-foot{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-top:auto;padding-top:14px;}
+  .act-tour-price{font-size:13px;color:#A8A296;}
+  .act-tour-price strong{font-family:var(--font-spectral),serif;font-size:19px;color:#1E1C19;font-weight:600;}
+  .act-tour-cta{display:inline-flex;align-items:center;gap:6px;flex-shrink:0;background:#C75A37;color:#fff;padding:9px 13px;border-radius:10px;font-size:13px;font-weight:600;transition:box-shadow .3s ease;}
+  .act-tour-card:hover .act-tour-cta{box-shadow:0 10px 20px -8px rgba(199,90,55,.6);}
+  .act-tour-cta svg{transition:transform .3s ease;}
+  .act-tour-card:hover .act-tour-cta svg{transform:translateX(3px);}
 
 .act-diff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
   .act-diff-card{border-radius:8px;padding:28px 24px;border:1px solid rgba(30,28,25,.09);}
@@ -249,25 +257,36 @@ export default function ActivityPageTemplate({ activity, tours }: Props) {
                     <Link key={t.slug} href={`/en/tours/${t.slug}`} className="act-tour-card">
                       <div className="act-tour-img-wrap">
                         <Image src={t.heroImage} alt={t.name} fill sizes="(max-width:640px) 100vw, (max-width:900px) 50vw, 33vw" />
+                        <span className="act-tour-daypill">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                          {t.quickFacts.duration}
+                        </span>
+                        <span className="act-tour-newbadge">New</span>
                       </div>
                       <div className="act-tour-body">
-                        <span className="act-tour-tag">{t.region}</span>
-                        <span className="act-tour-name">{t.name}</span>
+                        <h3 className="act-tour-name">{t.name}</h3>
+                        <p className="act-tour-hook">{t.emotionalLine}</p>
+                        <div className="act-tour-place">
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C75A37" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                          {t.region} · {t.category}
+                        </div>
                         <div className="act-tour-meta">
                           <span className="act-tour-pill">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A8A296" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                             {t.quickFacts.duration}
                           </span>
                           <span className="act-tour-pill">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m2 20 5-10 4 6 3-4 5 8"/></svg>
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A8A296" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M12 6v4"/><path d="M12 14h.01"/></svg>
                             {t.quickFacts.difficulty}
                           </span>
-                          <span className="act-tour-pill">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                            From {t.currency}{t.price.toLocaleString()}
+                        </div>
+                        <div className="act-tour-foot">
+                          <span className="act-tour-price">From <strong>{t.currency}{t.price.toLocaleString()}</strong> / person</span>
+                          <span className="act-tour-cta">
+                            View Tour
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                           </span>
                         </div>
-                        <span className="act-tour-cta">Enquire <IconArrow /></span>
                       </div>
                     </Link>
                   ))}
@@ -371,7 +390,7 @@ export default function ActivityPageTemplate({ activity, tours }: Props) {
               <h3>Want to do it your way?</h3>
               <p>Every activity can be shaped around your group, your dates, and your level. Tell us what you have in mind.</p>
             </div>
-            <Link href="/en/tailor-made" className="act-nudge-btn">
+            <Link href="/en/services" className="act-nudge-btn">
               Plan a Custom Trip <IconArrow />
             </Link>
           </div>
@@ -381,7 +400,6 @@ export default function ActivityPageTemplate({ activity, tours }: Props) {
 
       <TailorMadeCTA />
       <Footer />
-      <FloatingWhatsApp />
     </>
   )
 }
