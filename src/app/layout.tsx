@@ -42,13 +42,13 @@ export const metadata: Metadata = {
     template: '%s | Adventure Experts Georgia',
   },
   description:
-    'Small-group adventure tours and day trips across Georgia, led by certified local guides. Trekking, caving, canyoning, overlanding and more.',
+    'Private adventure tours and day trips across Georgia, led by certified local guides. Trekking, caving, canyoning, overlanding and more.',
   openGraph: {
     type: 'website',
     siteName: 'Adventure Experts Georgia',
     title: 'Adventure Experts Georgia — Guided Tours in the Caucasus',
     description:
-      'Small-group adventure tours and day trips across Georgia, led by certified local guides.',
+      'Private adventure tours and day trips across Georgia, led by certified local guides.',
     images: ['/images/georgia-hero.avif'],
   },
 }

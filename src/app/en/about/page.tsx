@@ -8,7 +8,7 @@ import Footer from '@/components/Footer'
 export const metadata: Metadata = {
   title: 'About Us',
   description:
-    'Adventure Experts Georgia is a small team of certified local guides running small-group adventure tours across the Caucasus — trekking, caving, canyoning, overlanding and more.',
+    'Adventure Experts Georgia is a small team of certified local guides running private adventure tours across the Caucasus — trekking, caving, canyoning, overlanding and more.',
 }
 
 const VALUES = [
@@ -17,8 +17,8 @@ const VALUES = [
     text: 'Every trip is led by certified Georgian guides — people who grew up on these trails, roads and rivers, and hold internationally recognised qualifications.',
   },
   {
-    title: 'Small groups only',
-    text: 'We keep departures small so the mountains stay quiet, guesthouses stay personal, and your guide actually knows your name.',
+    title: 'Private tours only',
+    text: 'Every departure is just you and your travel companions — no strangers, no mixed groups. The mountains stay quiet and your guide actually knows your name.',
   },
   {
     title: 'Safety before summits',

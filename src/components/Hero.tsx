@@ -58,7 +58,7 @@ export default function Hero() {
             maxWidth: 540, margin: '24px 0 0',
             textShadow: '0 1px 12px rgba(0,0,0,.35)',
           }}>
-            Small-group adventure tours and day trips across Georgia, led by certified local guides.
+            Private adventure tours and day trips across Georgia, led by certified local guides.
           </p>
           <div style={{ display: 'flex', gap: 16, marginTop: 36 }}>
             <Link href="/en/tours"
@@ -90,7 +90,7 @@ export default function Hero() {
             margin: '14px auto 0', maxWidth: 300,
             textShadow: '0 1px 12px rgba(0,0,0,.4)',
           }}>
-            Small-group adventure tours and day trips across Georgia, led by certified local guides.
+            Private adventure tours and day trips across Georgia, led by certified local guides.
           </p>
           <div style={{ display: 'flex', gap: 10, marginTop: 22, justifyContent: 'center' }}>
             <Link href="/en/tours"

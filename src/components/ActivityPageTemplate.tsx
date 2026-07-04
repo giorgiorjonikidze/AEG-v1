@@ -187,7 +187,7 @@ export default function ActivityPageTemplate({ activity, tours }: Props) {
           <section id="act-tours" className="act-section">
             <p className="act-eyebrow">Our tours</p>
             <h2 className="act-h2">Handpicked, led by locals</h2>
-            <p className="act-sub">Real routes, honest difficulty ratings, small groups.</p>
+            <p className="act-sub">Real routes, honest difficulty ratings, always private.</p>
             {tours.length > 0 ? (
               <>
                 <div className="act-tours-grid">

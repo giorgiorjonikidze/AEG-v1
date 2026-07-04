@@ -51,7 +51,7 @@ export const ACTIVITIES_DATA: ActivityData[] = [
     tagline: 'Walk the wild ridges of the Caucasus — from gentle day trails to glacier passes.',
     heroImage: '/images/svaneti.jpg',
     metaTitle: 'Trekking & Hiking Tours in Georgia — Adventure Experts Georgia',
-    metaDescription: 'Guided trekking tours in Georgia: Svaneti, Kazbegi, Tusheti & beyond. Easy day hikes to multi-day high-mountain routes. Small groups, certified local guides.',
+    metaDescription: 'Guided trekking tours in Georgia: Svaneti, Kazbegi, Tusheti & beyond. Easy day hikes to multi-day high-mountain routes. Private tours, certified local guides.',
     categoryTag: 'Trekking',
     gallery: [
       '/images/activities/trekking.jpg',
@@ -64,7 +64,7 @@ export const ACTIVITIES_DATA: ActivityData[] = [
     intro: `For a country its size, Georgia is one of the most rewarding trekking destinations on earth. The Greater Caucasus throws up some of the highest peaks in Europe, and the trails that thread between them lead through alpine meadows, glacier valleys, turquoise high-mountain lakes, and remote villages where medieval stone towers still stand. You can walk an easy half-day to a waterfall or cross a high pass on a multi-day route — and almost everywhere, the trails are still blissfully uncrowded compared with the Alps. What makes trekking here special isn't just the scenery: it's the culture you meet along the way — shepherds, family guesthouses, and a mountain hospitality that turns a hike into something you remember for life.`,
     whyUs: [
       'Certified local guides who grew up in these mountains, trained in wilderness safety and first aid.',
-      'Small groups of 2–8 people — real routes, real pace, no rush.',
+      'Private tours for 1–8 people — your group only, your pace, no rush.',
       'Local knowledge that takes you beyond the well-trodden trails, safely.',
     ],
     quickFacts: [
@@ -120,7 +120,7 @@ export const ACTIVITIES_DATA: ActivityData[] = [
       { q: 'Do I need previous hiking experience?',       a: "Not for our easier treks. For moderate and challenging routes, some prior hill-walking experience helps, but certified guides are with you every step. We brief you fully before departure." },
       { q: 'Are treks suitable for families with kids?',  a: "Yes — many of our shorter, easier trails work well for families with children aged 8+. Tell us the ages and fitness of your group and we'll suggest the best options." },
       { q: 'What happens if the weather turns bad?',      a: "Your guide monitors conditions and will adapt the route if needed. Safety always comes first. In rare cases of dangerous weather, we reschedule or reroute — we've been running these mountains long enough to know when to turn back." },
-      { q: 'Can a trek be private or customised?',        a: 'Absolutely. All our treks can be run as private departures for your group, at your pace, with the itinerary adjusted to your interests and fitness level. Use the "Plan a Custom Trip" button to start.' },
+      { q: 'Are treks private, and can they be customised?', a: 'Every trek we run is private — just you and your companions. And yes, the itinerary can be adjusted to your interests, pace, and fitness level. Use the "Plan a Custom Trip" button to start.' },
       { q: 'What should I pack?',                        a: 'Broken-in hiking boots, moisture-wicking layers, a warm fleece or down mid-layer, a waterproof jacket, a daypack, 2 l water capacity, sun protection, and travel insurance that covers trekking and altitude. We send a full kit list after booking.' },
       { q: 'How high do the trails go?',                  a: 'Day hikes can range from 600 m to above 2,500 m. Multi-day routes in Svaneti and Kazbegi cross passes between 2,700 and 3,200 m. We note the maximum altitude in every itinerary.' },
     ],
@@ -133,7 +133,7 @@ export const ACTIVITIES_DATA: ActivityData[] = [
     tagline: 'Ride mountain tracks and valley roads through some of Europe\'s wildest scenery.',
     heroImage: '/images/tours/darya-tryfanava-rY1P25plAYg-unsplash.jpg',
     metaTitle: 'Mountain Biking Tours in Georgia — Adventure Experts Georgia',
-    metaDescription: 'Guided mountain biking tours in Georgia: Svaneti, Kazbegi, cross-country routes. Gravel rides to technical singletrack. Small groups, local guides.',
+    metaDescription: 'Guided mountain biking tours in Georgia: Svaneti, Kazbegi, cross-country routes. Gravel rides to technical singletrack. Private tours, local guides.',
     categoryTag: 'Biking',
     gallery: [
       '/images/activities/biking.jpg',
@@ -147,7 +147,7 @@ export const ACTIVITIES_DATA: ActivityData[] = [
     whyUs: [
       'Experienced local guides who know which tracks are rideable and which are not — no nasty surprises.',
       'Quality bikes available or bring your own. All safety gear provided.',
-      'Small groups, flexible pace, no one left behind.',
+      'Private tours, flexible pace, no one left behind.',
     ],
     quickFacts: [
       { icon: 'difficulty', label: 'Difficulty range', value: 'Easy valley rides → Challenging mountain passes' },
@@ -257,7 +257,7 @@ export const ACTIVITIES_DATA: ActivityData[] = [
     tagline: 'Swim, abseil, and jump through Georgia\'s spectacular river gorges.',
     heroImage: '/images/martvili.jpg',
     metaTitle: 'Canyoning Tours in Georgia — Adventure Experts Georgia',
-    metaDescription: 'Guided canyoning tours in Georgia: Martvili Canyon, Okatse Canyon, Kinchkha waterfall. Abseiling, swimming, cliff jumps. Small groups, expert guides.',
+    metaDescription: 'Guided canyoning tours in Georgia: Martvili Canyon, Okatse Canyon, Kinchkha waterfall. Abseiling, swimming, cliff jumps. Private tours, expert guides.',
     categoryTag: 'Canyoning',
     gallery: [
       '/images/activities/canyoning.jpg',
@@ -318,7 +318,7 @@ export const ACTIVITIES_DATA: ActivityData[] = [
     tagline: 'Off-road into Georgia\'s remotest highlands — places the road ends and the real adventure begins.',
     heroImage: '/images/tours/jairph-Edx0NpJ29fQ-unsplash.jpg',
     metaTitle: 'Overlanding Tours in Georgia — Adventure Experts Georgia',
-    metaDescription: 'Guided 4x4 overlanding tours in Georgia: Tusheti, Svaneti Military Road, Khevsureti. Remote highland access in expert hands. Small groups.',
+    metaDescription: 'Guided 4x4 overlanding tours in Georgia: Tusheti, Svaneti Military Road, Khevsureti. Remote highland access in expert hands. Private tours.',
     categoryTag: 'Overlanding',
     gallery: [
       '/images/activities/overlanding.jpg',
@@ -380,7 +380,7 @@ export const ACTIVITIES_DATA: ActivityData[] = [
     tagline: 'Trekking, culture, wine, history — the full Georgia experience in one journey.',
     heroImage: '/images/georgia-hero.avif',
     metaTitle: 'Mixed Adventure Tours in Georgia — Adventure Experts Georgia',
-    metaDescription: 'Multi-activity tours in Georgia combining trekking, culture, wine, history and adventure. The best of Georgia in small groups with local guides.',
+    metaDescription: 'Multi-activity tours in Georgia combining trekking, culture, wine, history and adventure. The best of Georgia on private tours with local guides.',
     categoryTag: 'Mixed Tours',
     gallery: [
       '/images/activities/mixed-tours.jpg',
@@ -393,7 +393,7 @@ export const ACTIVITIES_DATA: ActivityData[] = [
     intro: `Georgia rewards the curious. A single journey can take you from high-mountain glaciers to sun-drenched vineyards, from ancient cave monasteries carved into cliffsides to rooftop bars in Tbilisi's Old Town. Mixed tours are designed for travellers who don't want to choose — they want the mountains AND the culture, the adventure AND the food, the wild landscapes AND the ancient history. We combine the activities we know best into itineraries that show you what makes Georgia genuinely extraordinary, led by guides who love every part of it.`,
     whyUs: [
       'Deep knowledge of both adventure and cultural Georgia — we design itineraries that do justice to both.',
-      'Small groups mean flexibility: if something sparks your interest, we can spend more time there.',
+      'Private tours mean flexibility: if something sparks your interest, we can spend more time there.',
       'One guide, one team, one seamless journey — no handoffs, no coordination headaches.',
     ],
     quickFacts: [
@@ -410,7 +410,7 @@ export const ACTIVITIES_DATA: ActivityData[] = [
       { slug: 'samtskhe-javakheti',  name: 'Samtskhe-Javakheti', description: 'Vardzia cave monastery, Akhaltsikhe fortress, and dramatic volcanic plateaus.', image: '/images/tours/jason-gardner-LU-o3CbeZhU-unsplash.jpg' },
     ],
     difficultyLevels: [
-      { level: 'Easy',        description: 'Cultural days, scenic drives, short walks. Active elements optional.',                                          experience: 'Anyone. Ideal for mixed groups with varied fitness levels.' },
+      { level: 'Easy',        description: 'Cultural days, scenic drives, short walks. Active elements optional.',                                          experience: 'Anyone. Ideal for parties with varied fitness levels.' },
       { level: 'Moderate',    description: 'Half-day hikes, full active days, some elevation gain mixed with cultural visits.',                            experience: 'Comfortable walking for several hours. General fitness.' },
       { level: 'Challenging', description: 'Full trekking days combined with cultural immersion — genuinely active journeys.',                             experience: 'Good hiking fitness for the active components.' },
     ],
@@ -423,7 +423,7 @@ export const ACTIVITIES_DATA: ActivityData[] = [
       { heading: 'Pacing',          body: 'Mixed tours are designed with recovery days and flexibility built in. We don\'t rush from site to site — every stop gets the time it deserves.' },
       { heading: 'Accommodation',   body: 'A mix of boutique guesthouses, family homes, and comfortable hotels depending on the region. We brief you on each before departure.' },
       { heading: 'Food & wine',     body: 'Georgian hospitality is extraordinary. Expect long, generous meals, natural wine (especially in Kakheti), and more khinkali than you think you can eat.' },
-      { heading: 'Group size',      body: 'Mixed tours work best in groups of 2–8. We keep groups small to stay flexible and genuinely local.' },
+      { heading: 'Group size',      body: 'Mixed tours work best with 2–8 travelers. Every departure is private — your group only — so we stay flexible and genuinely local.' },
     ],
     faq: [
       { q: 'What does "mixed" mean exactly?',          a: 'It means we combine different types of activity and experience in one itinerary — trekking, cultural sightseeing, food experiences, wine tasting, village stays, and more — rather than focusing on one activity type.' },

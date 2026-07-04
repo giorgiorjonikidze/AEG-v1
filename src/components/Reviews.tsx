@@ -6,8 +6,8 @@ const POINTS = [
     text: 'Our founder is a UIMLA-certified mountain guide with 10+ years across the Caucasus, and every trip runs with certified local guides.',
   },
   {
-    title: 'Small groups, real places',
-    text: 'We keep departures small and take you to the valleys, villages and routes we actually come from — not a rebranded bus tour.',
+    title: 'Private trips, real places',
+    text: 'Every trip is private — your group only — through the valleys, villages and routes we actually come from. Not a rebranded bus tour.',
   },
   {
     title: 'Honest from day one',

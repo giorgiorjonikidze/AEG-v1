@@ -15,7 +15,7 @@ interface InquiryCardProps {
 
 type FormState = {
   name: string; email: string; whatsapp: string; dateStart: string
-  flexible: boolean; travelers: number; country: string; tourType: string
+  flexible: boolean; travelers: number; country: string
   experience: string; notes: string; errors: Record<string, string | undefined>; submitted: boolean
 }
 
@@ -41,7 +41,7 @@ function formReducer(s: FormState, action: FormAction): FormState {
 
 const initialForm: FormState = {
   name: '', email: '', whatsapp: '', dateStart: '', flexible: false,
-  travelers: 2, country: '', tourType: '', experience: '', notes: '',
+  travelers: 2, country: '', experience: '', notes: '',
   errors: {}, submitted: false,
 }
 
@@ -51,8 +51,6 @@ export function InquiryCard({ tourName, tourMeta, whatsappNumber = WHATSAPP_NUMB
   const [sendError, setSendError] = useState<string | null>(null)
   const mountedAt = useRef(Date.now())
   const hpRef = useRef<HTMLInputElement>(null)
-  const refPrivate = useRef<HTMLButtonElement>(null)
-  const refGroup = useRef<HTMLButtonElement>(null)
   const refExpNone = useRef<HTMLButtonElement>(null)
   const refExpSome = useRef<HTMLButtonElement>(null)
   const refExpExp = useRef<HTMLButtonElement>(null)
@@ -65,8 +63,6 @@ export function InquiryCard({ tourName, tourMeta, whatsappNumber = WHATSAPP_NUMB
       el.style.color = on ? '#FFFFFF' : '#6F6A60'
       el.style.boxShadow = on ? '0 1px 2px rgba(30,28,25,.18)' : 'none'
     }
-    seg(refPrivate, s.tourType === 'private')
-    seg(refGroup, s.tourType === 'group')
     seg(refExpNone, s.experience === 'none')
     seg(refExpSome, s.experience === 'some')
     seg(refExpExp, s.experience === 'experienced')
@@ -76,7 +72,7 @@ export function InquiryCard({ tourName, tourMeta, whatsappNumber = WHATSAPP_NUMB
       fp.style.background = s.flexible ? 'rgba(46,64,52,.07)' : '#FFFFFF'
       fp.style.color = s.flexible ? '#2E4034' : '#6F6A60'
     }
-  }, [s.tourType, s.experience, s.flexible])
+  }, [s.experience, s.flexible])
 
   useEffect(() => { applyDynamic() })
 
@@ -102,7 +98,6 @@ export function InquiryCard({ tourName, tourMeta, whatsappNumber = WHATSAPP_NUMB
     lines.push(`Dates: ${s.flexible ? 'Flexible / not sure yet' : s.dateStart}`)
     if (!hideTravelers) lines.push(`Travelers: ${s.travelers}`)
     if (s.country.trim()) lines.push(`Country: ${s.country.trim()}`)
-    if (s.tourType) lines.push(`Tour type: ${s.tourType === 'private' ? 'Private' : 'Group'}`)
     if (s.experience) lines.push(`Experience: ${s.experience === 'none' ? 'None' : s.experience === 'some' ? 'Some' : 'Experienced'}`)
     if (s.notes.trim()) lines.push('', `Message: ${s.notes.trim()}`)
     return lines.join('\n')
@@ -119,7 +114,6 @@ export function InquiryCard({ tourName, tourMeta, whatsappNumber = WHATSAPP_NUMB
       dates: s.flexible ? 'Flexible / not sure yet' : s.dateStart,
       travelers: s.travelers,
       country: s.country.trim() || undefined,
-      tourType: s.tourType ? (s.tourType === 'private' ? 'Private' : 'Group') : undefined,
       experience: s.experience || undefined,
       message: s.notes.trim() || undefined,
       elapsedMs: Date.now() - mountedAt.current,
@@ -305,17 +299,6 @@ export function InquiryCard({ tourName, tourMeta, whatsappNumber = WHATSAPP_NUMB
               <input id="aeg-country" type="text" placeholder="Where are you travelling from?" value={s.country}
                 onChange={e => dispatch({ type: 'set', k: 'country', v: e.target.value })}
                 className="aeg-input" style={inputBase} />
-            </div>
-
-            {/* Tour type */}
-            <div>
-              <label style={{ display: 'block', fontSize: 12.5, fontWeight: 600, color: '#6F6A60', marginBottom: 7 }}>
-                Private or group tour? <span style={{ color: '#A8A296', fontWeight: 500 }}>(optional)</span>
-              </label>
-              <div style={{ display: 'flex', gap: 4, padding: 4, background: '#FAF8F3', border: '1px solid rgba(30,28,25,.1)', borderRadius: 12 }}>
-                <button type="button" ref={refPrivate} className="aeg-seg" onClick={() => dispatch({ type: 'set', k: 'tourType', v: s.tourType === 'private' ? '' : 'private' })}>Private</button>
-                <button type="button" ref={refGroup} className="aeg-seg" onClick={() => dispatch({ type: 'set', k: 'tourType', v: s.tourType === 'group' ? '' : 'group' })}>Group</button>
-              </div>
             </div>
 
             {/* Experience */}

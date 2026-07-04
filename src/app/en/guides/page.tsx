@@ -72,7 +72,7 @@ const TRUST = [
   { icon: 'award',   title: 'Certified',       desc: 'Internationally accredited mountain and wilderness guides.' },
   { icon: 'mappin',  title: 'Local',            desc: 'Born-and-raised experts who know these valleys by name.' },
   { icon: 'shield',  title: 'Safety-trained',   desc: 'First-responder qualified and equipped for the backcountry.' },
-  { icon: 'users',   title: 'Small groups',     desc: 'Maximum eight people, so every trip stays personal.' },
+  { icon: 'users',   title: 'Private tours',    desc: 'Just you and your companions — never mixed groups.' },
 ]
 
 // ── Page ───────────────────────────────────────────────────────────────────────
