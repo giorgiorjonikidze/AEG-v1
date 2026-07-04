@@ -15,7 +15,6 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [mobileAcc, setMobileAcc] = useState<string | null>(null)
   const [activeLang, setActiveLang] = useState('EN')
-  const [activeCurrency, setActiveCurrency] = useState('USD')
   const [reduceMotion, setReduceMotion] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [mobileHidden, setMobileHidden] = useState(false)
@@ -96,10 +95,6 @@ export default function Navbar() {
   const LANGS = [
     { code: 'EN', label: 'English', native: 'English', soon: false },
     { code: 'DE', label: 'German', native: 'Deutsch', soon: true },
-  ]
-  const CURRENCIES = [
-    { code: 'USD', symbol: '$', label: 'US Dollar' },
-    { code: 'EUR', symbol: '€', label: 'Euro' },
   ]
 
   return (
@@ -223,20 +218,20 @@ export default function Navbar() {
               onKeyDown={onEsc}
               aria-haspopup="true"
               aria-expanded={langOpen}
-              aria-label="Language and currency"
+              aria-label="Language"
               style={{ display: 'inline-flex', alignItems: 'center', gap: 7, fontFamily: 'var(--font-dm-sans), sans-serif', fontSize: 13, color: text, background: 'transparent', border: `1px solid ${hairline}`, padding: '8px 11px', borderRadius: 5, cursor: 'pointer', transition: trans }}
             >
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/>
               </svg>
-              {activeLang} · {activeCurrency}
+              {activeLang}
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
                 style={{ transition: reduceMotion ? 'none' : 'transform .3s', transform: langOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
                 <path d="m6 9 6 6 6-6"/>
               </svg>
             </button>
             {langOpen && (
-              <div role="dialog" aria-label="Language and currency" style={{ position: 'absolute', top: 'calc(100% + 14px)', right: 0, width: 280, background: '#FAF8F3', border: '1px solid rgba(30,28,25,.07)', borderRadius: 5, boxShadow: '0 28px 56px -28px rgba(30,28,25,.5), 0 2px 8px -4px rgba(30,28,25,.12)', zIndex: 100, overflow: 'hidden' }}>
+              <div role="dialog" aria-label="Language" style={{ position: 'absolute', top: 'calc(100% + 14px)', right: 0, width: 280, background: '#FAF8F3', border: '1px solid rgba(30,28,25,.07)', borderRadius: 5, boxShadow: '0 28px 56px -28px rgba(30,28,25,.5), 0 2px 8px -4px rgba(30,28,25,.12)', zIndex: 100, overflow: 'hidden' }}>
                 {/* Language */}
                 <div style={{ padding: '14px 16px 8px' }}>
                   <div style={{ fontSize: 10.5, letterSpacing: '2.5px', textTransform: 'uppercase', color: '#A8A296', marginBottom: 8 }}>Language</div>
@@ -254,28 +249,6 @@ export default function Navbar() {
                           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2E4034" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
                         )}
                       </span>
-                    </button>
-                  ))}
-                </div>
-                {/* Divider */}
-                <div style={{ height: 1, background: 'rgba(30,28,25,.07)', margin: '4px 0' }} />
-                {/* Currency */}
-                <div style={{ padding: '8px 16px 14px' }}>
-                  <div style={{ fontSize: 10.5, letterSpacing: '2.5px', textTransform: 'uppercase', color: '#A8A296', marginBottom: 8 }}>Currency</div>
-                  {CURRENCIES.map(c => (
-                    <button key={c.code}
-                      onClick={() => { setActiveCurrency(c.code); setOpenKey(null) }}
-                      style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, padding: '10px 10px', borderRadius: 5, border: 'none', background: activeCurrency === c.code ? 'rgba(46,64,52,.08)' : 'transparent', cursor: 'pointer', marginBottom: 2, fontFamily: 'var(--font-dm-sans), sans-serif' }}>
-                      <span style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                        <span style={{ width: 28, height: 28, borderRadius: '50%', background: 'rgba(30,28,25,.07)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, color: '#4A463E', fontWeight: 500, flex: 'none' }}>{c.symbol}</span>
-                        <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 1 }}>
-                          <span style={{ fontSize: 14, color: '#1E1C19', fontWeight: activeCurrency === c.code ? 600 : 400 }}>{c.code}</span>
-                          <span style={{ fontSize: 11.5, color: '#A8A296' }}>{c.label}</span>
-                        </span>
-                      </span>
-                      {activeCurrency === c.code && (
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2E4034" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-                      )}
                     </button>
                   ))}
                 </div>
@@ -335,7 +308,7 @@ export default function Navbar() {
             >
               <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/></svg>
-                {activeLang === 'EN' ? 'English' : 'Deutsch'} · {activeCurrency}
+                {activeLang === 'EN' ? 'English' : 'Deutsch'}
               </span>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
                 style={{ transition: reduceMotion ? 'none' : 'transform .3s', transform: mobileAcc === 'lang' ? 'rotate(180deg)' : 'rotate(0deg)', color: '#A8A296' }}>
@@ -357,20 +330,6 @@ export default function Navbar() {
                       </span>
                     </button>
                   ))}
-                </div>
-                <div style={{ height: 1, background: 'rgba(30,28,25,.07)' }} />
-                <div style={{ padding: '8px 14px 12px' }}>
-                  <div style={{ fontSize: 10, letterSpacing: '2px', textTransform: 'uppercase', color: '#A8A296', marginBottom: 8, fontFamily: 'var(--font-dm-sans), sans-serif' }}>Currency</div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }}>
-                    {CURRENCIES.map(c => (
-                      <button key={c.code}
-                        onClick={() => setActiveCurrency(c.code)}
-                        style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3, padding: '10px 6px', border: `1px solid ${activeCurrency === c.code ? '#2E4034' : 'rgba(30,28,25,.12)'}`, borderRadius: 6, background: activeCurrency === c.code ? 'rgba(46,64,52,.07)' : 'transparent', cursor: 'pointer', fontFamily: 'var(--font-dm-sans), sans-serif' }}>
-                        <span style={{ fontSize: 17, color: '#1E1C19', fontWeight: 500 }}>{c.symbol}</span>
-                        <span style={{ fontSize: 12, color: activeCurrency === c.code ? '#2E4034' : '#6B655C', fontWeight: activeCurrency === c.code ? 600 : 400 }}>{c.code}</span>
-                      </button>
-                    ))}
-                  </div>
                 </div>
               </div>
             )}
@@ -433,11 +392,16 @@ export default function Navbar() {
                 </svg>
                 +995 595 36 00 83
               </a>
+              <a href="mailto:info@adventureexpertsgeorgia.com" style={{ display: 'flex', alignItems: 'center', gap: 11, textDecoration: 'none', color: '#213A29', fontSize: 15, wordBreak: 'break-all' }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                  <rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>
+                </svg>
+                info@adventureexpertsgeorgia.com
+              </a>
               <div style={{ display: 'flex', gap: 12 }}>
                 {[
                   { label: 'Instagram', icon: <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg> },
                   { label: 'Facebook', icon: <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M15 3h-2.5A4.5 4.5 0 0 0 8 7.5V10H5.5v4H8v7"/><path d="M8 14h4"/><path d="M12 21v-7"/></svg> },
-                  { label: 'Email', icon: <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg> },
                 ].map(s => (
                   <a key={s.label} href="#" aria-label={s.label}
                     style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 42, height: 42, color: '#1E1C19', border: '1px solid rgba(30,28,25,.14)', borderRadius: 5 }}>

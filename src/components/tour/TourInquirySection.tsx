@@ -171,7 +171,7 @@ export function InquiryCard({ tourName, tourMeta, whatsappNumber = WHATSAPP_NUMB
           </div>
           <h2 style={{ fontFamily: "'Spectral',Georgia,serif", fontWeight: 600, fontSize: 26, lineHeight: 1.15, margin: '0 0 10px' }}>Enquiry sent — thank you!</h2>
           <p style={{ margin: '0 0 6px', fontSize: 14.5, lineHeight: 1.55, color: '#6F6A60', maxWidth: '40ch' }}>
-            We&apos;ve received your enquiry about <strong style={{ color: '#1E1C19', fontWeight: 600 }}>{tourName}</strong> and will reply within 24 hours{s.email.trim() ? <> to <strong style={{ color: '#1E1C19', fontWeight: 600 }}>{s.email.trim()}</strong></> : ''}.
+            We&apos;ve received your enquiry about <strong style={{ color: '#1E1C19', fontWeight: 600 }}>{tourName}</strong> and will reply within 3 hours{s.email.trim() ? <> to <strong style={{ color: '#1E1C19', fontWeight: 600 }}>{s.email.trim()}</strong></> : ''}.
           </p>
           <p style={{ margin: '0 0 6px', fontSize: 13, lineHeight: 1.5, color: '#A8A296', maxWidth: '40ch' }}>
             Prefer to chat now? Message us on WhatsApp below.
@@ -199,7 +199,7 @@ export function InquiryCard({ tourName, tourMeta, whatsappNumber = WHATSAPP_NUMB
                 <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#C75A37', display: 'inline-block' }} />Enquire
               </div>
               <h2 style={{ fontFamily: "'Spectral',Georgia,serif", fontWeight: 600, fontSize: 29, lineHeight: 1.12, letterSpacing: '-.2px', margin: '0 0 10px' }}>Enquire About This Trip</h2>
-              <p style={{ margin: '0 0 18px', fontSize: 14.5, lineHeight: 1.5, color: '#6F6A60', maxWidth: '42ch' }}>No payment, no obligation — tell us what you&apos;re thinking and we&apos;ll reply within 24 hours.</p>
+              <p style={{ margin: '0 0 18px', fontSize: 14.5, lineHeight: 1.5, color: '#6F6A60', maxWidth: '42ch' }}>No payment, no obligation — tell us what you&apos;re thinking and we&apos;ll reply within 3 hours.</p>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, background: '#FAF8F3', border: '1px solid rgba(30,28,25,.09)', borderRadius: 12, padding: '11px 14px' }}>
                 <span style={{ display: 'inline-flex', flex: 'none', width: 30, height: 30, borderRadius: 8, background: '#2E4034', alignItems: 'center', justifyContent: 'center' }}>
                   <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="#FAF8F3" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg>
@@ -348,7 +348,7 @@ export function InquiryCard({ tourName, tourMeta, whatsappNumber = WHATSAPP_NUMB
             <div style={{ display: 'flex', alignItems: 'flex-start', gap: 0, background: '#FAF8F3', border: '1px solid rgba(30,28,25,.09)', borderRadius: 13, padding: '15px 16px' }}>
               {[
                 { n: '1', color: '#C75A37', text: 'Send your inquiry' },
-                { n: '2', color: '#2E4034', text: "We reply within 24h & plan it on a quick call" },
+                { n: '2', color: '#2E4034', text: "We reply within 3h & plan it on a quick call" },
                 { n: '3', color: '#A8A296', text: 'Secure your spot with a payment link' },
               ].map((step, i) => (
                 <div key={step.n} style={{ display: 'contents' }}>
@@ -400,7 +400,7 @@ export function InquiryCard({ tourName, tourMeta, whatsappNumber = WHATSAPP_NUMB
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '7px 18px', paddingTop: 16, borderTop: '1px solid rgba(30,28,25,.07)' }}>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12.5, color: '#4F4A42', fontWeight: 500 }}>
                 <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="#2E4034" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-                We reply within 24 hours
+                We reply within 3 hours
               </span>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12.5, color: '#4F4A42', fontWeight: 500 }}>
                 <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="#2E4034" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>

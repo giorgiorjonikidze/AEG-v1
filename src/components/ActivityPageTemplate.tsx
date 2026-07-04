@@ -12,9 +12,6 @@ const css = `
   .act-hero-img{object-fit:cover;object-position:center 40%;}
   .act-hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,22,12,.22) 0%,rgba(14,22,12,0) 28%,rgba(14,22,12,.62) 100%);pointer-events:none;}
   .act-hero-content{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(28px,5vw,72px);}
-  .act-breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:20px;flex-wrap:wrap;}
-  .act-breadcrumb a{color:rgba(255,255,255,.55);text-decoration:none;}
-  .act-breadcrumb a:hover{color:#fff;}
   .act-chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;}
   .act-chip{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:100px;padding:8px 16px;font-size:13px;color:rgba(255,255,255,.92);backdrop-filter:blur(4px);}
 
@@ -40,14 +37,6 @@ const css = `
   .act-fact-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#A8A296;margin-bottom:6px;}
   .act-fact-value{font-size:14.5px;color:#1E1C19;line-height:1.5;font-weight:500;}
 
-  .act-regions-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;}
-  .act-region-card{position:relative;border-radius:8px;overflow:hidden;height:220px;text-decoration:none;display:block;}
-  .act-region-card:hover .act-region-img{transform:scale(1.04);}
-  .act-region-img{transition:transform .5s ease;object-fit:cover;}
-  .act-region-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,22,12,0) 30%,rgba(14,22,12,.72) 100%);}
-  .act-region-info{position:absolute;bottom:0;left:0;right:0;padding:20px 18px;}
-  .act-region-name{font-family:var(--font-spectral),serif;font-size:18px;font-weight:500;color:#fff;display:block;margin-bottom:4px;}
-  .act-region-desc{font-size:12.5px;color:rgba(255,255,255,.75);line-height:1.5;}
 
   .act-tours-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;}
   .act-tour-card{border-radius:16px;overflow:hidden;border:1px solid #ECE8DE;background:#fff;text-decoration:none;color:#1E1C19;display:flex;flex-direction:column;height:100%;box-shadow:0 1px 3px rgba(30,28,25,.05);transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s ease,border-color .35s ease;}
@@ -106,18 +95,12 @@ const css = `
   .act-faq-q{font-size:16px;font-weight:500;color:#1E1C19;margin-bottom:10px;}
   .act-faq-a{font-size:14.5px;color:#6b6459;line-height:1.7;}
 
-  .act-nudge{background:#1E1C19;border-radius:10px;padding:48px 40px;display:flex;align-items:center;justify-content:space-between;gap:32px;margin:56px 0;}
-  .act-nudge-text h3{font-family:var(--font-spectral),serif;font-size:26px;font-weight:500;color:#fff;margin:0 0 10px;}
-  .act-nudge-text p{font-size:15px;color:rgba(255,255,255,.65);margin:0;line-height:1.6;max-width:480px;}
-  .act-nudge-btn{display:inline-flex;align-items:center;gap:10px;background:#C75A37;color:#fff;text-decoration:none;padding:15px 28px;border-radius:6px;font-size:15px;font-weight:500;white-space:nowrap;flex:none;}
 
   @media(max-width:900px){
     .act-intro-grid{grid-template-columns:1fr;gap:36px;padding:48px 0 40px;}
 .act-diff-grid,.act-season-grid{grid-template-columns:1fr;}
-    .act-nudge{flex-direction:column;align-items:flex-start;padding:32px 24px;}
   }
   @media(max-width:640px){
-    .act-regions-grid{grid-template-columns:1fr 1fr;}
     .act-tours-grid{grid-template-columns:1fr;}
   }
 `
@@ -152,13 +135,6 @@ export default function ActivityPageTemplate({ activity, tours }: Props) {
           <Image src={activity.heroImage} alt={activity.name} fill priority className="act-hero-img" sizes="100vw" />
           <div className="act-hero-overlay" />
           <div className="act-hero-content">
-            <nav className="act-breadcrumb" aria-label="Breadcrumb">
-              <Link href="/en">Home</Link>
-              <span style={{ opacity: .5 }}>/</span>
-              <Link href="/en/tours">Tours</Link>
-              <span style={{ opacity: .5 }}>/</span>
-              <span style={{ color: 'rgba(255,255,255,.9)' }}>{activity.name}</span>
-            </nav>
             <div style={{ maxWidth: 680 }}>
               <p style={{ fontSize: 11, letterSpacing: '3px', textTransform: 'uppercase', color: 'rgba(255,255,255,.7)', margin: '0 0 14px' }}>Adventure Experts Georgia</p>
               <h1 style={{ fontFamily: 'var(--font-spectral), serif', fontWeight: 500, fontSize: 'clamp(36px,5.5vw,68px)', color: '#fff', margin: 0, lineHeight: 1.06, letterSpacing: '-1px', textShadow: '0 2px 32px rgba(0,0,0,.4)' }}>
@@ -206,44 +182,6 @@ export default function ActivityPageTemplate({ activity, tours }: Props) {
               </Link>
             </div>
           </div>
-
-          {/* ── Quick Facts ── */}
-          <section id="act-facts" className="act-section">
-            <p className="act-eyebrow">What to expect</p>
-            <h2 className="act-h2">Quick facts</h2>
-            <p className="act-sub">Everything you need to know at a glance before choosing a tour.</p>
-            <div className="act-facts-grid">
-              {activity.quickFacts.map(f => {
-                const Icon = ICONS[f.icon] ?? ICONS.check
-                return (
-                  <div key={f.label} className="act-fact-card">
-                    <div className="act-fact-icon"><Icon /></div>
-                    <div className="act-fact-label">{f.label}</div>
-                    <div className="act-fact-value">{f.value}</div>
-                  </div>
-                )
-              })}
-            </div>
-          </section>
-
-          {/* ── Best regions ── */}
-          <section id="act-regions" className="act-section">
-            <p className="act-eyebrow">Best regions</p>
-            <h2 className="act-h2">Where to go</h2>
-            <p className="act-sub">Each region offers a different character — click to explore.</p>
-            <div className="act-regions-grid">
-              {activity.regions.map(r => (
-                <Link key={r.slug} href={`/en/regions/${r.slug}`} className="act-region-card">
-                  <Image src={r.image} alt={r.name} fill className="act-region-img" sizes="(max-width:640px) 50vw, (max-width:900px) 50vw, 25vw" />
-                  <div className="act-region-overlay" />
-                  <div className="act-region-info">
-                    <span className="act-region-name">{r.name}</span>
-                    <span className="act-region-desc">{r.description}</span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
 
           {/* ── Tours ── */}
           <section id="act-tours" className="act-section">
@@ -305,6 +243,25 @@ export default function ActivityPageTemplate({ activity, tours }: Props) {
                 </Link>
               </div>
             )}
+          </section>
+
+          {/* ── Quick Facts ── */}
+          <section id="act-facts" className="act-section">
+            <p className="act-eyebrow">What to expect</p>
+            <h2 className="act-h2">Quick facts</h2>
+            <p className="act-sub">Everything you need to know at a glance before choosing a tour.</p>
+            <div className="act-facts-grid">
+              {activity.quickFacts.map(f => {
+                const Icon = ICONS[f.icon] ?? ICONS.check
+                return (
+                  <div key={f.label} className="act-fact-card">
+                    <div className="act-fact-icon"><Icon /></div>
+                    <div className="act-fact-label">{f.label}</div>
+                    <div className="act-fact-value">{f.value}</div>
+                  </div>
+                )
+              })}
+            </div>
           </section>
 
           {/* ── Gallery ── */}
@@ -383,17 +340,6 @@ export default function ActivityPageTemplate({ activity, tours }: Props) {
               ))}
             </div>
           </section>
-
-          {/* ── Custom nudge ── */}
-          <div className="act-nudge">
-            <div className="act-nudge-text">
-              <h3>Want to do it your way?</h3>
-              <p>Every activity can be shaped around your group, your dates, and your level. Tell us what you have in mind.</p>
-            </div>
-            <Link href="/en/services" className="act-nudge-btn">
-              Plan a Custom Trip <IconArrow />
-            </Link>
-          </div>
 
         </div>
       </main>

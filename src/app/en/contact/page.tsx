@@ -36,7 +36,7 @@ function WaIco({ size = 22 }: { size?: number }) {
 // ── Data ──────────────────────────────────────────────────────────────────────
 const NEXT_STEPS = [
   { n: '1', icon: 'send', title: 'Send your message', desc: 'Share your dates, group, and what you have in mind. Takes two minutes.' },
-  { n: '2', icon: 'call', title: 'We reply and plan together', desc: 'A real person gets back within 24 hours, then we fine-tune it on a quick call.' },
+  { n: '2', icon: 'call', title: 'We reply and plan together', desc: 'A real person gets back within 3 hours, then we fine-tune it on a quick call.' },
   { n: '3', icon: 'secure', title: 'Secure your spot', desc: "Happy with the plan? Confirm and pay later through a secure link." },
 ]
 const FAQS = [
@@ -229,7 +229,7 @@ export default function ContactPage() {
             <div style={{ fontSize: 12, letterSpacing: '.22em', textTransform: 'uppercase', color: '#E59A6E', fontWeight: 600, marginBottom: 16 }}>Contact</div>
             <h1 style={{ fontFamily: "'Spectral',serif", fontWeight: 500, fontSize: 'clamp(38px,6vw,62px)', lineHeight: 1.02, letterSpacing: '-.5px', margin: '0 0 18px' }}>Let&rsquo;s Plan Your Adventure</h1>
             <p style={{ maxWidth: '60ch', fontSize: 'clamp(16px,2vw,19px)', lineHeight: 1.62, color: 'rgba(250,248,243,.82)', margin: 0 }}>
-              Tell us what you have in mind and we&rsquo;ll get back to you within 24 hours. No payment, no obligation — just a conversation about your trip.
+              Tell us what you have in mind and we&rsquo;ll get back to you within 3 hours. No payment, no obligation — just a conversation about your trip.
             </p>
           </div>
         </section>
@@ -273,7 +273,7 @@ export default function ContactPage() {
                 ))}
                 {[
                   { icon: 'pin', label: 'Based in', value: 'Tbilisi, Georgia' },
-                  { icon: 'clock', label: 'Response time', value: 'We usually reply within 24 hours.' },
+                  { icon: 'clock', label: 'Response time', value: 'We usually reply within 3 hours.' },
                 ].map(row => (
                   <div key={row.label} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 20px', borderBottom: '1px solid #F1ECE1' }}>
                     <span style={{ display: 'inline-flex', color: '#2E4034', flexShrink: 0 }}><Ico n={row.icon} size={21} color="#2E4034" /></span>
@@ -471,7 +471,7 @@ export default function ContactPage() {
 
                   {/* Reassurance */}
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '7px 18px', marginTop: 20 }}>
-                    {['We reply within 24 hours', 'No payment now', "We'll only use your details to plan your trip"].map(t => (
+                    {['We reply within 3 hours', 'No payment now', "We'll only use your details to plan your trip"].map(t => (
                       <span key={t} style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12.5, color: '#6E685D' }}>
                         <Ico n="check" size={15} color="#2E4034" /> {t}
                       </span>
@@ -484,20 +484,15 @@ export default function ContactPage() {
                   <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 78, height: 78, borderRadius: '50%', background: 'rgba(46,64,52,.10)', color: '#2E4034', margin: '0 auto 22px', animation: 'aegPop .55s cubic-bezier(.22,.61,.36,1) both' }}>
                     <Ico n="check" size={36} color="#2E4034" />
                   </span>
-                  <h2 style={{ fontFamily: "'Spectral',serif", fontWeight: 500, fontSize: 'clamp(26px,3.4vw,36px)', lineHeight: 1.08, letterSpacing: '-.3px', margin: '0 0 14px' }}>One tap to go!</h2>
-                  <p style={{ fontSize: 16, lineHeight: 1.62, color: '#4A463E', margin: '0 auto 14px', maxWidth: '46ch' }}>
-                    WhatsApp should have opened with your message ready — just press <strong>Send</strong> there and we&rsquo;ll be in touch within 24 hours.
+                  <h2 style={{ fontFamily: "'Spectral',serif", fontWeight: 500, fontSize: 'clamp(26px,3.4vw,36px)', lineHeight: 1.08, letterSpacing: '-.3px', margin: '0 0 14px' }}>Message sent!</h2>
+                  <p style={{ fontSize: 16, lineHeight: 1.62, color: '#4A463E', margin: '0 auto 26px', maxWidth: '42ch' }}>
+                    Thanks for reaching out — we&rsquo;ve received your message and will reply within 3 hours.
                   </p>
-                  <p style={{ fontSize: 13.5, lineHeight: 1.55, color: '#8C8576', margin: '0 auto 28px', maxWidth: '46ch' }}>
-                    Didn&rsquo;t open?{' '}
-                    <a href={waLink(composeMessage(form))} target="_blank" rel="noopener noreferrer" style={{ color: '#C75A37', fontWeight: 600, textDecoration: 'none' }}>Tap here to send it</a>
-                    {' '}or{' '}
-                    <a href={mailtoLink('Enquiry — Adventure Experts Georgia', composeMessage(form))} style={{ color: '#C75A37', fontWeight: 600, textDecoration: 'none' }}>email us instead</a>.
-                  </p>
-                  <button type="button" className="cx-reset" onClick={() => dispatch({ type: 'reset' })}
-                    style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'transparent', border: '1.5px solid #E2DCCE', cursor: 'pointer', fontFamily: 'inherit', fontWeight: 600, fontSize: 15, color: '#1E1C19', padding: '14px 22px', borderRadius: 12, transition: 'all .22s ease' }}>
-                    Send another message
-                  </button>
+                  <a href={waLink()} target="_blank" rel="noopener noreferrer"
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: 9, background: 'transparent', border: '1.5px solid #E2DCCE', textDecoration: 'none', fontFamily: 'inherit', fontWeight: 600, fontSize: 15, color: '#1E1C19', padding: '13px 22px', borderRadius: 12 }}>
+                    <span style={{ color: '#25D366', display: 'inline-flex' }}><WaIco size={18} /></span>
+                    Message us on WhatsApp
+                  </a>
                 </div>
               )}
             </div>

@@ -44,7 +44,7 @@ const PATHS: Record<string, string> = {
 }
 
 // ── Region metadata ───────────────────────────────────────────────────────────
-const REGIONS: Record<string, { name: string; sub: string; label: string; tags: string[] }> = {
+const REGIONS: Record<string, { name: string; sub: string; label: string; tags: string[]; occupied?: string }> = {
   'samegrelo':          { name: 'Svaneti',            sub: 'Zemo Svaneti',                    label: 'SVANETI',            tags: ['Trekking & Hiking', 'Summit Experience', 'Climbing'] },
   'samegrelo-low':      { name: 'Samegrelo',          sub: '',                                label: 'SAMEGRELO',          tags: [] },
   'mtskheta-mtianeti':  { name: 'Kazbegi',            sub: 'Mtskheta-Mtianeti',              label: 'KAZBEGI',            tags: ['Trekking & Hiking', 'Summit Experience', 'Overlanding'] },
@@ -57,6 +57,8 @@ const REGIONS: Record<string, { name: string; sub: string; label: string; tags: 
   'shida-kartli':       { name: 'Shida Kartli',       sub: '',                                label: 'SHIDA KARTLI',       tags: [] },
   'kvemo-kartli':       { name: 'Kvemo Kartli',       sub: '',                                label: 'KVEMO KARTLI',       tags: [] },
   'tbilisi':            { name: 'Tbilisi',            sub: 'Capital region',                  label: '',                   tags: [] },
+  'abkhazia':           { name: 'Abkhazia',           sub: 'Russian-occupied territory',      label: 'ABKHAZIA',           tags: [], occupied: 'Occupied by Russia since 1993. This region lies outside our tour coverage.' },
+  'south-ossetia':      { name: 'South Ossetia',      sub: 'Samachablo — occupied territory', label: 'SAMACHABLO',         tags: [], occupied: 'Occupied by Russia since the 2008 war. This region lies outside our tour coverage.' },
 }
 
 const LABEL_POS: Record<string, [number, number]> = {
@@ -83,6 +85,7 @@ type Pos = { cx: number; top: number; bottom: number }
 export default function RegionMap() {
   const [active, setActive] = useState<string | null>(null)
   const [mode, setMode] = useState<'popup' | 'panel'>('popup')
+  const [isMobile, setIsMobile] = useState(false)
   const [pos, setPos] = useState<Pos | null>(null)
   const sectionRef = useRef<HTMLDivElement>(null)
   const svgRef = useRef<SVGSVGElement>(null)
@@ -90,11 +93,13 @@ export default function RegionMap() {
   const router = useRouter()
 
   useEffect(() => {
-    const mq = window.matchMedia('(hover: hover) and (pointer: fine)')
-    const update = () => setMode(mq.matches ? 'popup' : 'panel')
+    const mqHover = window.matchMedia('(hover: hover) and (pointer: fine)')
+    const mqWidth = window.matchMedia('(max-width: 767px)')
+    const update = () => { setMode(mqHover.matches ? 'popup' : 'panel'); setIsMobile(mqWidth.matches) }
     update()
-    mq.addEventListener('change', update)
-    return () => mq.removeEventListener('change', update)
+    mqHover.addEventListener('change', update)
+    mqWidth.addEventListener('change', update)
+    return () => { mqHover.removeEventListener('change', update); mqWidth.removeEventListener('change', update) }
   }, [])
 
   const schedulePos = useCallback((id: string) => {
@@ -140,6 +145,21 @@ export default function RegionMap() {
     onKeyDown: (e: React.KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); router.push(`/en/regions/${id}`) } },
   })
 
+  // Occupied areas: clickable to show the info popup, but NOT linked to a region page.
+  const occupiedProps = (id: string) => ({
+    'data-region': id,
+    className: `aegm-region aegm-occupied${active === id ? ' aegm-active' : ''}`,
+    tabIndex: 0 as const,
+    role: 'button' as const,
+    'aria-label': `${REGIONS[id]?.name ?? id}. ${REGIONS[id]?.occupied ?? ''}`,
+    onMouseEnter: () => onRegionEnter(id),
+    onMouseLeave: onRegionLeave,
+    onFocus: () => onRegionFocus(id),
+    onBlur: onRegionBlur,
+    onClick: () => onRegionClick(id),
+    onKeyDown: (e: React.KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onRegionClick(id) } },
+  })
+
   const r = active ? REGIONS[active] : null
   const tags = r?.tags ?? []
 
@@ -168,8 +188,19 @@ export default function RegionMap() {
           </p>
         </div>
 
-        <div style={{ borderRadius: 22, overflow: 'hidden', border: '1px solid #E4DDD0', background: '#D8D4CC' }}>
-          <svg ref={svgRef} viewBox="-160 -120 1674 930" preserveAspectRatio="xMidYMid meet"
+        <div style={{
+          borderRadius: isMobile ? 0 : 22,
+          overflow: 'hidden',
+          border: isMobile ? 'none' : '1px solid #E4DDD0',
+          borderTop: isMobile ? '1px solid #E4DDD0' : undefined,
+          borderBottom: isMobile ? '1px solid #E4DDD0' : undefined,
+          background: '#D8D4CC',
+          // On mobile, break out of the section's side padding so the map spans
+          // the full screen width (and reads a little bigger).
+          marginLeft: isMobile ? 'calc(-1 * clamp(16px,4vw,32px))' : undefined,
+          marginRight: isMobile ? 'calc(-1 * clamp(16px,4vw,32px))' : undefined,
+        }}>
+          <svg ref={svgRef} viewBox={isMobile ? '90 -80 1240 780' : '-160 -120 1674 930'} preserveAspectRatio="xMidYMid meet"
             style={{ display: 'block', width: '100%', height: 'auto' }}
             role="group" aria-label="Interactive map of the regions of Georgia"
             onClick={(e) => { if (mode === 'panel') { const t = e.target as SVGElement; if (!t.classList.contains('aegm-region')) clear() } }}>
@@ -198,15 +229,15 @@ export default function RegionMap() {
               <path d={NB.sea}     fill="#D4E2E4" />
             </g>
 
-            {/* Neighbor text labels */}
-            <text className="aegm-nb" x="470" y="-58" textAnchor="middle" style={{ fontSize: 25 }}>Russia</text>
-            <text className="aegm-nb" x="1320" y="700" textAnchor="middle" style={{ fontSize: 22 }}>Azerbaijan</text>
-            <text className="aegm-nb" x="880" y="700" textAnchor="middle" style={{ fontSize: 22 }}>Armenia</text>
-            <text className="aegm-nb" x="365" y="724" textAnchor="middle" style={{ fontSize: 22 }}>Turkey</text>
-            <text className="aegm-sea" x="90" y="350" textAnchor="middle" style={{ fontSize: 22 }}>Black Sea</text>
+            {/* Neighbor text labels — repositioned on mobile to sit inside the tighter viewBox */}
+            <text className="aegm-nb" x={isMobile ? 650 : 470} y={isMobile ? 20 : -58} textAnchor="middle" style={{ fontSize: 25 }}>Russia</text>
+            <text className="aegm-nb" x={isMobile ? 1240 : 1320} y={isMobile ? 672 : 700} textAnchor="middle" style={{ fontSize: 22 }}>Azerbaijan</text>
+            <text className="aegm-nb" x="880" y={isMobile ? 672 : 700} textAnchor="middle" style={{ fontSize: 22 }}>Armenia</text>
+            <text className="aegm-nb" x="365" y={isMobile ? 672 : 724} textAnchor="middle" style={{ fontSize: 22 }}>Turkey</text>
+            <text className="aegm-sea" x={isMobile ? 240 : 90} y={isMobile ? 360 : 350} textAnchor="middle" style={{ fontSize: isMobile ? 20 : 22 }}>Black Sea</text>
 
-            {/* Abkhazia (disputed, non-interactive) */}
-            <path d={PATHS['abkhazia']} className="aegm-region aegm-disputed" aria-hidden="true" style={{ pointerEvents: 'none' }} />
+            {/* Abkhazia (Russian-occupied — clickable for info, no region page) */}
+            <path d={PATHS['abkhazia']} {...occupiedProps('abkhazia')} />
 
             {/* Interactive regions */}
             {Object.entries(PATHS)
@@ -219,8 +250,8 @@ export default function RegionMap() {
             {/* Samegrelo-Low (south part of samegrelo path, interactive) */}
             <path d={PATHS['samegrelo']} clipPath="url(#aegCsS)" {...regionProps('samegrelo-low')} />
 
-            {/* Shida Kartli occupied north (Samachablo / S. Ossetia) */}
-            <path d={PATHS['shida-kartli']} clipPath="url(#aegChN)" className="aegm-region aegm-disputed" aria-hidden="true" style={{ pointerEvents: 'none' }} />
+            {/* Shida Kartli occupied north (Samachablo / S. Ossetia) — clickable for info */}
+            <path d={PATHS['shida-kartli']} clipPath="url(#aegChN)" {...occupiedProps('south-ossetia')} />
 
             {/* Svaneti / Samegrelo dividing line */}
             <polyline points={SVANETI_DIVIDE.map(([x, y]) => `${x},${y}`).join(' ')} clipPath="url(#aegCsShape)"
@@ -273,7 +304,12 @@ export default function RegionMap() {
                   <div style={{ fontWeight: 700, fontSize: 22, letterSpacing: '-.01em', lineHeight: 1.1, color: '#29271F' }}>{r?.name}</div>
                   {r?.sub && <div style={{ fontSize: 13, fontWeight: 500, color: '#8A8270', marginTop: 3 }}>{r.sub}</div>}
                 </div>
-                {tags.length > 0 ? (
+                {r?.occupied ? (
+                  <div style={{ display: 'flex', gap: 9, alignItems: 'flex-start', fontSize: 13.5, fontWeight: 500, lineHeight: 1.5, color: '#B23A2E' }}>
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B23A2E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 1 }}><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+                    <span>{r.occupied}</span>
+                  </div>
+                ) : tags.length > 0 ? (
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7 }}>
                     {tags.map(tag => (
                       <span key={tag} style={{ fontSize: 12, fontWeight: 600, color: '#3F5E45', background: '#E9EEE7', padding: '6px 11px', borderRadius: 999, whiteSpace: 'nowrap' }}>{tag}</span>
@@ -282,10 +318,12 @@ export default function RegionMap() {
                 ) : (
                   <div style={{ fontStyle: 'italic', fontSize: 13, fontWeight: 500, color: '#A7A091' }}>Tours coming soon</div>
                 )}
-                <button onClick={() => active && router.push(`/en/regions/${active}`)}
-                  style={{ marginTop: 2, alignSelf: 'flex-start', display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 14, fontWeight: 600, fontFamily: 'var(--font-hanken), sans-serif', color: '#fff', background: '#BC5A36', border: 'none', padding: '11px 18px', borderRadius: 12, cursor: 'pointer' }}>
-                  Explore {r?.name} <span style={{ fontSize: 17, lineHeight: 1 }}>→</span>
-                </button>
+                {!r?.occupied && (
+                  <button onClick={() => active && router.push(`/en/regions/${active}`)}
+                    style={{ marginTop: 2, alignSelf: 'flex-start', display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 14, fontWeight: 600, fontFamily: 'var(--font-hanken), sans-serif', color: '#fff', background: '#BC5A36', border: 'none', padding: '11px 18px', borderRadius: 12, cursor: 'pointer' }}>
+                    Explore {r?.name} <span style={{ fontSize: 17, lineHeight: 1 }}>→</span>
+                  </button>
+                )}
               </div>
             ) : (
               <div style={{ display: 'flex', alignItems: 'center', gap: 11, color: '#8A8270', fontSize: 15, fontWeight: 500 }}>
@@ -298,17 +336,16 @@ export default function RegionMap() {
           </div>
         )}
 
-        <div style={{ marginTop: 14, fontSize: 12, fontWeight: 500, color: '#A7A091', display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ width: 12, height: 12, borderRadius: 3, background: '#C9C6BF', display: 'inline-block', flexShrink: 0 }} />
-          Abkhazia and South Ossetia are shown in grey and lie outside current tour coverage.
-        </div>
       </div>
 
       <style>{`
         .aegm-region { fill:#CBC2B2; stroke:#F4F1EB; stroke-width:2; stroke-linejoin:round; outline:none; cursor:pointer; }
         .aegm-active { fill:#BC5A36; }
         .aegm-disputed { fill:#C9C6BF; stroke:#EDEAE3; cursor:default; }
-        @media(hover:hover){ .aegm-region:not(.aegm-disputed):hover{ fill:#BC5A36; } }
+        .aegm-occupied { fill:#C9C6BF; stroke:#EDEAE3; cursor:pointer; }
+        .aegm-occupied.aegm-active { fill:#B98C7E; }
+        @media(hover:hover){ .aegm-region:not(.aegm-disputed):not(.aegm-occupied):hover{ fill:#BC5A36; } }
+        @media(hover:hover){ .aegm-occupied:hover{ fill:#BEB4AB; } }
         .aegm-region:focus-visible{ outline:none; stroke:#BC5A36; stroke-width:3.5; }
         @media(prefers-reduced-motion:no-preference){ .aegm-region{ transition:fill .18s ease; } }
         .aegm-nb  { font-family:var(--font-hanken),sans-serif; font-weight:600; letter-spacing:.2em; fill:#B3ADA2; pointer-events:none; text-transform:uppercase; }

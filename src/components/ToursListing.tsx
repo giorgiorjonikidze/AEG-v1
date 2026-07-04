@@ -10,6 +10,7 @@ type Tour = {
   id: string; name: string; region: string; activity: string; days: number
   difficulty: 'Easy' | 'Moderate' | 'Challenging'; price: number; hook: string
   isNew: boolean; beginner: boolean; family: boolean; winter: boolean; order: number
+  note?: string
 }
 
 const TOURS_DATA: Tour[] = [
@@ -17,7 +18,7 @@ const TOURS_DATA: Tour[] = [
   { id: 'vashlovani-overland-expedition', name: 'Vashlovani Semi-Desert Overland Expedition', region: 'Kakheti', activity: 'overlanding', days: 7, difficulty: 'Moderate', price: 600, hook: 'Canyons, mud volcanoes and big skies on the Azeri border — 7 days of semi-desert off-road.', isNew: true, beginner: false, family: false, winter: false, order: 1 },
   { id: 'overland-guria-adjara', name: 'Overland Adventure: Mystical Mountains of Guria & Adjara', region: 'Adjara', activity: 'overlanding', days: 7, difficulty: 'Moderate', price: 800, hook: 'Misty cloud-kingdoms, hidden alpine lakes and a fortress above the clouds — off-road through Upper Adjara.', isNew: true, beginner: false, family: false, winter: false, order: 2 },
   { id: 'ice-and-towers-svaneti', name: 'Ice and Towers, Svaneti', region: 'Svaneti', activity: 'trekking', days: 9, difficulty: 'Moderate', price: 2490, hook: 'Nine days of glaciers, medieval towers and high-altitude passes in the Caucasus crown.', isNew: true, beginner: false, family: false, winter: false, order: 3 },
-  { id: 'chaukhi-mountaineering-camp', name: 'Chaukhi Massif Mountaineering Camp', region: 'Kazbegi', activity: 'summit', days: 8, difficulty: 'Challenging', price: 1500, hook: 'Learn the ropes and stand on three summits in the "Georgian Dolomites".', isNew: true, beginner: false, family: false, winter: false, order: 4 },
+  { id: 'chaukhi-mountaineering-camp', name: 'Chaukhi Massif Mountaineering Camp', region: 'Kazbegi', activity: 'summit', days: 8, difficulty: 'Challenging', price: 1500, hook: 'Learn the ropes and stand on three summits in the "Georgian Dolomites".', isNew: true, beginner: false, family: false, winter: false, order: 4, note: 'Training camp' },
   { id: 'enduro-mtb-tusheti', name: 'Enduro MTB Expedition in Tusheti', region: 'Tusheti', activity: 'biking', days: 4, difficulty: 'Challenging', price: 734, hook: 'Big-mountain enduro beyond the Abano Pass — remote villages and endless descents.', isNew: true, beginner: false, family: false, winter: false, order: 5 },
   { id: 'cycling-expedition-tusheti', name: 'Cycling Expedition in Tusheti', region: 'Tusheti', activity: 'biking', days: 6, difficulty: 'Challenging', price: 850, hook: '6-day gravel endurance expedition — big climbs, remote villages, full board.', isNew: true, beginner: false, family: false, winter: false, order: 6 },
   { id: 'canyoning-day-adventure', name: 'Canyoning Day Adventure in Imereti', region: 'Imereti', activity: 'canyoning', days: 1, difficulty: 'Moderate', price: 110, hook: 'Rappel live waterfalls, slide natural chutes and jump into cold green pools — a full day in a wild canyon.', isNew: true, beginner: true, family: false, winter: false, order: 7 },
@@ -277,6 +278,12 @@ function TourCard({ tour, reduced, globalIdx, isMobile }: {
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A8A296" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M12 6v4"/><path d="M12 14h.01"/></svg>
               {tour.difficulty}
             </span>
+            {tour.note && (
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, color: '#9B4E30', fontWeight: 600 }}>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9B4E30" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1 2.5 2 6 2s6-1 6-2v-5"/></svg>
+                {tour.note}
+              </span>
+            )}
           </div>
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 10, marginTop: 'auto', paddingTop: 14 }}>
             <span style={{ fontSize: 13, color: '#A8A296', fontFamily: 'var(--font-hanken), sans-serif' }}>
@@ -575,7 +582,7 @@ export default function ToursListing() {
 
         {/* Mobile sticky bar */}
         {isMobile && (
-          <div style={{ position: 'sticky', top: 60, zIndex: 40, background: 'rgba(250,248,243,.92)', backdropFilter: 'blur(10px)', margin: '0 -28px', padding: '12px 28px', borderBottom: '1px solid #ECE8DE', display: 'flex', gap: 10 }}>
+          <div style={{ position: 'sticky', top: 'var(--jump-nav-top, 72px)', transition: 'top .3s cubic-bezier(.4,0,.2,1)', zIndex: 40, background: 'rgba(250,248,243,.92)', backdropFilter: 'blur(10px)', margin: '0 -28px', padding: '12px 28px', borderBottom: '1px solid #ECE8DE', display: 'flex', gap: 10 }}>
             <button
               type="button"
               onClick={() => setSheetOpen(true)}

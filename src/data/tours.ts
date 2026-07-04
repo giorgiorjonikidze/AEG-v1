@@ -20,11 +20,9 @@ export interface TourData {
   emotionalLine: string
   price: number
   currency: string
-  // Optional explicit dual-currency prices — maintained MANUALLY. When set they
-  // let you record the exact EUR and USD figures you're advertising. Prices are
-  // never auto-converted; the currency cron only *alerts* you to review these.
+  // Optional explicit EUR price — maintained MANUALLY. Prices are never
+  // auto-converted; the currency cron only *alerts* you to review them.
   priceEUR?: number
-  priceUSD?: number
   heroImage: string
   isDayTour?: boolean
   perPersonRate?: number

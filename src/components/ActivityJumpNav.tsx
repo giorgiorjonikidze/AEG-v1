@@ -3,9 +3,8 @@ import { useEffect, useRef, useState } from 'react'
 
 const TABS = [
   { id: 'act-intro',      label: 'Overview' },
-  { id: 'act-facts',      label: 'Quick Facts' },
-  { id: 'act-regions',    label: 'Regions' },
   { id: 'act-tours',      label: 'Tours' },
+  { id: 'act-facts',      label: 'Quick Facts' },
   { id: 'act-gallery',    label: 'Gallery' },
   { id: 'act-difficulty', label: 'Difficulty' },
   { id: 'act-season',     label: 'Best Time' },

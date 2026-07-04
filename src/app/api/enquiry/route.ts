@@ -126,7 +126,7 @@ function buildAutoReplyHtml(p: EnquiryPayload): string {
   const p_ = 'margin:0 0 16px;font-size:16px;line-height:1.65;color:#3f3b34;font-family:Arial,Helvetica,sans-serif'
   const steps = [
     'Our team is reviewing your details right now.',
-    "We'll get back to you within 24 hours to answer your questions and, if you're ready, set up a quick call to plan the details together.",
+    "We'll get back to you within 3 hours to answer your questions and, if you're ready, set up a quick call to plan the details together.",
     "Once everything's confirmed, we'll send you a secure payment link to lock in your spot.",
   ].map((s, i) => `<tr>
       <td valign="top" style="padding:0 12px 12px 0;font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:700;color:#C75A37;line-height:1.5">${i + 1}.</td>
@@ -168,7 +168,7 @@ function buildAutoReplyText(p: EnquiryPayload): string {
     '',
     "Here's what happens next:",
     '1. Our team is reviewing your details right now.',
-    "2. We'll get back to you within 24 hours to answer your questions and, if you're ready, set up a quick call to plan the details together.",
+    "2. We'll get back to you within 3 hours to answer your questions and, if you're ready, set up a quick call to plan the details together.",
     "3. Once everything's confirmed, we'll send you a secure payment link to lock in your spot.",
     '',
     'No payment is needed now — this is just the start of the conversation.',
