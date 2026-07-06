@@ -6,6 +6,8 @@ import {
   Spectral,
 } from 'next/font/google'
 import './globals.css'
+import CookieConsent from '@/components/CookieConsent'
+import Analytics from '@/components/Analytics'
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
@@ -60,6 +62,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         className={`${cormorant.variable} ${dmSans.variable} ${hanken.variable} ${spectral.variable}`}
       >
         {children}
+        <CookieConsent />
+        <Analytics />
       </body>
     </html>
   )

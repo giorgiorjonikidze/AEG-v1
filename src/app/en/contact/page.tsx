@@ -39,13 +39,6 @@ const NEXT_STEPS = [
   { n: '2', icon: 'call', title: 'We reply and plan together', desc: 'A real person gets back within 3 hours, then we fine-tune it on a quick call.' },
   { n: '3', icon: 'secure', title: 'Secure your spot', desc: "Happy with the plan? Confirm and pay later through a secure link." },
 ]
-const FAQS = [
-  'How do I book a trip?',
-  'Do you offer custom trips?',
-  'What areas of Georgia do you cover?',
-  'When and how do I pay?',
-]
-
 // ── Form state ────────────────────────────────────────────────────────────────
 type FormState = {
   name: string; email: string; phone: string; message: string
@@ -143,7 +136,6 @@ export default function ContactPage() {
     banner: useRef<HTMLDivElement>(null),
     body: useRef<HTMLDivElement>(null),
     next: useRef<HTMLDivElement>(null),
-    faq: useRef<HTMLDivElement>(null),
   }
   const [vis, setVis] = useState<Record<string, boolean>>({})
 
@@ -198,8 +190,6 @@ export default function ContactPage() {
         @media(min-width:840px){.cx-steps{flex-direction:row;align-items:stretch;gap:12px;}}
         .cx-arrow{display:none;}
         @media(min-width:840px){.cx-arrow{display:flex;align-items:center;flex:none;}}
-        .cx-faq{display:grid;grid-template-columns:1fr;gap:14px;}
-        @media(min-width:740px){.cx-faq{grid-template-columns:1fr 1fr;}}
         .cx-btns{display:flex;flex-direction:column;gap:13px;}
         @media(min-width:480px){.cx-btns{flex-direction:row;align-items:center;}}
         .cx-wa:hover{transform:translateY(-2px);box-shadow:0 22px 46px -30px rgba(30,28,25,.5);border-color:#CDE9D6 !important;}
@@ -207,8 +197,6 @@ export default function ContactPage() {
         .cx-social:hover{background:#2E4034;color:#FAF8F3;border-color:#2E4034;}
         .cx-send:hover{filter:brightness(1.07);transform:translateY(-2px);}
         .cx-reset:hover{border-color:#C75A37;color:#C75A37;}
-        .cx-faq-item:hover{transform:translateY(-3px);box-shadow:0 20px 40px -30px rgba(30,28,25,.5);border-color:#D8D0C0;}
-        .cx-view-faq:hover{color:#C75A37;}
         .cx-dec:hover,.cx-inc:hover{background:#F1ECE1;}
       `}</style>
 
@@ -523,30 +511,6 @@ export default function ContactPage() {
                     </span>
                   )}
                 </>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── FAQ Teaser ── */}
-        <section style={{ background: '#FFFFFF', color: '#1E1C19', fontFamily: "'Hanken Grotesk',system-ui,sans-serif", padding: 'clamp(56px,8vh,96px) clamp(20px,5vw,56px)', borderTop: '1px solid #F1ECE1' }}>
-          <div style={{ maxWidth: 1080, margin: '0 auto' }}>
-            <div ref={revRefs.faq} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', justifyContent: 'space-between', gap: 16, marginBottom: 'clamp(26px,4vw,38px)', ...rev('faq') }}>
-              <div>
-                <div style={{ fontSize: 12, letterSpacing: '.2em', textTransform: 'uppercase', color: '#C75A37', fontWeight: 600, marginBottom: 12 }}>Good to know</div>
-                <h2 style={{ fontFamily: "'Spectral',serif", fontWeight: 500, fontSize: 'clamp(26px,3.4vw,38px)', lineHeight: 1.08, letterSpacing: '-.3px', margin: 0 }}>Questions, answered</h2>
-              </div>
-              <a href="#" className="cx-view-faq" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontWeight: 600, fontSize: 14.5, color: '#2E4034', textDecoration: 'none', transition: 'color .2s' }}>
-                View all FAQs <Ico n="arrow" size={16} color="currentColor" />
-              </a>
-            </div>
-            <div className="cx-faq">
-              {FAQS.map((q, i) => (
-                <a key={q} href="#" className="cx-faq-item"
-                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 14, background: '#FAF8F3', border: '1px solid #ECE7DC', borderRadius: 14, padding: '19px 20px', textDecoration: 'none', color: '#1E1C19', transition: 'transform .25s ease,box-shadow .25s ease,border-color .25s ease', ...rev('faq', 0.06 + i * 0.07) }}>
-                  <span style={{ fontFamily: "'Spectral',serif", fontSize: 18, fontWeight: 500, lineHeight: 1.25, letterSpacing: '-.1px' }}>{q}</span>
-                  <span style={{ display: 'inline-flex', color: '#A8A296', flexShrink: 0 }}><Ico n="chevR" size={18} color="#A8A296" /></span>
-                </a>
               ))}
             </div>
           </div>

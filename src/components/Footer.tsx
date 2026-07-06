@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useState, useRef } from 'react'
 import { TOURS, SERVICES } from '@/lib/data'
 import { subscribeNewsletter } from '@/lib/newsletter'
+import { openCookiePreferences } from '@/lib/consent'
 
 const REGIONS_NAV = [
   { name: 'Svaneti', slug: 'samegrelo' },
@@ -44,6 +45,7 @@ const COLUMNS: { label: string; links: FooterLink[] }[] = [
     label: 'Useful Information',
     links: [
       { name: 'Privacy Policy', href: '/en/privacy-policy' },
+      { name: 'Cookie Policy', href: '/en/cookie-policy' },
       { name: 'Terms', href: '/en/terms' },
     ],
   },
@@ -194,10 +196,17 @@ export default function Footer() {
       <div style={{ borderTop: '1px solid rgba(255,255,255,.06)', padding: '16px clamp(20px,5vw,48px)' }}>
         <div style={{ maxWidth: 1320, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
           <span style={{ fontSize: 13.5, color: 'rgba(255,255,255,.3)' }}>© 2026 Adventure Experts Georgia · Licensed Tour Operator, Registration No. [TBC]</span>
-          <div style={{ display: 'flex', gap: 20 }}>
-            {[['Terms', '/en/terms'], ['Privacy', '/en/privacy-policy']].map(([name, href]) => (
+          <div style={{ display: 'flex', gap: 20, alignItems: 'center', flexWrap: 'wrap' }}>
+            {[['Terms', '/en/terms'], ['Privacy', '/en/privacy-policy'], ['Cookie Policy', '/en/cookie-policy']].map(([name, href]) => (
               <Link key={name} href={href} style={{ fontSize: 13.5, color: 'rgba(255,255,255,.3)', textDecoration: 'none' }}>{name}</Link>
             ))}
+            <button
+              type="button"
+              onClick={openCookiePreferences}
+              style={{ fontSize: 13.5, color: 'rgba(255,255,255,.3)', background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', fontFamily: 'inherit' }}
+            >
+              Cookie settings
+            </button>
           </div>
         </div>
       </div>
