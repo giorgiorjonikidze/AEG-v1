@@ -2,6 +2,8 @@
 // The API route (src/app/api/enquiry/route.ts) imports only the type;
 // submitEnquiry() runs in the browser and POSTs to that route.
 
+import { trackInquirySubmitted } from '@/lib/gtag'
+
 export interface EnquiryPayload {
   source: 'tour' | 'contact'
   tourName?: string
@@ -48,6 +50,8 @@ export async function submitEnquiry(payload: EnquiryPayload): Promise<EnquiryRes
     })
     const data = (await res.json().catch(() => ({}))) as { error?: string }
     if (!res.ok) return { ok: false, error: data.error || 'Something went wrong sending your enquiry.' }
+    // Fire the GA4 conversion (no-op unless analytics consent loaded gtag).
+    trackInquirySubmitted({ tour_name: enriched.tourName, locale: enriched.locale })
     return { ok: true }
   } catch {
     return { ok: false, error: 'Could not reach the server. Please check your connection.' }

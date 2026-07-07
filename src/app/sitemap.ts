@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/contact',
     '/about',
     '/privacy-policy',
+    '/cookie-policy',
     '/terms',
   ].map(p => ({
     url: `${BASE}/en${p}`,

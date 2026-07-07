@@ -1,16 +1,19 @@
 'use client'
 
 import Script from 'next/script'
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
+import { usePathname, useSearchParams } from 'next/navigation'
 import { readConsent, CONSENT_CHANGED_EVENT, type ConsentRecord } from '@/lib/consent'
-
-const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
+import { GA_ID, pageview } from '@/lib/gtag'
 
 /**
  * Loads Google Analytics 4 — but only after the visitor has granted analytics
- * consent. The gtag.js script is never injected until `analytics` is true, so
- * no GA cookies are set beforehand. Reacts live to consent changes: granting
- * loads GA; withdrawing disables it and clears its cookies.
+ * consent (hard-block, not Consent Mode v2). The gtag.js script is never
+ * injected until `analytics` is true, so no GA request fires and no GA cookies
+ * are set beforehand. If a previous session already consented, `readConsent()`
+ * returns analytics=true on mount and GA loads immediately without any banner
+ * interaction. Reacts live to consent changes: granting loads GA; withdrawing
+ * disables it and clears its cookies.
  */
 export default function Analytics() {
   const [analytics, setAnalytics] = useState(false)
@@ -42,12 +45,29 @@ export default function Analytics() {
           window.gtag = gtag;
           window['ga-disable-${GA_ID}'] = false;
           gtag('js', new Date());
-          gtag('consent', 'default', { analytics_storage: 'granted' });
-          gtag('config', '${GA_ID}', { anonymize_ip: true });
+          gtag('config', '${GA_ID}', { anonymize_ip: true, send_page_view: false });
         `}
       </Script>
+      {/* Manual page_view on every route change (SPA nav doesn't auto-fire it).
+          useSearchParams requires a Suspense boundary. */}
+      <Suspense fallback={null}>
+        <PageViewTracker />
+      </Suspense>
     </>
   )
+}
+
+/** Fires a GA4 page_view for the initial load and every client-side navigation,
+ *  so /en/* (and future locale) URLs are each recorded with their real path. */
+function PageViewTracker() {
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  useEffect(() => {
+    if (!pathname) return
+    const qs = searchParams?.toString()
+    pageview(qs ? `${pathname}?${qs}` : pathname)
+  }, [pathname, searchParams])
+  return null
 }
 
 /** Turn GA off in-page and remove its first-party cookies without a reload. */
@@ -66,11 +86,4 @@ function disableGa() {
       }
     }
   })
-}
-
-declare global {
-  interface Window {
-    dataLayer?: unknown[]
-    gtag?: (...args: unknown[]) => void
-  }
 }

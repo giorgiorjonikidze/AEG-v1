@@ -54,21 +54,11 @@ export default function CookieConsent() {
     if (mode === 'closed') return
     firstFocusRef.current?.focus()
 
+    // Not a modal: focus moves into the bar for keyboard users, but Tab is free
+    // to leave it into the page (no focus trap). Escape only cancels when a
+    // prior choice already exists (reopened settings mode).
     const onKeyDown = (e: KeyboardEvent) => {
-      // Escape only cancels when a prior choice already exists (settings mode).
-      if (e.key === 'Escape' && mode === 'settings') { close(); return }
-      if (e.key !== 'Tab' || !dialogRef.current) return
-      const focusables = dialogRef.current.querySelectorAll<HTMLElement>(
-        'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'
-      )
-      if (focusables.length === 0) return
-      const first = focusables[0]
-      const last = focusables[focusables.length - 1]
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault(); last.focus()
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault(); first.focus()
-      }
+      if (e.key === 'Escape' && mode === 'settings') close()
     }
     document.addEventListener('keydown', onKeyDown)
     return () => document.removeEventListener('keydown', onKeyDown)
@@ -82,7 +72,6 @@ export default function CookieConsent() {
     <>
       <style dangerouslySetInnerHTML={{ __html: `
         .cc-root { --cc-cream:#FAF8F3; --cc-ink:#1E1C19; --cc-body:#4A463E; --cc-muted:#6B655C; --cc-terra:#C75A37; --cc-forest:#2E4034; --cc-border:rgba(30,28,25,.14); }
-        .cc-backdrop { position:fixed; inset:0; z-index:9998; background:rgba(20,18,15,.34); backdrop-filter:blur(1.5px); animation:cc-fade .25s ease; }
         .cc-panel { position:fixed; z-index:9999; left:50%; bottom:clamp(12px,3vw,28px); transform:translateX(-50%); width:min(680px, calc(100vw - 24px)); background:var(--cc-cream); color:var(--cc-ink); border:1px solid var(--cc-border); border-radius:16px; box-shadow:0 30px 70px -30px rgba(20,18,15,.55); font-family:var(--font-hanken,system-ui),sans-serif; animation:cc-rise .32s cubic-bezier(.22,.61,.36,1); overflow:hidden; }
         .cc-inner { padding:clamp(20px,3.4vw,28px); }
         .cc-eyebrow { font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--cc-terra); margin:0 0 10px; }
@@ -112,20 +101,17 @@ export default function CookieConsent() {
         .cc-close:hover { background:rgba(30,28,25,.06); color:var(--cc-ink); }
         .cc-root :focus-visible { outline:2px solid var(--cc-terra); outline-offset:2px; }
         .cc-switch:focus-visible { outline-offset:3px; }
-        @keyframes cc-fade { from{opacity:0} to{opacity:1} }
         @keyframes cc-rise { from{opacity:0; transform:translate(-50%,14px)} to{opacity:1; transform:translate(-50%,0)} }
-        @media (prefers-reduced-motion: reduce) { .cc-panel,.cc-backdrop{animation:none} .cc-btn,.cc-switch::after,.cc-switch{transition:none} }
+        @media (prefers-reduced-motion: reduce) { .cc-panel{animation:none} .cc-btn,.cc-switch::after,.cc-switch{transition:none} }
         @media (max-width:520px) { .cc-btn{flex-basis:100%} }
       ` }} />
 
       <div className="cc-root">
-        <div className="cc-backdrop" aria-hidden="true" />
         <div
           ref={dialogRef}
           className="cc-panel"
           role="dialog"
-          aria-modal="true"
-          aria-labelledby="cc-title"
+          aria-label="Cookie consent"
           aria-describedby="cc-desc"
         >
           {dismissible && (
