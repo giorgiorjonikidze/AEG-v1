@@ -2,8 +2,9 @@ import type { MetadataRoute } from 'next'
 import { TOURS } from '@/data/tours'
 import { ACTIVITIES_DATA } from '@/data/activities'
 import { REGIONS_DATA } from '@/data/regions'
+import { SITE_URL } from '@/lib/site'
 
-const BASE = 'https://adventure-experts-georgia.com'
+const BASE = SITE_URL
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = [

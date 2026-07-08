@@ -247,7 +247,7 @@ export default function ContactPage() {
               {/* Info rows */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: 2, background: '#FFFFFF', border: '1px solid #ECE7DC', borderRadius: 16, overflow: 'hidden' }}>
                 {[
-                  { icon: 'mail', label: 'Email', value: 'info@adventure-experts-georgia.com', href: 'mailto:info@adventure-experts-georgia.com' },
+                  { icon: 'mail', label: 'Email', value: 'info@adventureexpertsgeorgia.com', href: 'mailto:info@adventureexpertsgeorgia.com' },
                   { icon: 'phone', label: 'Phone / office', value: '+995 595 36 00 83', href: 'tel:+995595360083' },
                 ].map((row, i) => (
                   <a key={row.label} href={row.href} className="cx-contact-row"

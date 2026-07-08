@@ -8,6 +8,7 @@ import {
 import './globals.css'
 import CookieConsent from '@/components/CookieConsent'
 import Analytics from '@/components/Analytics'
+import { SITE_URL } from '@/lib/site'
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
@@ -38,7 +39,7 @@ const spectral = Spectral({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://adventure-experts-georgia.com'),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: 'Adventure Experts Georgia — Guided Tours in the Caucasus',
     template: '%s | Adventure Experts Georgia',

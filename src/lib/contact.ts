@@ -4,7 +4,7 @@
 export const WHATSAPP_NUMBER = '995595360083' // digits only, for wa.me links
 export const PHONE_DISPLAY = '+995 595 36 00 83'
 export const PHONE_TEL = 'tel:+995595360083'
-export const CONTACT_EMAIL = 'info@adventure-experts-georgia.com'
+export const CONTACT_EMAIL = 'info@adventureexpertsgeorgia.com'
 
 /** wa.me link, optionally with a prefilled message */
 export function waLink(text?: string): string {
