@@ -195,8 +195,8 @@ export const ACTIVITIES_DATA: ActivityData[] = [
     name: 'Caving',
     tagline: 'Descend into Georgia\'s extraordinary underground world — from show caves to wild passages.',
     heroImage: '/images/tours/vasily-ledovsky-7Nl6vSXdDhE-unsplash.jpg',
-    metaTitle: 'Caving Tours in Georgia',
-    metaDescription: 'Guided caving tours in Georgia: Prometheus Cave, Sataplia, adventure caving in the Caucasus. Show caves to wild underground exploration.',
+    metaTitle: 'Wild Caving in Georgia',
+    metaDescription: 'Guided wild caving in Georgia — off the tourist trail into untouched caves: vast chambers, dramatic rock formations, narrow passages and real underground adventure.',
     categoryTag: 'Caving',
     gallery: [
       '/images/activities/caving.jpg',
