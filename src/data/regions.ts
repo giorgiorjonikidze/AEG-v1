@@ -38,7 +38,7 @@ export const REGIONS_DATA: RegionData[] = [
     tagline: 'Ancient capitals and the road to Mount Kazbek.',
     heroImage: '/images/tours/andrew-rusinas-aFFKmsFoldc-unsplash.jpg',
     eyebrow: 'Region · Northern Caucasus',
-    metaTitle: 'Mtskheta-Mtianeti Region — Kazbegi, Gudauri & Mtskheta Tours | Adventure Experts Georgia',
+    metaTitle: 'Mtskheta-Mtianeti Region — Kazbegi, Gudauri & Mtskheta Tours',
     metaDescription: 'Explore Mtskheta-Mtianeti: from UNESCO monasteries in ancient Mtskheta to Mount Kazbek glaciers. Guided trekking, summits, skiing and day trips from Tbilisi.',
     intro: {
       heading: 'The Gateway to the High Caucasus',
@@ -190,7 +190,7 @@ export const REGIONS_DATA: RegionData[] = [
     tagline: 'Caves, canyons, and the heart of ancient Colchis.',
     heroImage: '/images/martvili.jpg',
     eyebrow: 'Region · Western Georgia',
-    metaTitle: 'Imereti Tours & Caving in Georgia | Adventure Experts Georgia',
+    metaTitle: 'Imereti Tours & Caving in Georgia',
     metaDescription: 'Explore Imereti — Georgia\'s caving country. Prometheus & Sataplia caves, Okatse Canyon, Tskaltubo and Colchis heritage from Kutaisi. Plan a custom Imereti trip.',
     intro: {
       heading: "Georgia's Caving Country",
@@ -341,7 +341,7 @@ export const REGIONS_DATA: RegionData[] = [
     tagline: 'Glaciers, medieval towers and the roof of the Caucasus.',
     heroImage: '/images/svaneti.jpg',
     eyebrow: 'Region · Upper Svaneti',
-    metaTitle: 'Svaneti Trekking & Climbing Tours | Adventure Experts Georgia',
+    metaTitle: 'Svaneti Trekking & Climbing Tours',
     metaDescription: 'Explore Svaneti — Georgia\'s alpine crown. Glacier treks, Mestia to Ushguli, Tetnuldi summit and medieval tower villages in the high Caucasus. Plan your Svaneti trip.',
     intro: {
       heading: 'The Alpine Crown of Georgia',
@@ -491,7 +491,7 @@ export const REGIONS_DATA: RegionData[] = [
     tagline: 'Ancient Colchis, emerald canyons and the Mingrelian lowlands.',
     heroImage: '/images/martvili.jpg',
     eyebrow: 'Region · Western Georgia',
-    metaTitle: 'Samegrelo Tours — Martvili Canyon & Colchis Heritage | Adventure Experts Georgia',
+    metaTitle: 'Samegrelo Tours — Martvili Canyon & Colchis Heritage',
     metaDescription: 'Discover Samegrelo — ancient Colchis and the Mingrelian heartland. Martvili Canyon boat trips, Enguri Dam, Nokalakevi fortress and the gateway to Svaneti.',
     intro: {
       heading: 'The Land of Ancient Colchis',
@@ -617,7 +617,7 @@ export const REGIONS_DATA: RegionData[] = [
     tagline: 'Wine, ancient monasteries and the wide Alazani plain.',
     heroImage: '/images/tours/gio-chanturia-2aGoA1zcWfI-unsplash.jpg',
     eyebrow: 'Region · Eastern Georgia',
-    metaTitle: "Kakheti Wine & Adventure Tours | Adventure Experts Georgia",
+    metaTitle: "Kakheti Wine & Adventure Tours",
     metaDescription: "Explore Kakheti — Georgia's wine country. Biking through vineyards, overlanding to Vashlovani's canyons, Sighnaghi and David Gareja. Plan your Kakheti trip.",
     intro: {
       heading: "Georgia's Wine Country",
@@ -778,7 +778,7 @@ export const REGIONS_DATA: RegionData[] = [
     tagline: "Georgia's quiet alpine heartland.",
     heroImage: '/images/tours/nadav-fima-ULn5jbPuHx8-unsplash.jpg',
     eyebrow: 'Region · Central Caucasus',
-    metaTitle: 'Racha-Lechkhumi Trekking & Overlanding | Adventure Experts Georgia',
+    metaTitle: 'Racha-Lechkhumi Trekking & Overlanding',
     metaDescription: 'Explore Racha-Lechkhumi — Georgia\'s quietest alpine region. Trekking to Black Rock Lake, the Racha wine villages and the Caucasus ridge. Plan a custom trip.',
     intro: {
       heading: 'The Quiet Alpine Heartland',
@@ -904,7 +904,7 @@ export const REGIONS_DATA: RegionData[] = [
     tagline: 'Black Sea coast to alpine ridges in a single afternoon.',
     heroImage: '/images/tours/zviad-pharsenadze--cIcGJX4Gxk-unsplash.jpg',
     eyebrow: 'Region · Black Sea Coast',
-    metaTitle: 'Adjara Tours — Batumi, Hiking & Coast Adventures | Adventure Experts Georgia',
+    metaTitle: 'Adjara Tours — Batumi, Hiking & Coast Adventures',
     metaDescription: "Explore Adjara — from Batumi's Black Sea promenade to the alpine highlands of Goderdzi Pass. Canyoning, trekking and coastal biking in Georgia's subtropical southwest.",
     intro: {
       heading: 'Coast and Mountains in One Region',
@@ -1043,7 +1043,7 @@ export const REGIONS_DATA: RegionData[] = [
     tagline: 'Cave cities, sulfur springs and the fortress of Rabati.',
     heroImage: '/images/tours/jason-gardner-LU-o3CbeZhU-unsplash.jpg',
     eyebrow: 'Region · Southern Georgia',
-    metaTitle: 'Samtskhe-Javakheti Tours — Vardzia & Borjomi | Adventure Experts Georgia',
+    metaTitle: 'Samtskhe-Javakheti Tours — Vardzia & Borjomi',
     metaDescription: "Explore Samtskhe-Javakheti — Vardzia cave city, Borjomi mineral springs, Rabati Castle and the Javakheti plateau. Georgia's most dramatic southern landscapes.",
     intro: {
       heading: 'Cave Cities and the Southern Plateau',
@@ -1169,7 +1169,7 @@ export const REGIONS_DATA: RegionData[] = [
     tagline: 'Green hills, ancient churches and the spirit of Mingrelian Georgia.',
     heroImage: '/images/tours/zviad-pharsenadze--cIcGJX4Gxk-unsplash.jpg',
     eyebrow: 'Region · Western Georgia',
-    metaTitle: 'Guria Region — West Georgia | Adventure Experts Georgia',
+    metaTitle: 'Guria Region — West Georgia',
     metaDescription: "Explore Guria — western Georgia's hidden green heartland. Rolling hills, ancient churches, hazelnut groves and local village life between the Black Sea and the highlands.",
     intro: {
       heading: 'The Green Hills of Western Georgia',
@@ -1305,7 +1305,7 @@ export const REGIONS_DATA: RegionData[] = [
     tagline: 'Ancient cave cities at the crossroads of Georgia.',
     heroImage: '/images/tours/nino-gakhokia-24d9N5UsVYs-unsplash.jpg',
     eyebrow: 'Region · Central Georgia',
-    metaTitle: 'Shida Kartli — Uplistsikhe & Central Georgia | Adventure Experts Georgia',
+    metaTitle: 'Shida Kartli — Uplistsikhe & Central Georgia',
     metaDescription: "Explore Shida Kartli — the ancient cave city of Uplistsikhe, Stalin's Gori, and the Liakhvi valley. Central Georgia's historic heartland on the way to the Caucasus.",
     intro: {
       heading: 'The Historic Heart of Georgia',
@@ -1415,7 +1415,7 @@ export const REGIONS_DATA: RegionData[] = [
     tagline: 'Cave monasteries and the volcanic southern frontier.',
     heroImage: '/images/tours/jason-gardner-LU-o3CbeZhU-unsplash.jpg',
     eyebrow: 'Region · Southern Georgia',
-    metaTitle: 'Kvemo Kartli — David Gareja & South Georgia | Adventure Experts Georgia',
+    metaTitle: 'Kvemo Kartli — David Gareja & South Georgia',
     metaDescription: 'Explore Kvemo Kartli — the dramatic David Gareja cave monastery, Bolnisi Sioni and the Azeri border landscapes of southern Georgia.',
     intro: {
       heading: 'The Southern Frontier',
@@ -1525,7 +1525,7 @@ export const REGIONS_DATA: RegionData[] = [
     tagline: 'The warm heart of the South Caucasus.',
     heroImage: '/images/georgia-hero.avif',
     eyebrow: 'Capital City · Eastern Georgia',
-    metaTitle: 'Tbilisi Tours & Day Trips | Adventure Experts Georgia',
+    metaTitle: 'Tbilisi Tours & Day Trips',
     metaDescription: "Explore Tbilisi — Georgia's capital and your adventure base. Old Town walks, sulfur bath district, Narikala Fortress and day trips to Mtskheta and beyond.",
     intro: {
       heading: 'Your Georgian Adventure Begins Here',

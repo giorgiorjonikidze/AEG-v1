@@ -6,7 +6,7 @@ import TailorMadeCTA from '@/components/TailorMadeCTA'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'About Us',
+  title: 'About Our Local Guides',
   description:
     'Adventure Experts Georgia is a small team of certified local guides running private adventure tours across the Caucasus — trekking, caving, canyoning, overlanding and more.',
 }

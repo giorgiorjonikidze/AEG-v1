@@ -8,7 +8,7 @@ import Footer from '@/components/Footer'
 import ToursListing from '@/components/ToursListing'
 
 export const metadata: Metadata = {
-  title: 'Our Adventures — Adventure Experts Georgia',
+  title: 'All Guided Tours & Adventures in Georgia',
   description: 'Browse all guided tours and adventures in Georgia — treks, summits, caving, canyoning, overlanding and more. Every trip is inquiry-based and fully tailored.',
 }
 

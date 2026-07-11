@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const tour = getTourBySlug(params.slug)
   if (!tour) return {}
   return {
-    title: `${tour.name} — Adventure Experts Georgia`,
+    title: tour.name,
     description: `${tour.emotionalLine} ${tour.quickFacts.duration} guided tour from ${tour.quickFacts.start}. From ${tour.currency}${tour.price.toLocaleString()} per person.`,
     openGraph: {
       title: tour.name,

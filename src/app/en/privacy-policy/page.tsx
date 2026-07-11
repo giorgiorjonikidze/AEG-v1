@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | Adventure Experts Georgia',
+  title: 'Privacy Policy',
   description: 'How Adventure Experts Georgia collects, uses and protects your personal data. Aligned with the Law of Georgia on Personal Data Protection and EU GDPR.',
 }
 

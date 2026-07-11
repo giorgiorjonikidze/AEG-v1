@@ -50,7 +50,7 @@ export const ACTIVITIES_DATA: ActivityData[] = [
     name: 'Trekking & Hiking',
     tagline: 'Walk the wild ridges of the Caucasus — from gentle day trails to glacier passes.',
     heroImage: '/images/svaneti.jpg',
-    metaTitle: 'Trekking & Hiking Tours in Georgia — Adventure Experts Georgia',
+    metaTitle: 'Trekking & Hiking Tours in Georgia',
     metaDescription: 'Guided trekking tours in Georgia: Svaneti, Kazbegi, Tusheti & beyond. Easy day hikes to multi-day high-mountain routes. Private tours, certified local guides.',
     categoryTag: 'Trekking',
     gallery: [
@@ -132,7 +132,7 @@ export const ACTIVITIES_DATA: ActivityData[] = [
     name: 'Biking',
     tagline: 'Ride mountain tracks and valley roads through some of Europe\'s wildest scenery.',
     heroImage: '/images/tours/darya-tryfanava-rY1P25plAYg-unsplash.jpg',
-    metaTitle: 'Mountain Biking Tours in Georgia — Adventure Experts Georgia',
+    metaTitle: 'Mountain Biking Tours in Georgia',
     metaDescription: 'Guided mountain biking tours in Georgia: Svaneti, Kazbegi, cross-country routes. Gravel rides to technical singletrack. Private tours, local guides.',
     categoryTag: 'Biking',
     gallery: [
@@ -195,7 +195,7 @@ export const ACTIVITIES_DATA: ActivityData[] = [
     name: 'Caving',
     tagline: 'Descend into Georgia\'s extraordinary underground world — from show caves to wild passages.',
     heroImage: '/images/tours/vasily-ledovsky-7Nl6vSXdDhE-unsplash.jpg',
-    metaTitle: 'Caving Tours in Georgia — Adventure Experts Georgia',
+    metaTitle: 'Caving Tours in Georgia',
     metaDescription: 'Guided caving tours in Georgia: Prometheus Cave, Sataplia, adventure caving in the Caucasus. Show caves to wild underground exploration.',
     categoryTag: 'Caving',
     gallery: [
@@ -256,7 +256,7 @@ export const ACTIVITIES_DATA: ActivityData[] = [
     name: 'Canyoning',
     tagline: 'Swim, abseil, and jump through Georgia\'s spectacular river gorges.',
     heroImage: '/images/martvili.jpg',
-    metaTitle: 'Canyoning Tours in Georgia — Adventure Experts Georgia',
+    metaTitle: 'Canyoning Tours in Georgia',
     metaDescription: 'Guided canyoning tours in Georgia: Martvili Canyon, Okatse Canyon, Kinchkha waterfall. Abseiling, swimming, cliff jumps. Private tours, expert guides.',
     categoryTag: 'Canyoning',
     gallery: [
@@ -317,7 +317,7 @@ export const ACTIVITIES_DATA: ActivityData[] = [
     name: 'Overlanding',
     tagline: 'Off-road into Georgia\'s remotest highlands — places the road ends and the real adventure begins.',
     heroImage: '/images/tours/jairph-Edx0NpJ29fQ-unsplash.jpg',
-    metaTitle: 'Overlanding Tours in Georgia — Adventure Experts Georgia',
+    metaTitle: 'Overlanding Tours in Georgia',
     metaDescription: 'Guided 4x4 overlanding tours in Georgia: Tusheti, Svaneti Military Road, Khevsureti. Remote highland access in expert hands. Private tours.',
     categoryTag: 'Overlanding',
     gallery: [
@@ -379,7 +379,7 @@ export const ACTIVITIES_DATA: ActivityData[] = [
     name: 'Mixed Tours',
     tagline: 'Trekking, culture, wine, history — the full Georgia experience in one journey.',
     heroImage: '/images/georgia-hero.avif',
-    metaTitle: 'Mixed Adventure Tours in Georgia — Adventure Experts Georgia',
+    metaTitle: 'Mixed Adventure Tours in Georgia',
     metaDescription: 'Multi-activity tours in Georgia combining trekking, culture, wine, history and adventure. The best of Georgia on private tours with local guides.',
     categoryTag: 'Mixed Tours',
     gallery: [
@@ -439,7 +439,7 @@ export const ACTIVITIES_DATA: ActivityData[] = [
     name: 'Summit Experience',
     tagline: 'Stand on the roof of the Caucasus — guided ascents of Georgia\'s greatest peaks.',
     heroImage: '/images/kazbegi.jpg',
-    metaTitle: 'Summit & Mountaineering Tours in Georgia — Adventure Experts Georgia',
+    metaTitle: 'Summit & Mountaineering Tours in Georgia',
     metaDescription: 'Guided summit ascents in Georgia: Mount Kazbek (5,047 m), Tetnuldi, Ushba. Experienced high-altitude guides. From acclimatisation treks to full mountaineering.',
     categoryTag: 'Summit Experience',
     gallery: [
@@ -500,7 +500,7 @@ export const ACTIVITIES_DATA: ActivityData[] = [
     name: 'Climbing',
     tagline: 'Georgia\'s limestone walls and mountain crags — a climber\'s secret waiting to be discovered.',
     heroImage: '/images/tours/johannes-andersson-pmtllkyavOk-unsplash.jpg',
-    metaTitle: 'Rock Climbing Tours in Georgia — Adventure Experts Georgia',
+    metaTitle: 'Rock Climbing Tours in Georgia',
     metaDescription: 'Guided rock climbing in Georgia: sport climbing, trad, and big wall near Tbilisi and across the Caucasus. All levels from beginner to advanced.',
     categoryTag: 'Climbing',
     gallery: [

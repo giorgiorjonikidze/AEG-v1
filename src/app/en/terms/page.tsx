@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'Terms & Conditions | Adventure Experts Georgia',
+  title: 'Terms & Conditions',
   description: 'The booking contract between you and Adventure Experts Georgia. Covers payment, cancellation, insurance, liability, force majeure and your responsibilities as a traveller.',
 }
 
