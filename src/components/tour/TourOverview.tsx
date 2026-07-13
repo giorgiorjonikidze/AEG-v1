@@ -5,7 +5,7 @@ export default function TourOverview({ tour }: { tour: TourData }) {
     <section className="tp-overview" style={{ padding: '52px 0 0' }}>
       <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.16em', textTransform: 'uppercase' as const, color: '#C75A37', marginBottom: 10, fontFamily: 'var(--font-hanken), sans-serif' }}>Overview</div>
       <h2 style={{ fontFamily: 'var(--font-spectral), serif', fontSize: 'clamp(26px,3vw,36px)', fontWeight: 500, color: '#1E1C19', margin: '0 0 20px', lineHeight: 1.15 }}>
-        Discover the wild heart of Svaneti
+        {tour.overviewHeading ?? `Discover ${tour.region.replace(/,\s*Georgia$/i, '')}`}
       </h2>
       <p style={{ fontSize: 16, lineHeight: 1.7, color: '#3D3A35', margin: '0 0 36px', fontFamily: 'var(--font-hanken), sans-serif', maxWidth: '68ch' }}>
         {tour.overview}
