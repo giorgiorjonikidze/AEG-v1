@@ -1053,9 +1053,9 @@ Pricing is per person and scales with group size: €2,897 solo, then €1,440 /
     region: 'Tbilisi to Batumi, Georgia',
     category: 'Biking',
     emotionalLine: 'Cross an entire country by bike — seven days on gravel from the balconies of Tbilisi over the volcanic Javakheti lakes and the Goderdzi Pass, down to the surf at Batumi.',
-    price: 1071,
+    price: 1276,
     currency: '€',
-    priceEUR: 1071,
+    priceEUR: 1276,
     overviewHeading: 'One country, coast to capital — by bike',
     heroImage: '/images/tours/biking/trans-georgia-hero.jpg',
     quickFacts: {

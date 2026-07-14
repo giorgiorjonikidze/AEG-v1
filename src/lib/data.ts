@@ -66,7 +66,7 @@ export const FEATURED_TOURS = [
     activity: 'Biking',
     duration: '7 days',
     difficulty: 'Challenging',
-    price: '€1,071',
+    price: '€1,276',
     badge: 'New',
   },
   {

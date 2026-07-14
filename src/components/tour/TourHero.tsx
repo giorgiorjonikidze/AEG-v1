@@ -27,8 +27,6 @@ export default function TourHero({ tour, priceStr }: { tour: TourData; priceStr:
         .tour-hero-img { animation: heroFade 1.2s ease forwards; }
         @media(max-width:768px){
           .tour-hero-grid { grid-template-columns: 1fr 1fr !important; }
-          .tour-hero-btns { flex-direction: column !important; }
-          .tour-hero-btns a { text-align:center; }
         }
       `}</style>
 
@@ -60,17 +58,10 @@ export default function TourHero({ tour, priceStr }: { tour: TourData; priceStr:
         </p>
 
         {/* Price */}
-        <div style={{ display: 'inline-flex', alignItems: 'baseline', gap: 7, background: 'rgba(255,255,255,.1)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,.18)', borderRadius: 12, padding: '10px 18px', marginBottom: 32, fontFamily: 'var(--font-hanken), sans-serif' }}>
+        <div style={{ display: 'inline-flex', alignItems: 'baseline', gap: 7, background: 'rgba(255,255,255,.1)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,.18)', borderRadius: 12, padding: '10px 18px', marginBottom: 44, fontFamily: 'var(--font-hanken), sans-serif' }}>
           <span style={{ fontSize: 12, fontWeight: 600, color: 'rgba(255,255,255,.6)', letterSpacing: '.1em', textTransform: 'uppercase' }}>From</span>
           <span style={{ fontFamily: 'var(--font-spectral), serif', fontSize: 28, fontWeight: 600, color: '#fff', lineHeight: 1 }}>{priceStr}</span>
           <span style={{ fontSize: 13, color: 'rgba(255,255,255,.6)' }}>/ person</span>
-        </div>
-
-        {/* CTAs */}
-        <div className="tour-hero-btns" style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 44 }}>
-          <a href="#enquire" style={{ display: 'inline-block', background: '#C75A37', color: '#fff', padding: '15px 30px', borderRadius: 12, fontSize: 16, fontWeight: 700, textDecoration: 'none', boxShadow: '0 10px 28px -8px rgba(199,90,55,.75)', fontFamily: 'var(--font-hanken), sans-serif' }}>
-            Start Planning Your Trip
-          </a>
         </div>
 
         {/* Quick facts strip */}

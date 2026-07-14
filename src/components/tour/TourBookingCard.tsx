@@ -91,7 +91,7 @@ export default function TourBookingCard({ tour, priceStr }: Props) {
                 <FactIcon name={f.icon} />
                 {f.label}
               </span>
-              <span style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontSize: 14, fontWeight: 600, color: '#1E1C19' }}>{f.value}</span>
+              <span style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontSize: 14, fontWeight: 600, color: '#1E1C19', textAlign: 'right' }}>{f.value}</span>
             </div>
           ))}
         </div>
