@@ -17,7 +17,7 @@ function welcomeHtml(): string {
           <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#C75A37;font-weight:700;margin-bottom:18px">Adventure Experts Georgia</div>
           <p style="${p}">You're in! 🏔️</p>
           <p style="${p}">Thanks for subscribing. From time to time we'll send you adventure inspiration, new tours, and honest tips for exploring Georgia — never spam.</p>
-          <p style="${p}">If you're already dreaming of a trip, just reply to this email or message us on WhatsApp at <a href="https://wa.me/995595360083" style="color:#C75A37;font-weight:700;text-decoration:none">+995 595 36 00 83</a>.</p>
+          <p style="${p}">If you're already dreaming of a trip, just reply to this email or message us on WhatsApp at <a href="https://wa.me/995511502289" style="color:#C75A37;font-weight:700;text-decoration:none">+995 511 50 22 89</a>.</p>
           <p style="margin:22px 0 0;font-size:16px;line-height:1.6;color:#1E1C19;font-family:Arial,Helvetica,sans-serif">Warmly,<br/>The Adventure Experts Georgia Team</p>
           <p style="margin:20px 0 0;font-size:12px;color:#A8A296;font-family:Arial,Helvetica,sans-serif">You received this because you subscribed at adventureexpertsgeorgia.com. You can unsubscribe from any newsletter we send.</p>
         </td></tr>
@@ -77,7 +77,7 @@ export async function POST(req: Request) {
       to: email,
       subject: "You're subscribed — Adventure Experts Georgia",
       html: welcomeHtml(),
-      text: "You're in! Thanks for subscribing to Adventure Experts Georgia. We'll send occasional adventure inspiration and tips for exploring Georgia — never spam. Reply any time, or message us on WhatsApp at +995 595 36 00 83.",
+      text: "You're in! Thanks for subscribing to Adventure Experts Georgia. We'll send occasional adventure inspiration and tips for exploring Georgia — never spam. Reply any time, or message us on WhatsApp at +995 511 50 22 89.",
     })
   } catch (err) {
     console.error('[subscribe] welcome email failed (non-fatal):', err)

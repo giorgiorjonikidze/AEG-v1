@@ -256,7 +256,7 @@ export default function Navbar() {
             )}
           </div>
 
-          <a href="https://wa.me/995595360083" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer"
+          <a href="https://wa.me/995511502289" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer"
             style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 44, height: 44, color: text, border: `1px solid ${hairline}`, borderRadius: '50%', transition: trans, textDecoration: 'none' }}>
             <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
               <path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.5 8.5 0 0 1-.9-3.8A8.38 8.38 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/>
@@ -385,12 +385,12 @@ export default function Navbar() {
             </nav>
 
             <div style={{ marginTop: 20, paddingTop: 18, borderTop: '1px solid rgba(30,28,25,.1)', display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <a href="https://wa.me/995595360083" style={{ display: 'flex', alignItems: 'center', gap: 11, textDecoration: 'none', color: '#213A29', fontSize: 15 }}>
+              <a href="https://wa.me/995511502289" style={{ display: 'flex', alignItems: 'center', gap: 11, textDecoration: 'none', color: '#213A29', fontSize: 15 }}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.5 8.5 0 0 1-.9-3.8A8.38 8.38 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/>
                   <path d="M8.6 8.8c-.2 0-.5.1-.7.3-.2.2-.6.7-.6 1.6s.7 1.9.8 2c.1.2 1.4 2.3 3.5 3.1 1.7.7 2.1.6 2.4.5.4-.1 1.2-.5 1.4-1 .2-.5.2-.9.1-1l-.6-.3s-1-.5-1.1-.5c-.2-.1-.3-.1-.4.1l-.5.6c-.1.1-.2.1-.4.1-.2-.1-.8-.3-1.6-1-.6-.5-1-1.1-1.1-1.3-.1-.2 0-.3.1-.4l.3-.3.2-.3v-.3l-.5-1.3c-.1-.4-.3-.3-.4-.4z"/>
                 </svg>
-                +995 595 36 00 83
+                +995 511 50 22 89
               </a>
               <a href="mailto:info@adventureexpertsgeorgia.com" style={{ display: 'flex', alignItems: 'center', gap: 11, textDecoration: 'none', color: '#213A29', fontSize: 15, wordBreak: 'break-all' }}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>

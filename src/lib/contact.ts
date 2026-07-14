@@ -1,9 +1,9 @@
 // ── Central contact details ──────────────────────────────────────────────────
 // Change the number/email HERE and it updates everywhere on the site.
 
-export const WHATSAPP_NUMBER = '995595360083' // digits only, for wa.me links
-export const PHONE_DISPLAY = '+995 595 36 00 83'
-export const PHONE_TEL = 'tel:+995595360083'
+export const WHATSAPP_NUMBER = '995511502289' // digits only, for wa.me links
+export const PHONE_DISPLAY = '+995 511 50 22 89'
+export const PHONE_TEL = 'tel:+995511502289'
 export const CONTACT_EMAIL = 'info@adventureexpertsgeorgia.com'
 
 /** wa.me link, optionally with a prefilled message */

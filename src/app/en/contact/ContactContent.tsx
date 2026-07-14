@@ -233,14 +233,14 @@ export default function ContactPage() {
               <p style={{ fontSize: 15, lineHeight: 1.62, color: '#4A463E', margin: '0 0 26px', maxWidth: '42ch' }}>Prefer to message us straight away? We&rsquo;re quickest on WhatsApp.</p>
 
               {/* WhatsApp card */}
-              <a href="https://wa.me/995595360083" target="_blank" rel="noopener noreferrer" className="cx-wa"
+              <a href="https://wa.me/995511502289" target="_blank" rel="noopener noreferrer" className="cx-wa"
                 style={{ display: 'flex', alignItems: 'center', gap: 13, background: '#FFFFFF', border: '1px solid #ECE7DC', borderRadius: 16, boxShadow: '0 16px 40px -30px rgba(30,28,25,.45)', padding: '18px 22px', marginBottom: 18, textDecoration: 'none', transition: 'transform .25s ease,box-shadow .25s ease,border-color .25s ease' }}>
                 <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 46, height: 46, borderRadius: 13, background: 'rgba(37,211,102,.12)', color: '#1FAE55', flexShrink: 0 }}>
                   <WaIco size={22} />
                 </span>
                 <span style={{ display: 'flex', flexDirection: 'column' }}>
                   <span style={{ fontSize: 11, letterSpacing: '.16em', textTransform: 'uppercase', color: '#A8A296', fontWeight: 600 }}>WhatsApp</span>
-                  <span style={{ fontSize: 17, fontWeight: 600, color: '#1E1C19', letterSpacing: '-.1px' }}>+995 595 36 00 83</span>
+                  <span style={{ fontSize: 17, fontWeight: 600, color: '#1E1C19', letterSpacing: '-.1px' }}>+995 511 50 22 89</span>
                 </span>
               </a>
 
@@ -248,7 +248,7 @@ export default function ContactPage() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: 2, background: '#FFFFFF', border: '1px solid #ECE7DC', borderRadius: 16, overflow: 'hidden' }}>
                 {[
                   { icon: 'mail', label: 'Email', value: 'info@adventureexpertsgeorgia.com', href: 'mailto:info@adventureexpertsgeorgia.com' },
-                  { icon: 'phone', label: 'Phone / office', value: '+995 595 36 00 83', href: 'tel:+995595360083' },
+                  { icon: 'phone', label: 'Phone / office', value: '+995 511 50 22 89', href: 'tel:+995511502289' },
                 ].map((row, i) => (
                   <a key={row.label} href={row.href} className="cx-contact-row"
                     style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 20px', textDecoration: 'none', color: '#1E1C19', borderBottom: '1px solid #F1ECE1', transition: 'background .2s ease' }}>

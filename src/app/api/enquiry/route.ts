@@ -103,8 +103,8 @@ function buildInquiryText(p: EnquiryPayload, meta: { source: string; page: strin
 }
 
 // ── Auto-reply (to the customer) ──────────────────────────────────────────────
-const WA_URL = 'https://wa.me/995595360083'
-const WA_LABEL = '+995 595 36 00 83'
+const WA_URL = 'https://wa.me/995511502289'
+const WA_LABEL = '+995 511 50 22 89'
 
 function firstNameOf(name: string): string {
   return (name.trim().split(/\s+/)[0] || name).trim()
