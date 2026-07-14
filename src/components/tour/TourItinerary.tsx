@@ -168,7 +168,7 @@ export default function TourItinerary({ tour }: { tour: TourData }) {
                       <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, width: '100%' }}>
                         <span style={{ fontSize: 11, letterSpacing: '.13em', textTransform: 'uppercase', color: '#C75A37', fontWeight: 700 }}>Day {day.day}</span>
                         <span style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                          <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: '.02em', color: '#2E4034', background: 'rgba(46,64,52,.08)', border: '1px solid rgba(46,64,52,.16)', padding: '5px 11px', borderRadius: 999, whiteSpace: 'nowrap' }}>{getDiff(tour, i)}</span>
+                          <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: '.02em', color: '#2E4034', background: 'rgba(46,64,52,.08)', border: '1px solid rgba(46,64,52,.16)', padding: '5px 11px', borderRadius: 999, whiteSpace: 'nowrap' }}>{getDiffShort(tour, i)}</span>
                           <svg aria-hidden="true" width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"
                             className="itin-chevron" style={{ flex: 'none', color: '#A8A296', transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: chevronTransition }}>
                             <path d="m6 9 6 6 6-6" />
@@ -253,6 +253,13 @@ function getDiff(tour: TourData, i: number): string {
   if (!line.includes(' — ')) return line
   const parts = line.split(' — ')
   return parts[1] ?? parts[0]
+}
+
+// Short rating only ("Moderate", "Very hard") — the full description pill
+// never wraps and blows out the mobile layout width.
+function getDiffShort(tour: TourData, i: number): string {
+  const line = tour.difficultyByDay[i] ?? ''
+  return line.split(' — ')[0]
 }
 
 function useStateVal<T>(initial: T): [T, (v: T) => void] {

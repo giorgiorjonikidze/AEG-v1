@@ -9,6 +9,8 @@ export default function TourInclusions({ tour }: { tour: TourData }) {
       <style>{`
         .incl-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
         @media(min-width:640px){ .incl-grid { grid-template-columns: 1fr 1fr; } }
+        .incl-bring-cols { columns: 1; column-gap: 24px; }
+        @media(min-width:640px){ .incl-bring-cols { columns: 2; } }
       `}</style>
 
       <div className="incl-grid">
@@ -68,7 +70,7 @@ export default function TourInclusions({ tour }: { tour: TourData }) {
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C09F7E" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
           What to bring
         </div>
-        <div style={{ columns: 2, columnGap: 24 }}>
+        <div className="incl-bring-cols">
           {tour.whatToBring.map(item => (
             <div key={item} style={{ fontSize: 14, color: '#3D3A35', fontFamily: 'var(--font-hanken), sans-serif', marginBottom: 8, breakInside: 'avoid', paddingLeft: 18, position: 'relative' }}>
               <span style={{ position: 'absolute', left: 0, color: '#C09F7E' }}>·</span>{item}
