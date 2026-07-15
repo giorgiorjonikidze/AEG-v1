@@ -783,7 +783,7 @@ Pricing is per person. The full-camp program (with dining tent and full kitchen)
     name: 'Wild Caving Experience in Melouri Cave',
     region: 'Imereti — near Kutaisi, Georgia',
     category: 'Caving',
-    emotionalLine: 'Trade daylight for headlamps — wade an underground river into the wild heart of the Georgian karst.',
+    emotionalLine: 'Trade daylight for headlamps — cross an underground river into the wild heart of the Georgian karst.',
     price: 95,
     currency: '€',
     isDayTour: true,
@@ -799,22 +799,24 @@ Pricing is per person. The full-camp program (with dining tent and full kitchen)
       accommodation: '',
     },
     summaryCards: [
-      { icon: 'clock', label: 'Duration', value: '~5 hours (from Kutaisi) · full day from Tbilisi' },
+      { icon: 'clock', label: 'Duration', value: 'Full-day activity · 3–5 hrs in the cave' },
       { icon: 'map-pin', label: 'Start / End', value: 'Tbilisi or Kutaisi (two pickup options)' },
       { icon: 'map-pin', label: 'Location', value: 'Melouri Cave, near Kutaisi (Tskaltubo), Imereti' },
       { icon: 'users', label: 'Group size', value: 'Private — just you & your companions' },
-      { icon: 'activity', label: 'Activity', value: 'Wild caving — wading, scrambling, total dark' },
-      { icon: 'compass', label: 'Equipment', value: 'Helmet, headlamp & overalls provided' },
+      { icon: 'activity', label: 'Activity', value: 'Wild caving — river crossing, scrambling, total dark' },
+      { icon: 'compass', label: 'Equipment', value: 'Helmet, headlamp, boots & overalls provided' },
       { icon: 'star', label: 'Best for', value: 'Adventurous first-timers — no experience needed' },
     ],
-    overview: `Melouri Cave is wild caving in its truest form — no handrails, no walkways, no coloured lights. Just you, a helmet and headlamp, a certified guide, and the living dark of the Georgian karst near Kutaisi. This is an "active" cave: you'll wade through an underground river, pick your way past rock formations, and move through chambers where the only sound is dripping water and your own breath.
+    overview: `Melouri Cave is wild caving in its truest form — no handrails, no walkways, no coloured lights. Just you, a helmet and headlamp, a certified guide, and the living dark of the Georgian karst near Kutaisi. This is an "active" cave: you'll cross an underground river, pick your way past rock formations, and move through chambers where the only sound is dripping water and your own breath.
 
-It's an adventure, but an accessible one — no previous caving experience is required, and your guide leads every step, reading the cave and keeping the group safe. You'll get wet and muddy, you'll scramble a little, and you'll come out grinning. A perfect half-day of real underground exploration for anyone based in or passing through Imereti — and a strong add-on to a western-Georgia trip.
+It's an adventure, but an accessible one — no previous caving experience is required, and your guide leads every step, reading the cave and keeping the group safe. You'll get a little muddy, you'll scramble a little, and you'll come out grinning. You stay mostly dry — the boots we provide keep your feet dry, and you only step across the water rather than walk through it. A perfect half-day of real underground exploration for anyone based in or passing through Imereti — and a strong add-on to a western-Georgia trip.
+
+Melouri has many possible routes, so the difficulty and length are tailored to your group — your guide picks the line that fits your fitness, experience and appetite for adventure. You'll spend roughly 3–5 hours underground.
 
 You can join from Kutaisi as a roughly five-hour experience, or from Tbilisi as a long full day (Kutaisi is about 3.5–4 hours' drive each way). Choose your pickup point in the enquiry. Not recommended for those with serious claustrophobia or significant mobility limits — see the FAQ.`,
     highlights: [
       'Explore a genuine wild cave — not a paved show-cave',
-      'Wade through an underground river',
+      'Cross an underground river (boots provided — you stay mostly dry)',
       'Move by headlamp through total darkness',
       'See natural rock formations and cave chambers',
       'Certified caving guide and all safety equipment provided',
@@ -829,13 +831,13 @@ You can join from Kutaisi as a roughly five-hour experience, or from Tbilisi as 
       { name: 'Transfer to Melouri Cave', time: 'Varies', description: 'Drive to Melouri Cave near Kutaisi / Tskaltubo in Imereti — a short local transfer from Kutaisi, or a longer drive if starting from Tbilisi.', tags: ['Transfer'] },
       { name: 'Gear-up & Safety Briefing', time: '~20 min', description: 'Helmet, headlamp and caving overalls are fitted, and your guide explains technique and safety before you head underground.', tags: ['Briefing', 'Gear'] },
       { name: 'Enter Melouri Cave', time: '—', description: 'Leave daylight behind and begin the underground route — first chambers, formations, and the way to the river passage.', tags: ['Caving'] },
-      { name: 'Wild Caving', time: 'Core of the day', description: 'Wade the underground river, scramble over rock, and explore deeper with your guide — headlamp-only in the living dark.', tags: ['Wading', 'Scrambling', 'Guided'] },
-      { name: 'Exit & Change', time: '~20 min', description: 'Back to daylight, then change out of your wet, muddy gear — the grinning-photo moment.', tags: ['Change'] },
+      { name: 'Wild Caving', time: 'Core of the day', description: 'Cross the underground river, scramble over rock, and explore deeper with your guide — headlamp-only in the living dark.', tags: ['River crossing', 'Scrambling', 'Guided'] },
+      { name: 'Exit & Change', time: '~20 min', description: 'Back to daylight, then change out of your muddy gear — the grinning-photo moment.', tags: ['Change'] },
       { name: 'Return Transfer', time: 'Afternoon / evening', description: 'Return to Kutaisi or Tbilisi, depending on your pickup point.', tags: ['Transfer'] },
     ],
     itinerary: [],
     difficultyByDay: [],
-    difficultyMessage: 'Moderate, with no experience required. Expect to get wet and muddy, wade through water, and scramble over uneven ground, with some lower or tighter sections. Reasonable general fitness and comfort in enclosed, dark, wet spaces are needed — this is a wild cave, so it is not suitable for serious claustrophobia or significant mobility limits. As an active water cave, trips depend on water levels and may be rescheduled for safety.',
+    difficultyMessage: 'Moderate, with no experience required. Expect to get a little muddy, step across water, and scramble over uneven ground, with some lower or tighter sections. You stay mostly dry — the provided boots keep your feet dry and you only cross the water rather than walk through it. Reasonable general fitness and comfort in enclosed, dark spaces are needed — this is a wild cave, so it is not suitable for serious claustrophobia or significant mobility limits. Melouri has many possible routes, so the difficulty and time underground (roughly 3–5 hours) are tailored to your group, and the cave runs year-round in virtually any weather.',
     accommodation: [],
     foodCulture: [
       'A genuine "wild" cave near Kutaisi — no lights or walkways',
@@ -844,7 +846,7 @@ You can join from Kutaisi as a roughly five-hour experience, or from Tbilisi as 
     ],
     included: [
       'Certified caving guide',
-      'Helmet, headlamp and caving overalls',
+      'Helmet, headlamp, boots, gloves and caving overalls',
       'Local transfer to and from the cave',
       'Safety briefing, route planning and organisation',
     ],
@@ -858,10 +860,8 @@ You can join from Kutaisi as a roughly five-hour experience, or from Tbilisi as 
       'Tips (discretionary)',
     ],
     whatToBring: [
-      'A full change of clothes (you will get wet)',
-      'Old sportswear you don\'t mind getting muddy',
-      'Sturdy shoes that can get wet',
-      'A towel',
+      'A change of clothes for afterwards',
+      'Old sportswear to wear under the overalls',
       'A warm layer for afterwards',
       'A small backpack',
       'Water and a snack',
@@ -887,16 +887,17 @@ You can join from Kutaisi as a roughly five-hour experience, or from Tbilisi as 
     ],
     faq: [
       { q: 'Do I need caving experience?', a: 'No — this trip is beginner-friendly. A certified caving guide leads every step, explains technique in the safety briefing, and keeps the group safe throughout. You just need reasonable general fitness and a sense of adventure.' },
-      { q: 'Is it safe — who leads it?', a: 'A certified caving guide leads the whole experience, with all safety equipment provided and safety-checked. Every trip is private — your group only — and starts with a briefing. As a wild water cave, trips are weather- and water-level dependent and may be rescheduled for safety.' },
-      { q: 'Will I get wet?', a: 'Yes — expect water and mud. You\'ll wade through an underground river and move through wet passages. Wear old sportswear under the provided overalls and bring a full change of clothes and a towel for afterwards.' },
+      { q: 'Is it safe — who leads it?', a: 'A certified caving guide leads the whole experience, with all safety equipment provided and safety-checked. Every trip is private — your group only — and starts with a briefing.' },
+      { q: 'Will I get wet?', a: 'Not really. You don\'t walk through the water — you only step across it, and because we provide boots, your feet stay dry too. You might get slightly wet while crawling through the lower sections, but only a little. Overall you stay mostly dry.' },
+      { q: 'How long are you inside the cave, and can the route be adjusted?', a: 'You spend roughly 3–5 hours underground. Melouri has many possible routes, so your guide tailors both the difficulty and the length to your group — a shorter, easier line for first-timers, or a longer, more challenging route if you want more adventure.' },
       { q: 'Is it claustrophobic — are there tight squeezes?', a: 'There are some lower and tighter sections, though much of the route is through walking-height passages and chambers. It is a genuine wild cave, so it is not recommended for those with serious claustrophobia. Tell us any concerns in the enquiry.' },
-      { q: 'What\'s the minimum age and fitness level?', a: 'You should be reasonably fit and comfortable scrambling over uneven, wet ground in the dark. Please ask us about minimum age and suitability when you enquire, and note any health or mobility concerns in the form.' },
-      { q: 'What should I wear and bring?', a: 'Wear old sportswear you don\'t mind getting muddy and shoes that can get wet. Bring a full change of clothes, a towel, a warm layer, water and a snack. Helmet, headlamp and caving overalls are provided.' },
-      { q: 'Is equipment provided?', a: 'Yes — helmet, headlamp and caving overalls are provided. You bring your own base layers, footwear that can get wet, and a change of clothes.' },
+      { q: 'What\'s the minimum age and fitness level?', a: 'You should be reasonably fit and comfortable scrambling over uneven ground in the dark. Please ask us about minimum age and suitability when you enquire, and note any health or mobility concerns in the form.' },
+      { q: 'What should I wear and bring?', a: 'Wear old sportswear you don\'t mind getting a little muddy. Bring a change of clothes, a warm layer for afterwards, water and a snack. Helmet, headlamp, boots and caving overalls are all provided.' },
+      { q: 'Is equipment provided?', a: 'Yes — helmet, headlamp, boots and caving overalls are all provided. You just bring old sportswear to wear underneath, a change of clothes, and a warm layer for afterwards.' },
       { q: 'Can I do this from Tbilisi, and how long is that day?', a: 'Yes. From Kutaisi it\'s about a five-hour experience. From Tbilisi it becomes a long full day — Kutaisi is roughly 3.5–4 hours\' drive each way — so expect an early start and a full day out. Choose your pickup point in the enquiry.' },
       { q: 'Is this a private trip?', a: 'Yes — every trip we run is private, just for you and your companions. No strangers, no mixed groups.' },
-      { q: 'What happens if the cave is closed by high water or weather?', a: 'Water levels and weather can make a wild cave unsafe — for example after heavy rain or during spring snowmelt. If conditions are unsafe we\'ll reschedule or offer an alternative. Safety always comes first.' },
-      { q: 'Is it suitable for children or families?', a: 'It can suit older children and teenagers who are comfortable getting wet, muddy and being underground in the dark, but it is a real wild cave rather than a gentle show-cave. Tell us your group\'s ages and we\'ll advise honestly.' },
+      { q: 'Does rain or bad weather affect the trip?', a: 'No — rain and bad weather don\'t affect Melouri Cave. Thanks to the cave\'s structure, even during heavy rain the chance of flooding is effectively zero, so the trip runs as planned in virtually any weather.' },
+      { q: 'Is it suitable for children or families?', a: 'It can suit older children and teenagers who are comfortable getting a little muddy and being underground in the dark, but it is a real wild cave rather than a gentle show-cave. Tell us your group\'s ages and we\'ll advise honestly.' },
     ],
     relatedTours: [
       { slug: 'canyoning-day-adventure', name: 'Canyoning Day Adventure in Imereti', region: 'Imereti', duration: '1 day', difficulty: 'Moderate', image: '/images/tours/canyoning/canyoning-waterfall-rappel.jpg' },
