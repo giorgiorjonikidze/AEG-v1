@@ -118,9 +118,12 @@ export default function Navbar() {
           href="/en"
           style={{ display: 'flex', alignItems: 'center', gap: 13, textDecoration: 'none', color: text, transition: trans, flex: 'none' }}
         >
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M2 20h20"/><path d="m4 20 5-10 3.4 6"/><path d="m10 20 5-12 5 12"/>
-          </svg>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={solid ? '/images/logo/logo-mark.png' : '/images/logo/logo-mark-white.png'}
+            alt=""
+            style={{ height: 25, width: 'auto', display: 'block', transition: trans }}
+          />
           <span style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
             <span style={{ fontFamily: 'var(--font-cormorant), serif', fontWeight: 600, fontSize: 23, letterSpacing: '.2px', whiteSpace: 'nowrap' }}>Adventure Experts</span>
             <span style={{ fontSize: 9.5, letterSpacing: '4.5px', marginTop: 5, color: logoSub, transition: trans }}>GEORGIA</span>
@@ -275,9 +278,12 @@ export default function Navbar() {
       <div className="flex md:hidden flex-col" style={{ fontFamily: 'var(--font-dm-sans), sans-serif', transform: mobileHidden ? 'translateY(-100%)' : 'translateY(0)', transition: reduceMotion ? 'none' : 'transform .3s cubic-bezier(.4,0,.2,1)', pointerEvents: mobileHidden ? 'none' : 'auto' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '15px 18px', background: mBarBg, boxShadow: mShadow, transition: trans }}>
           <Link href="/en" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', color: mText, transition: trans }}>
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M2 20h20"/><path d="m4 20 5-10 3.4 6"/><path d="m10 20 5-12 5 12"/>
-            </svg>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={mSolid ? '/images/logo/logo-mark.png' : '/images/logo/logo-mark-white.png'}
+              alt=""
+              style={{ height: 20, width: 'auto', display: 'block', transition: trans }}
+            />
             <span style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
               <span style={{ fontFamily: 'var(--font-cormorant), serif', fontWeight: 600, fontSize: 18, whiteSpace: 'nowrap' }}>Adventure Experts</span>
               <span style={{ fontSize: 8, letterSpacing: '3.5px', marginTop: 4, color: mLogoSub, transition: trans }}>GEORGIA</span>

@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     title: 'Adventure Experts Georgia — Guided Tours in the Caucasus',
     description:
       'Private adventure tours and day trips across Georgia, led by certified local guides.',
-    images: ['/images/georgia-hero.avif'],
+    images: ['/images/logo/og-image.png'],
   },
 }
 

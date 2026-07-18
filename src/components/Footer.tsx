@@ -120,9 +120,12 @@ export default function Footer() {
         {/* Logo */}
         <div style={{ marginBottom: 48 }}>
           <Link href="/en" style={{ display: 'inline-flex', alignItems: 'center', gap: 12, textDecoration: 'none', color: '#fff' }}>
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M2 20h20"/><path d="m4 20 5-10 3.4 6"/><path d="m10 20 5-12 5 12"/>
-            </svg>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/logo/logo-mark-white.png"
+              alt=""
+              style={{ height: 24, width: 'auto', display: 'block' }}
+            />
             <span style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
               <span style={{ fontFamily: 'var(--font-cormorant), serif', fontWeight: 600, fontSize: 22 }}>Adventure Experts</span>
               <span style={{ fontSize: 10, letterSpacing: '4px', marginTop: 4, color: 'rgba(255,255,255,.45)' }}>GEORGIA</span>
