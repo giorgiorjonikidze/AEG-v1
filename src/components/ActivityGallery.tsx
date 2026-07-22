@@ -20,27 +20,23 @@ export default function ActivityGallery({ images, activityName }: Props) {
     <>
       <style>{`
         .act-gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
-        .act-gallery-main{grid-column:1/2;grid-row:1/3;aspect-ratio:3/4;}
         .act-gallery-img{position:relative;overflow:hidden;border-radius:6px;aspect-ratio:4/3;cursor:pointer;}
         .act-gallery-img img{object-fit:cover;transition:transform .5s ease;}
         .act-gallery-img:hover img{transform:scale(1.04);}
         .act-gallery-note{margin-top:14px;font-size:12.5px;color:#A8A296;display:flex;align-items:center;gap:7px;}
         @media(max-width:900px){
           .act-gallery-grid{grid-template-columns:1fr 1fr;}
-          .act-gallery-main{grid-column:1/3;grid-row:auto;aspect-ratio:16/9;}
-          .act-gallery-img{aspect-ratio:4/3;}
         }
         @media(max-width:480px){
           .act-gallery-grid{grid-template-columns:1fr;}
-          .act-gallery-main{grid-column:auto;aspect-ratio:4/3;}
         }
       `}</style>
 
       <div className="act-gallery-grid">
-        {images.slice(0, 6).map((src, i) => (
+        {images.map((src, i) => (
           <div
             key={src}
-            className={`act-gallery-img${i === 0 ? ' act-gallery-main' : ''}`}
+            className="act-gallery-img"
             onClick={() => setIndex(i)}
             role="button"
             tabIndex={0}
@@ -67,8 +63,8 @@ export default function ActivityGallery({ images, activityName }: Props) {
           images={lightboxImages}
           index={index}
           onClose={() => setIndex(null)}
-          onPrev={() => setIndex(i => Math.max(0, (i ?? 0) - 1))}
-          onNext={() => setIndex(i => Math.min(images.length - 1, (i ?? 0) + 1))}
+          onPrev={() => setIndex(i => ((i ?? 0) - 1 + images.length) % images.length)}
+          onNext={() => setIndex(i => ((i ?? 0) + 1) % images.length)}
         />
       )}
     </>

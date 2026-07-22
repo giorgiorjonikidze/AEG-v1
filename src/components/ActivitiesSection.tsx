@@ -88,7 +88,12 @@ export default function ActivitiesSection() {
   }, [])
 
   const scrollDesk = (dir: number) => {
-    deskRowRef.current?.scrollBy({ left: dir * (320 + 14) * 2, behavior: 'smooth' })
+    const el = deskRowRef.current
+    if (!el || el.children.length < 2) return
+    // One card per click — step = distance between two adjacent cards (width + gap)
+    const step = (el.children[1] as HTMLElement).offsetLeft - (el.children[0] as HTMLElement).offsetLeft
+    if (step <= 0) return
+    el.scrollBy({ left: dir * step, behavior: 'smooth' })
   }
 
   const onMobScroll = () => {
@@ -148,7 +153,7 @@ export default function ActivitiesSection() {
         <div
           ref={deskRowRef}
           className="scrollbar-hide"
-          style={{ display: 'flex', gap: 14, overflowX: 'auto', padding: '6px 56px 8px', cursor: 'grab', userSelect: 'none' }}
+          style={{ display: 'flex', gap: 14, overflowX: 'auto', padding: '6px 56px 8px', cursor: 'grab', userSelect: 'none', scrollSnapType: 'x proximity', scrollPaddingLeft: 56 }}
         >
           {ACTIVITIES.map(act => (
             <Link key={act.name} href={act.href} aria-label={`${act.name} — view tours`} className="act2-card act2-reveal">

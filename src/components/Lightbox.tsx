@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useCallback } from 'react'
+import { useEffect, useCallback, useState } from 'react'
 import Image from 'next/image'
 
 interface Props {
@@ -10,8 +10,12 @@ interface Props {
   onNext: () => void
 }
 
+const ZOOM = 2.4
+
 export default function Lightbox({ images, index, onClose, onPrev, onNext }: Props) {
   const total = images.length
+  const [zoomed, setZoomed] = useState(false)
+  const [origin, setOrigin] = useState('50% 50%')
 
   const handleKey = useCallback((e: KeyboardEvent) => {
     if (e.key === 'Escape')     onClose()
@@ -28,29 +32,39 @@ export default function Lightbox({ images, index, onClose, onPrev, onNext }: Pro
     }
   }, [handleKey])
 
+  // Reset zoom whenever the viewed image changes
+  useEffect(() => { setZoomed(false); setOrigin('50% 50%') }, [index])
+
   return (
     <div
       onClick={onClose}
       style={{ position: 'fixed', inset: 0, zIndex: 200, background: 'rgba(10,8,6,.94)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
     >
-      {/* Image */}
+      {/* Image — click/tap to zoom, move cursor to pan */}
       <div
-        onClick={e => e.stopPropagation()}
-        style={{ position: 'relative', width: 'min(92vw, 1080px)', height: 'min(82vh, 720px)' }}
+        onClick={e => { e.stopPropagation(); setZoomed(z => !z) }}
+        onMouseMove={e => {
+          if (!zoomed) return
+          const r = e.currentTarget.getBoundingClientRect()
+          const x = ((e.clientX - r.left) / r.width) * 100
+          const y = ((e.clientY - r.top) / r.height) * 100
+          setOrigin(`${x}% ${y}%`)
+        }}
+        style={{ position: 'relative', width: 'min(96vw, 1400px)', height: 'min(90vh, 900px)', overflow: 'hidden', cursor: zoomed ? 'zoom-out' : 'zoom-in' }}
       >
         <Image
           key={images[index].src}
           src={images[index].src}
           alt={images[index].alt}
           fill
-          style={{ objectFit: 'contain' }}
-          sizes="92vw"
+          style={{ objectFit: 'contain', transform: zoomed ? `scale(${ZOOM})` : 'scale(1)', transformOrigin: origin, transition: 'transform .25s ease' }}
+          sizes="96vw"
           priority
         />
       </div>
 
-      {/* Prev */}
-      {index > 0 && (
+      {/* Prev — always shown; wraps to the last image from the first */}
+      {total > 1 && (
         <button
           onClick={e => { e.stopPropagation(); onPrev() }}
           aria-label="Previous image"
@@ -60,8 +74,8 @@ export default function Lightbox({ images, index, onClose, onPrev, onNext }: Pro
         </button>
       )}
 
-      {/* Next */}
-      {index < total - 1 && (
+      {/* Next — always shown; wraps back to the first image from the last */}
+      {total > 1 && (
         <button
           onClick={e => { e.stopPropagation(); onNext() }}
           aria-label="Next image"
