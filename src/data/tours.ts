@@ -58,7 +58,7 @@ export const TOURS: TourData[] = [
     region: 'Svaneti, Georgia',
     category: 'Trekking',
     emotionalLine: 'No need for knees of steel. Explore all the gems of Svaneti without back-breaking climbs.',
-    price: 2490,
+    price: 1200,
     currency: '€',
     overviewHeading: 'Discover the wild heart of Svaneti',
     heroImage: '/images/tours/ice-towers-hero.avif',
