@@ -7,6 +7,7 @@ const ICON_PATHS: Record<string, string> = {
   mountain: '<path d="m8 3 4 8 5-5 5 15H2L8 3z"/>',
   car: '<path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><path d="M9 17h6"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/>',
   moon: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
+  route: '<circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/>',
   plus: '<path d="M5 12h14"/><path d="M12 5v14"/>',
 }
 
@@ -29,10 +30,20 @@ interface DayStat {
   optional: boolean
 }
 
+function mapEmbedSrc(tour: TourData): string {
+  const enc = (place: string) => encodeURIComponent(`${place}, Georgia`)
+  if (tour.mapRoute && tour.mapRoute.length >= 2) {
+    const [origin, ...rest] = tour.mapRoute
+    return `https://maps.google.com/maps?saddr=${enc(origin)}&daddr=${rest.map(enc).join('+to:')}&output=embed`
+  }
+  return `https://maps.google.com/maps?q=${encodeURIComponent(tour.region)}&z=9&output=embed`
+}
+
 function buildStats(day: DayInput): DayStat[] {
   const stats: DayStat[] = []
   if (day.stats.distance) stats.push({ icon: 'moveHorizontal', caption: 'Distance', value: day.stats.distance, optional: false })
   if (day.stats.elevation) stats.push({ icon: 'mountain', caption: 'Elevation', value: day.stats.elevation, optional: false })
+  if (day.stats.surface) stats.push({ icon: 'route', caption: 'Surface', value: day.stats.surface, optional: false })
   if (day.stats.drive) stats.push({ icon: 'car', caption: 'Drive', value: day.stats.drive, optional: false })
   stats.push({ icon: 'moon', caption: 'Overnight', value: day.stats.overnight, optional: false })
   if (day.stats.optional) stats.push({ icon: 'plus', caption: 'Optional', value: day.stats.optional, optional: true })
@@ -128,10 +139,6 @@ export default function TourItinerary({ tour }: { tour: TourData }) {
             const isOpen = !!open[i]
             const stats = buildStats(day)
 
-            // difficulty label from difficultyByDay
-            const diffLine = tour.difficultyByDay[i] ?? ''
-            const diff = diffLine.includes(' — ') ? diffLine.split(' — ').slice(1).join(' — ').split(' — ')[0] : day.stats.overnight
-
             return (
               <article key={day.day} style={{ position: 'relative', borderBottom: '1px solid #ECE7DC' }}>
                 {/* Marker */}
@@ -168,7 +175,6 @@ export default function TourItinerary({ tour }: { tour: TourData }) {
                       <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, width: '100%' }}>
                         <span style={{ fontSize: 11, letterSpacing: '.13em', textTransform: 'uppercase', color: '#C75A37', fontWeight: 700 }}>Day {day.day}</span>
                         <span style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                          <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: '.02em', color: '#2E4034', background: 'rgba(46,64,52,.08)', border: '1px solid rgba(46,64,52,.16)', padding: '5px 11px', borderRadius: 999, whiteSpace: 'nowrap' }}>{getDiffShort(tour, i)}</span>
                           <svg aria-hidden="true" width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"
                             className="itin-chevron" style={{ flex: 'none', color: '#A8A296', transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: chevronTransition }}>
                             <path d="m6 9 6 6 6-6" />
@@ -181,7 +187,6 @@ export default function TourItinerary({ tour }: { tour: TourData }) {
                     <>
                       <span style={{ flex: 'none', minWidth: 44, fontSize: 11, letterSpacing: '.13em', textTransform: 'uppercase', color: '#C75A37', fontWeight: 700 }}>Day {day.day}</span>
                       <span style={{ flex: 1, fontFamily: "'Spectral',serif", fontWeight: 500, fontSize: 'clamp(17px,2.3vw,22px)', lineHeight: 1.25, color: '#1E1C19' }}>{day.title}</span>
-                      <span style={{ flex: 'none', fontSize: 11, fontWeight: 600, letterSpacing: '.02em', color: '#2E4034', background: 'rgba(46,64,52,.08)', border: '1px solid rgba(46,64,52,.16)', padding: '5px 11px', borderRadius: 999, whiteSpace: 'nowrap' }}>{getDiff(tour, i)}</span>
                       <svg aria-hidden="true" width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"
                         className="itin-chevron" style={{ flex: 'none', color: '#A8A296', transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: chevronTransition }}>
                         <path d="m6 9 6 6 6-6" />
@@ -229,8 +234,8 @@ export default function TourItinerary({ tour }: { tour: TourData }) {
       <div style={{ marginTop: 40 }}>
         <div style={{ borderRadius: 16, overflow: 'hidden', border: '1px solid #ECE7DC', boxShadow: '0 4px 20px -8px rgba(30,28,25,.14)' }}>
           <iframe
-            title="Svaneti tour route map"
-            src="https://maps.google.com/maps?q=svaneti+georgia&z=9&output=embed"
+            title={`${tour.name} route map`}
+            src={mapEmbedSrc(tour)}
             width="100%"
             height="420"
             style={{ display: 'block', border: 0 }}
@@ -239,27 +244,13 @@ export default function TourItinerary({ tour }: { tour: TourData }) {
           />
         </div>
         <p style={{ margin: '10px 0 0', fontSize: 12, color: '#A8A296', textAlign: 'center', fontFamily: "'Hanken Grotesk',sans-serif" }}>
-          Svaneti region — Georgia
+          {tour.mapRoute ? tour.routeFlow : tour.region}
         </p>
       </div>
 
       </div>
     </section>
   )
-}
-
-function getDiff(tour: TourData, i: number): string {
-  const line = tour.difficultyByDay[i] ?? ''
-  if (!line.includes(' — ')) return line
-  const parts = line.split(' — ')
-  return parts[1] ?? parts[0]
-}
-
-// Short rating only ("Moderate", "Very hard") — the full description pill
-// never wraps and blows out the mobile layout width.
-function getDiffShort(tour: TourData, i: number): string {
-  const line = tour.difficultyByDay[i] ?? ''
-  return line.split(' — ')[0]
 }
 
 function useStateVal<T>(initial: T): [T, (v: T) => void] {

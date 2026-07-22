@@ -2,7 +2,7 @@ export interface TourDay {
   day: number
   title: string
   narrative: string
-  stats: { distance?: string; elevation?: string; drive?: string; overnight: string; optional?: string }
+  stats: { distance?: string; elevation?: string; surface?: string; drive?: string; overnight: string; optional?: string }
 }
 
 export interface DayStop {
@@ -34,6 +34,8 @@ export interface TourData {
   overviewHeading?: string
   routeFlow: string
   routePins: string[]
+  /** Geocodable waypoints for the embedded Google map — when set, the map draws the route instead of showing a region pin */
+  mapRoute?: string[]
   itinerary: TourDay[]
   stops?: DayStop[]
   difficultyByDay: string[]
@@ -1053,7 +1055,7 @@ Pricing is per person and scales with group size: €2,897 solo, then €1,440 /
     name: 'Trans-Georgia Traverse: Tbilisi to the Black Sea',
     region: 'Tbilisi to Batumi, Georgia',
     category: 'Biking',
-    emotionalLine: 'Cross an entire country by bike — seven days on gravel from the balconies of Tbilisi over the volcanic Javakheti lakes and the Goderdzi Pass, down to the surf at Batumi.',
+    emotionalLine: 'Cross an entire country by bike — seven days in the saddle from the balconies of Tbilisi over the volcanic Javakheti lakes and the Goderdzi Pass, down to the surf at Batumi.',
     price: 1276,
     currency: '€',
     priceEUR: 1276,
@@ -1063,7 +1065,7 @@ Pricing is per person and scales with group size: €2,897 solo, then €1,440 /
       duration: '7 days',
       start: 'Tbilisi',
       end: 'Batumi (Black Sea)',
-      activity: 'Gravel / Cross-Country Cycling',
+      activity: 'Road & Gravel Cycling',
       difficulty: 'Challenging — good fitness required',
       accommodation: 'Hotels + family guesthouses (full board)',
     },
@@ -1073,45 +1075,46 @@ Pricing is per person and scales with group size: €2,897 solo, then €1,440 /
       { icon: 'map-pin', label: 'Ending point', value: 'Batumi, Black Sea coast' },
       { icon: 'mountain', label: 'The line', value: 'Tbilisi → Javakheti lakes → Goderdzi Pass → Batumi' },
       { icon: 'users', label: 'Group size', value: '1–6 riders (pricing scales by number)' },
-      { icon: 'activity', label: 'Riding', value: 'Mixed gravel & quiet tarmac — ~400 km' },
+      { icon: 'activity', label: 'Riding', value: '~300 km — mostly quiet tarmac, ~20% gravel' },
       { icon: 'compass', label: 'High point', value: 'Goderdzi Pass, 2,025 m' },
       { icon: 'footprints', label: 'Fitness', value: 'Good fitness required — endurance, not technical' },
       { icon: 'home', label: 'Overnight places', value: 'Tbilisi · Paravani · Vardzia · Akhaltsikhe · Goderdzi · Batumi' },
       { icon: 'star', label: 'Best for', value: 'Riders who want to cross a whole country coast-to-capital' },
     ],
-    overview: `A point-to-point traverse straight across Georgia — from old Tbilisi to the surf at Batumi, under your own power, on gravel. In seven days you climb onto the volcanic Javakheti plateau past the crater lakes of Paravani and Saghamo, drop to the honeycomb cave-city of Vardzia and the fortress of Rabati, then grind up the Goderdzi Pass for one of the great descents of the Caucasus — down through the wooden mosques and tea-terraced villages of mountainous Adjara to the Black Sea.
+    overview: `A point-to-point traverse straight across Georgia — from old Tbilisi to the surf at Batumi, under your own power. In seven days you climb onto the volcanic Javakheti plateau past the crater lakes of Paravani and Saghamo, drop to the honeycomb cave-city of Vardzia and the fortress of Rabati, then grind up the Goderdzi Pass for one of the great descents of the Caucasus — down through the wooden mosques and tea-terraced villages of mountainous Adjara to the Black Sea.
 
-Semi-desert steppe, alpine lakes, medieval history, a high pass and a subtropical coast — five worlds in a week. The riding is mostly rough gravel and quiet back-roads with a support vehicle the whole way, so it's about endurance and adventure rather than technical skill: if you ride regularly and like long days in the saddle, you'll be fine.`,
+Semi-desert steppe, alpine lakes, medieval history, a high pass and a subtropical coast — five worlds in a week. The riding is mostly quiet tarmac and concrete back-roads, spiced with one big gravel day across the Javakheti plateau and gravel ramps near the Goderdzi Pass — with a support vehicle the whole way. It's about endurance and adventure rather than technical skill: if you ride regularly and like long days in the saddle, you'll be fine.`,
     highlights: [
       'Ride coast-to-capital across an entire country — Tbilisi to the Black Sea',
       'Cross the volcanic Javakheti plateau past the high crater lakes of Paravani and Saghamo',
       'Explore the honeycomb cave-city of Vardzia, carved into a cliff in the 12th century',
       'Pass the rebuilt Rabati Castle in Akhaltsikhe on the old Silk Road',
       'Grind up the legendary Goderdzi Pass (2,025 m) into mountainous Adjara',
-      'Descend for hours through wooden mosques, slate villages and tea terraces to the sea',
+      'Sweep down from the pass through wooden mosques and slate villages into subtropical Adjara',
       'Sleep in family guesthouses with home-cooked food and a supra welcome and farewell',
       'Full support vehicle the whole way — carry nothing, hop in on the hardest ramps',
     ],
     routeFlow: 'Tbilisi → Trialeti plateau → Tsalka → Lake Paravani → Javakheti lakes → Vardzia → Akhaltsikhe (Rabati) → Adigeni → Zarzma → Goderdzi Pass (2,025 m) → Khulo → Riketi → Adjara foothills → Batumi',
     routePins: ['Tbilisi', 'Tsalka', 'Lake Paravani', 'Vardzia', 'Akhaltsikhe', 'Zarzma', 'Goderdzi Pass', 'Khulo', 'Riketi', 'Batumi'],
+    mapRoute: ['Tbilisi', 'Tsalka', 'Paravani Lake', 'Vardzia', 'Akhaltsikhe', 'Adigeni', 'Khulo', 'Batumi'],
     itinerary: [
       { day: 1, title: 'Arrive Tbilisi — fitting & shakedown spin', narrative: 'Meet the team in Tbilisi, size and set up your bike, and roll a relaxed shakedown loop through the old town to dial in your position and brakes before the real riding starts. We gather in the evening for a welcome supra — a Georgian feast of khinkali, khachapuri and toasts — and a full route briefing over the map.', stats: { distance: '0–15 km (optional spin)', overnight: 'Tbilisi (hotel)' } },
-      { day: 2, title: 'Tbilisi → Trialeti plateau → Lake Paravani', narrative: 'A short van shuttle lifts us clear of the city traffic to the edge of the Trialeti range, and the ride proper begins with a long, steady climb onto the volcanic uplands. Quiet gravel and back-roads carry us past Tsalka reservoir and out onto the vast, treeless Javakheti plateau to the shore of Lake Paravani, one of the highest large lakes in the Caucasus.', stats: { distance: '~60 km', elevation: '+950 m', drive: 'Short morning van shuttle out of Tbilisi', overnight: 'Lake Paravani area (family guesthouse)' } },
-      { day: 3, title: 'Paravani lakes → Javakheti plateau → Vardzia', narrative: 'A big-sky day rolling across the roof of southern Georgia — shepherds, stork nests on the power poles, and the crater lakes of Saghamo and Khanchali. In the afternoon the plateau breaks apart and we drop steeply into the green Mtkvari gorge, finishing at the astonishing cave-city of Vardzia carved into the cliff opposite our guesthouse.', stats: { distance: '~70 km', elevation: '+700 m / long descent', overnight: 'Vardzia area (family guesthouse)', optional: 'Guided visit of the Vardzia cave monastery' } },
-      { day: 4, title: 'Vardzia → Mtkvari valley → Akhaltsikhe (Rabati)', narrative: 'A gentler day following the Mtkvari river downstream on rolling back-roads through orchard villages, with time in the morning to explore the tunnels and chapels of Vardzia. We finish in Akhaltsikhe beneath the storybook silhouette of Rabati Castle — a good afternoon to rest the legs, do laundry, and check the bikes before the mountains.', stats: { distance: '~50 km', elevation: '+350 m', overnight: 'Akhaltsikhe (guesthouse / small hotel)', optional: 'Visit Rabati Castle' } },
-      { day: 5, title: 'Akhaltsikhe → Adigeni → Zarzma → Goderdzi climb', narrative: 'The queen stage of the traverse. We turn west up the Kvabliani valley through Adigeni, pausing at the frescoed medieval monastery of Zarzma, then settle into the long climb toward the Goderdzi Pass. The tarmac gives way to rough mountain gravel and the forest opens into alpine meadow — a genuine mountain effort, with the support vehicle on hand for anyone who wants a lift over the steepest ramp.', stats: { distance: '~55 km', elevation: '+1,350 m', overnight: 'Goderdzi Pass area (mountain guesthouse)', optional: 'Van assist available on the steepest section' } },
-      { day: 6, title: 'Goderdzi Pass (2,025 m) → the great Adjara descent → Batumi', narrative: 'The day you came for. From the pass the whole of mountainous Adjara falls away toward the sea, and we descend for hours — first alpine gravel past the wooden villages of Khulo and Riketi, then tea terraces and citrus as the air turns warm and humid. The last stretch runs along the river into Batumi, where you can ride straight onto the beach and put your front wheel in the Black Sea. Farewell dinner on the coast.', stats: { distance: '~75 km (mostly descending)', elevation: '−2,000 m', overnight: 'Batumi (hotel)' } },
+      { day: 2, title: 'Tbilisi → Trialeti plateau → Lake Paravani', narrative: 'A short van shuttle lifts us clear of the city traffic to the edge of the Trialeti range, and the ride proper begins with a long, steady climb onto the volcanic uplands. Quiet gravel and back-roads carry us past Tsalka reservoir and out onto the vast, treeless Javakheti plateau to the shore of Lake Paravani, one of the highest large lakes in the Caucasus.', stats: { distance: '~65 km', elevation: '+980 m / −910 m', surface: '~80% gravel / 20% paved', overnight: 'Lake Paravani area (family guesthouse)' } },
+      { day: 3, title: 'Paravani lakes → Javakheti plateau → Vardzia', narrative: 'A big-sky day rolling across the roof of southern Georgia — shepherds, stork nests on the power poles, and the crater lakes of Saghamo and Khanchali. In the afternoon the plateau breaks apart and we drop steeply into the green Mtkvari gorge, finishing at the astonishing cave-city of Vardzia carved into the cliff opposite our guesthouse.', stats: { distance: '~73 km', elevation: '+370 m / −1,110 m', surface: '~95% paved / 5% gravel', overnight: 'Vardzia area (family guesthouse)', optional: 'Guided visit of the Vardzia cave monastery' } },
+      { day: 4, title: 'Vardzia → Mtkvari valley → Akhaltsikhe (Rabati)', narrative: 'A rolling day following the Mtkvari river downstream through orchard villages, with time in the morning to explore the tunnels and chapels of Vardzia. The road rises and dips along the valley sides all day, and we finish in Akhaltsikhe beneath the storybook silhouette of Rabati Castle — a good afternoon to rest the legs, do laundry, and check the bikes before the mountains.', stats: { distance: '~66 km', elevation: '+910 m / −1,170 m', surface: 'Paved / concrete all day', overnight: 'Akhaltsikhe (guesthouse / small hotel)', optional: 'Visit Rabati Castle' } },
+      { day: 5, title: 'Akhaltsikhe → Zarzma → Goderdzi Pass → upper Adjara', narrative: 'The queen stage of the traverse. We turn west up the Kvabliani valley past the frescoed medieval monastery of Zarzma, then settle into the long climb toward the Goderdzi Pass. Tarmac carries us most of the way up, breaking into rough mountain gravel on the final ramps as the forest opens into alpine meadow — a genuine mountain effort, with the support vehicle on hand for anyone who wants a lift over the steepest ramp. From the pass the reward comes immediately: a huge afternoon descent over the far side, down through the wooden villages of Khulo into the green gorges of upper Adjara.', stats: { distance: '~71 km', elevation: '+1,530 m / −1,910 m', surface: '~85% paved / 15% gravel (upper ramps)', overnight: 'Upper Adjara (mountain guesthouse)', optional: 'Van assist available on the steepest section' } },
+      { day: 6, title: 'Adjara lowlands → Batumi — wheel in the Black Sea', narrative: 'The victory lap. Down in the subtropical lowlands the air turns warm and humid, and the final ride rolls through tea terraces and citrus groves along the river into Batumi — an easy, celebratory spin after the big mountain days. At the seafront you ride straight onto the beach and put your front wheel in the Black Sea: coast to capital, done. Farewell dinner on the coast.', stats: { distance: '~24 km', elevation: '+450 m / −480 m', surface: 'Paved / concrete all the way', overnight: 'Batumi (hotel)' } },
       { day: 7, title: 'Batumi — departure', narrative: 'The traverse is complete, coast to capital. Enjoy a slow morning by the sea before your onward travel. We can arrange a private transfer back to Tbilisi (about 5–6 hours) or a drop at Batumi International Airport — just tell us your plans.', stats: { drive: 'Optional transfer to Tbilisi or Batumi airport', overnight: 'Tour ends in Batumi' } },
     ],
     difficultyByDay: [
       'Easy — arrival, fitting and optional shakedown spin',
-      'Moderate–hard — sustained climb onto the plateau, +950 m',
-      'Moderate — long high-plateau day with a big descent to Vardzia',
-      'Easy–moderate — gentle valley roll, recovery before the pass',
-      'Very hard — the Goderdzi climb, +1,350 m on gravel',
-      'Moderate — huge descent, but long and rough on the arms and brakes',
+      'Moderate–hard — sustained climb onto the plateau, +980 m',
+      'Moderate — long plateau day ending in a big descent to Vardzia, −1,110 m',
+      'Moderate — rolling valley day, +910 m of ups and downs',
+      'Very hard — the Goderdzi climb (+1,530 m) and the huge descent into Adjara',
+      'Easy — short celebratory coastal roll into Batumi',
     ],
-    difficultyMessage: 'A challenging cross-country traverse rated on endurance, not technical skill. The riding is mostly gravel and quiet tarmac; the difficulty is the sustained Day 5 climb to the Goderdzi Pass (+1,350 m) and back-to-back days in the saddle. You should ride regularly and be comfortable with long days — but a support vehicle shadows the whole route, so bags are carried and you can jump in on the hardest ramps. Not a technical singletrack tour; for that, see our Enduro MTB Expedition in Tusheti.',
+    difficultyMessage: 'A challenging cross-country traverse rated on endurance, not technical skill. The riding is mostly quiet tarmac and concrete back-roads with gravel sections (~20% overall); the difficulty is the sustained Day 5 climb to the Goderdzi Pass (+1,530 m) and back-to-back days in the saddle. You should ride regularly and be comfortable with long days — but a support vehicle shadows the whole route, so bags are carried and you can jump in on the hardest ramps. Not a technical singletrack tour; for that, see our Enduro MTB Expedition in Tusheti.',
     accommodation: [
       'Night 1 — Hotel in Tbilisi',
       'Nights 2–5 — Family guesthouses (Paravani, Vardzia, Akhaltsikhe, Goderdzi) with full board',
@@ -1172,12 +1175,12 @@ Semi-desert steppe, alpine lakes, medieval history, a high pass and a subtropica
       { src: '/images/tours/biking/trans-georgia-support-trailer.jpg', alt: 'Bikes loaded on the support trailer at the start in Tbilisi' },
     ],
     faq: [
-      { q: 'How fit do I need to be?', a: 'Good fitness is essential. This is a seven-day traverse with one very big climbing day (the Goderdzi Pass, +1,350 m on gravel) and long days back to back. You don\'t need to be a racer, but you should ride regularly and be comfortable spending most of the day in the saddle. The support vehicle carries your bags and can lift you over the hardest ramps if a day gets too much.' },
-      { q: 'Is it technical? Do I need mountain-bike skills?', a: 'No — it\'s about endurance rather than bike-handling. The route is mostly rough gravel and quiet tarmac, not technical singletrack. If you want technical, descent-focused riding, our 4-day Enduro MTB Expedition in Tusheti is the better fit.' },
-      { q: 'Is a bike included, or do I bring my own?', a: 'A quality gravel or hardtail mountain bike is included in the price, set up to your size, with a helmet. It\'s the right tool for the mix of tarmac and rough mountain gravel on the Goderdzi climb and descent. Prefer your own bike? Bring it and we\'ll take a little off the price — just tell us when you enquire.' },
+      { q: 'How fit do I need to be?', a: 'Good fitness is essential. This is a seven-day traverse with one very big climbing day (the Goderdzi Pass, +1,530 m) and long days back to back. You don\'t need to be a racer, but you should ride regularly and be comfortable spending most of the day in the saddle. The support vehicle carries your bags and can lift you over the hardest ramps if a day gets too much.' },
+      { q: 'Is it technical? Do I need mountain-bike skills?', a: 'No — it\'s about endurance rather than bike-handling. The route is mostly quiet tarmac and back-roads with some gravel, not technical singletrack. If you want technical, descent-focused riding, our 4-day Enduro MTB Expedition in Tusheti is the better fit.' },
+      { q: 'Is a bike included, or do I bring my own?', a: 'A quality gravel or hardtail mountain bike is included in the price, set up to your size, with a helmet. It\'s the right tool for the mix of tarmac, concrete back-roads and the gravel sections on the plateau and the upper Goderdzi climb. Prefer your own bike? Bring it and we\'ll take a little off the price — just tell us when you enquire.' },
       { q: 'Can I use an e-bike?', a: 'Yes — an e-bike makes the big Goderdzi climbing day much more accessible. It\'s an upgrade on the standard included bike for an additional cost; flag your interest in the enquiry and we\'ll confirm availability and price.' },
-      { q: 'What is the Goderdzi Pass climb actually like?', a: 'It\'s the crux of the trip: a long climb from the Kvabliani valley up to 2,025 m, with the upper section on rough mountain gravel. It\'s a genuine effort but not technical, and the support vehicle is right there — plenty of riders take a lift over the steepest kilometre or two and still ride the rest. The payoff is a multi-hour descent to the sea the next day.' },
-      { q: 'How much of it is off-road?', a: 'Roughly half and half, varying by day. The plateau and the pass are largely gravel and back-roads; the valley sections and the run into Batumi are mostly quiet tarmac. We choose the quietest lines we can and the support vehicle handles any road you\'d rather skip.' },
+      { q: 'What is the Goderdzi Pass climb actually like?', a: 'It\'s the crux of the trip: a long climb from the Kvabliani valley up to 2,025 m, with the upper section on rough mountain gravel. It\'s a genuine effort but not technical, and the support vehicle is right there — plenty of riders take a lift over the steepest kilometre or two and still ride the rest. The payoff comes the same afternoon: a huge descent over the far side into the green gorges of upper Adjara.' },
+      { q: 'How much of it is off-road?', a: 'Around 20% overall, concentrated in two places: the first riding day across the Javakheti plateau (~80% gravel) and the upper ramps of the Goderdzi climb (~15% of that day). Everything else — including the entire descent to Batumi — is paved or concrete back-roads. We choose the quietest lines we can and the support vehicle handles any road you\'d rather skip.' },
       { q: 'Why ride Tbilisi to Batumi rather than a loop?', a: 'Because a point-to-point traverse lets the country change under your wheels — steppe, alpine lakes, a medieval cave-city, a high pass, and a subtropical coast, all in one week. You finish somewhere completely different from where you started, with your wheel in the Black Sea. It\'s the whole appeal of the trip.' },
       { q: 'When is the best time to ride it?', a: 'Late spring and early autumn are ideal — June and September especially. The Goderdzi Pass needs to be clear of snow (usually from June), and the low valleys and coast can be hot in mid-summer, so we ride them early in the day. We don\'t run this route in winter.' },
       { q: 'Are meals and accommodation included?', a: 'Yes. You get a hotel in Tbilisi, family guesthouses with full board along the route, and a hotel in Batumi, plus all meals including a welcome supra and a farewell dinner. Alcoholic drinks beyond those two meals are the only food cost not included.' },
