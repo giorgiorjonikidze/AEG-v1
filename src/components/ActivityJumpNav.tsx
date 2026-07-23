@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from 'react'
 const TABS = [
   { id: 'act-intro',      label: 'Overview' },
   { id: 'act-tours',      label: 'Tours' },
-  { id: 'act-facts',      label: 'Quick Facts' },
   { id: 'act-gallery',    label: 'Gallery' },
+  { id: 'act-facts',      label: 'Quick Facts' },
   { id: 'act-difficulty', label: 'Difficulty' },
   { id: 'act-season',     label: 'Best Time' },
   { id: 'act-practical',  label: 'Practical' },

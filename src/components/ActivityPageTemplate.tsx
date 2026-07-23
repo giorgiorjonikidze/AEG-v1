@@ -245,6 +245,16 @@ export default function ActivityPageTemplate({ activity, tours }: Props) {
             )}
           </section>
 
+          {/* ── Gallery ── */}
+          {activity.gallery.length > 0 && (
+            <section id="act-gallery" className="act-section">
+              <p className="act-eyebrow">In the field</p>
+              <h2 className="act-h2">Our photos</h2>
+              <p className="act-sub">Every photo taken by our team and guides on location in Georgia — no stock images.</p>
+              <ActivityGallery images={activity.gallery} activityName={activity.name} />
+            </section>
+          )}
+
           {/* ── Quick Facts ── */}
           <section id="act-facts" className="act-section">
             <p className="act-eyebrow">What to expect</p>
@@ -263,16 +273,6 @@ export default function ActivityPageTemplate({ activity, tours }: Props) {
               })}
             </div>
           </section>
-
-          {/* ── Gallery ── */}
-          {activity.gallery.length > 0 && (
-            <section id="act-gallery" className="act-section">
-              <p className="act-eyebrow">In the field</p>
-              <h2 className="act-h2">Our photos</h2>
-              <p className="act-sub">Every photo taken by our team and guides on location in Georgia — no stock images.</p>
-              <ActivityGallery images={activity.gallery} activityName={activity.name} />
-            </section>
-          )}
 
           {/* ── Difficulty ── */}
           <section id="act-difficulty" className="act-section">
