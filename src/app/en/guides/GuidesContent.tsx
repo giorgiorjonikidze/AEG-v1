@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Footer from '@/components/Footer'
 import TailorMadeCTA from '@/components/TailorMadeCTA'
+import { GUIDES } from '@/data/guides'
 
 // ── Icons ──────────────────────────────────────────────────────────────────────
 const PATHS: Record<string, string> = {
@@ -26,48 +27,6 @@ function Ico({ n, size = 20, color }: { n: string; size?: number; color?: string
 }
 
 // ── Data ───────────────────────────────────────────────────────────────────────
-const GUIDES = [
-  {
-    key: 'rezi',
-    img: '/images/guides/rezi.jpg',
-    name: 'Rezi Beridze',
-    role: 'Founder & Lead Adventure Guide',
-    disciplines: ['Trekking', 'Cycling', 'Overlanding'],
-    bio: 'Rezi founded Adventure Experts after years of solo expeditions across Georgia and beyond — on foot, on two wheels, and behind the wheel of a 4x4. He leads with calm certainty and genuine curiosity about the world.',
-    line: 'The best roads are the ones with no signal and no rush.',
-    cert: 'UIMLA Certified Mountain Leader',
-    langs: 'Georgian · English · Russian',
-    exp: 'Guiding since 2017',
-    socials: ['instagram', 'facebook'],
-  },
-  {
-    key: 'tamo',
-    img: '/images/guides/tamo.jpg',
-    name: 'Tamara Kvaratskhelia',
-    role: 'Mountain Trekking Guide',
-    disciplines: ['Trekking', 'High-Altitude', 'Svaneti Specialist'],
-    bio: 'Tamo grew up in the shadow of the Caucasus and knows the mountains the way most people know their own neighbourhood. She guides multi-day treks through Svaneti and Kazbegi with equal parts warmth and precision.',
-    line: "There's nowhere on earth like the Caucasus in July.",
-    cert: 'Wilderness First Responder',
-    langs: 'Georgian · English',
-    exp: 'On the team since 2019',
-    socials: ['instagram'],
-  },
-  {
-    key: 'cotne',
-    img: '/images/guides/cotne.png',
-    name: 'Cotne Abuseridze',
-    role: 'Summit & Winter Guide',
-    disciplines: ['Mountaineering', 'Summit', 'Winter Expeditions'],
-    bio: 'Cotne specialises in high-altitude objectives and cold-weather expeditions. Whether it is a summit push on Kazbegi or a winter traverse through Tusheti, he keeps the team safe, moving, and smiling.',
-    line: 'Cold hands, warm heart — every summit is earned.',
-    cert: 'Alpine Guide · Wilderness First Aid',
-    langs: 'Georgian · English',
-    exp: 'On the team since 2020',
-    socials: ['instagram'],
-  },
-]
-
 const TRUST = [
   { icon: 'award',   title: 'Certified',       desc: 'Internationally accredited mountain and wilderness guides.' },
   { icon: 'mappin',  title: 'Local',            desc: 'Born-and-raised experts who know these valleys by name.' },
@@ -181,12 +140,16 @@ export default function GuidesPage() {
                 <div className="g-body">
                   <div style={{ fontSize: 12, letterSpacing: '.2em', textTransform: 'uppercase', color: '#C75A37', fontWeight: 600, marginBottom: 14 }}>{g.role}</div>
                   <h2 style={{ fontFamily: "'Spectral',serif", fontWeight: 500, fontSize: 'clamp(30px,3.6vw,44px)', lineHeight: 1.04, letterSpacing: '-.5px', margin: '0 0 18px' }}>{g.name}</h2>
-                  <p style={{ fontSize: 16, lineHeight: 1.7, color: '#4A463E', margin: '0 0 20px', maxWidth: '46ch' }}>{g.bio}</p>
+                  {g.bio.split(/\n\n+/).map((para, pi) => (
+                    <p key={pi} style={{ fontSize: 16, lineHeight: 1.7, color: '#4A463E', margin: '0 0 14px', maxWidth: '46ch' }}>{para}</p>
+                  ))}
 
                   {/* Quote */}
-                  <p style={{ fontFamily: "'Spectral',serif", fontStyle: 'italic', fontSize: 'clamp(18px,2vw,21px)', lineHeight: 1.5, color: '#1E1C19', margin: '0 0 28px', paddingLeft: 17, borderLeft: '2px solid #C75A37', maxWidth: '42ch' }}>
-                    &ldquo;{g.line}&rdquo;
-                  </p>
+                  {g.quote && (
+                    <p style={{ fontFamily: "'Spectral',serif", fontStyle: 'italic', fontSize: 'clamp(18px,2vw,21px)', lineHeight: 1.5, color: '#1E1C19', margin: '0 0 28px', paddingLeft: 17, borderLeft: '2px solid #C75A37', maxWidth: '42ch' }}>
+                      &ldquo;{g.quote}&rdquo;
+                    </p>
+                  )}
 
                   {/* Discipline pills */}
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: 9, marginBottom: 30 }}>
@@ -201,7 +164,7 @@ export default function GuidesPage() {
                       { label: 'Certification', value: g.cert,  icon: 'award'    },
                       { label: 'Languages',     value: g.langs, icon: 'globe'    },
                       { label: 'Experience',    value: g.exp,   icon: 'calendar' },
-                    ].map(m => (
+                    ].filter(m => m.value).map(m => (
                       <div key={m.label} style={{ display: 'flex', alignItems: 'flex-start', gap: 13 }}>
                         <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 30, height: 30, borderRadius: '50%', background: 'rgba(46,64,52,.07)', color: '#2E4034', flexShrink: 0, marginTop: 1 }}>
                           <Ico n={m.icon} size={16} color="#2E4034" />
@@ -215,14 +178,16 @@ export default function GuidesPage() {
                   </div>
 
                   {/* Social links */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 28 }}>
-                    {g.socials.map(s => (
-                      <a key={s} href="#" aria-label={s.charAt(0).toUpperCase() + s.slice(1)} className="g-social"
-                        style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 42, height: 42, borderRadius: '50%', border: '1px solid rgba(30,28,25,.16)', color: '#1E1C19', textDecoration: 'none', transition: 'background .25s ease,color .25s ease,border-color .25s ease,transform .25s ease' }}>
-                        <Ico n={s} size={18} />
-                      </a>
-                    ))}
-                  </div>
+                  {g.socials.length > 0 && (
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 28 }}>
+                      {g.socials.map(s => (
+                        <a key={s.type} href={s.url} target="_blank" rel="noopener noreferrer" aria-label={`${g.name} on ${s.type.charAt(0).toUpperCase() + s.type.slice(1)}`} className="g-social"
+                          style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 42, height: 42, borderRadius: '50%', border: '1px solid rgba(30,28,25,.16)', color: '#1E1C19', textDecoration: 'none', transition: 'background .25s ease,color .25s ease,border-color .25s ease,transform .25s ease' }}>
+                          <Ico n={s.type} size={18} />
+                        </a>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             ))}

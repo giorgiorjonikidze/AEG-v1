@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useRef } from 'react'
-import { GUIDES } from '@/lib/data'
+import { GUIDES } from '@/data/guides'
 
 export default function WhyChooseUs() {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([])
@@ -144,9 +144,12 @@ export default function WhyChooseUs() {
           }}
           className="why-cards-grid"
         >
-          {GUIDES.map((g, idx) => (
+          {GUIDES.map((g, idx) => {
+            const bio = g.shortBio || g.bio.split(/\n\n+/)[0]
+            const alt = `${g.name}, ${g.role} at Adventure Experts Georgia`
+            return (
             <div
-              key={g.id}
+              key={g.key}
               ref={(el) => { cardRefs.current[idx] = el }}
             >
               <div
@@ -181,10 +184,10 @@ export default function WhyChooseUs() {
                   }}
                 >
                   <Image
-                    src={g.photo}
-                    alt={g.alt}
+                    src={g.img}
+                    alt={alt}
                     fill
-                    style={{ objectFit: 'cover', display: 'block' }}
+                    style={{ objectFit: 'cover', objectPosition: 'center top', display: 'block' }}
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
                 </div>
@@ -225,39 +228,31 @@ export default function WhyChooseUs() {
                       margin: '0 0 18px',
                     }}
                   >
-                    {g.bio}
+                    {bio}
                   </p>
 
-                  {/* Cert badge */}
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 8,
-                      padding: '7px 12px',
-                      border: '1px solid #e2dccd',
-                      background: '#f3efe5',
-                      borderRadius: 999,
-                      width: 'fit-content',
-                      marginBottom: 12,
-                    }}
-                  >
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C75A37" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                      <path d="m9 12 2 2 4-4"/>
-                    </svg>
-                    <span
-                      style={{
-                        fontFamily: 'var(--font-hanken), sans-serif',
-                        fontSize: 12.5,
-                        fontWeight: 600,
-                        color: '#1E1C19',
-                        letterSpacing: '.01em',
-                      }}
-                    >
-                      {g.cert}
-                    </span>
-                  </div>
+                  {/* Disciplines */}
+                  {g.disciplines?.length > 0 && (
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7, marginBottom: 16 }}>
+                      {g.disciplines.map((d) => (
+                        <span
+                          key={d}
+                          style={{
+                            fontFamily: 'var(--font-hanken), sans-serif',
+                            fontSize: 12,
+                            fontWeight: 600,
+                            letterSpacing: '.01em',
+                            color: '#2E4034',
+                            background: 'rgba(46,64,52,.08)',
+                            padding: '5px 11px',
+                            borderRadius: 999,
+                          }}
+                        >
+                          {d}
+                        </span>
+                      ))}
+                    </div>
+                  )}
 
                   {/* Languages */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -281,7 +276,8 @@ export default function WhyChooseUs() {
                 </div>
               </div>
             </div>
-          ))}
+            )
+          })}
         </div>
 
         {/* Link */}
