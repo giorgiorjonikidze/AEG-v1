@@ -115,6 +115,10 @@ const ICONS: Record<string, () => JSX.Element> = {
   calendar:   () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>,
   fitness:    () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><path d="M6 1v3M10 1v3M14 1v3"/></svg>,
   check:      () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>,
+  wheel:      () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="2.2"/><path d="M12 3.6v6.2M6.5 17l4.1-3.6M17.5 17l-4.1-3.6"/></svg>,
+  car:        () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>,
+  home:       () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>,
+  pin:        () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>,
 }
 
 const DIFF_BG: Record<string, string> = { Easy: 'act-diff-easy', Moderate: 'act-diff-moderate', Challenging: 'act-diff-challenging' }
@@ -125,6 +129,26 @@ interface Props {
 }
 
 export default function ActivityPageTemplate({ activity, tours }: Props) {
+  const quickFactsSection = (
+    <section id="act-facts" className="act-section">
+      <p className="act-eyebrow">What to expect</p>
+      <h2 className="act-h2">Quick facts</h2>
+      <p className="act-sub">Everything you need to know at a glance before choosing a tour.</p>
+      <div className="act-facts-grid">
+        {activity.quickFacts.map(f => {
+          const Icon = ICONS[f.icon] ?? ICONS.check
+          return (
+            <div key={f.label} className="act-fact-card">
+              <div className="act-fact-icon"><Icon /></div>
+              <div className="act-fact-label">{f.label}</div>
+              <div className="act-fact-value">{f.value}</div>
+            </div>
+          )
+        })}
+      </div>
+    </section>
+  )
+
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: css }} />
@@ -182,6 +206,9 @@ export default function ActivityPageTemplate({ activity, tours }: Props) {
               </Link>
             </div>
           </div>
+
+          {/* ── Quick Facts (after Overview — only when factsAfterIntro) ── */}
+          {activity.factsAfterIntro && quickFactsSection}
 
           {/* ── Tours ── */}
           <section id="act-tours" className="act-section">
@@ -255,26 +282,11 @@ export default function ActivityPageTemplate({ activity, tours }: Props) {
             </section>
           )}
 
-          {/* ── Quick Facts ── */}
-          <section id="act-facts" className="act-section">
-            <p className="act-eyebrow">What to expect</p>
-            <h2 className="act-h2">Quick facts</h2>
-            <p className="act-sub">Everything you need to know at a glance before choosing a tour.</p>
-            <div className="act-facts-grid">
-              {activity.quickFacts.map(f => {
-                const Icon = ICONS[f.icon] ?? ICONS.check
-                return (
-                  <div key={f.label} className="act-fact-card">
-                    <div className="act-fact-icon"><Icon /></div>
-                    <div className="act-fact-label">{f.label}</div>
-                    <div className="act-fact-value">{f.value}</div>
-                  </div>
-                )
-              })}
-            </div>
-          </section>
+          {/* ── Quick Facts (default position — after Gallery) ── */}
+          {!activity.factsAfterIntro && quickFactsSection}
 
           {/* ── Difficulty ── */}
+          {activity.difficultyLevels.length > 0 && (
           <section id="act-difficulty" className="act-section">
             <p className="act-eyebrow">Difficulty explained</p>
             <h2 className="act-h2">Which level is right for you?</h2>
@@ -293,6 +305,7 @@ export default function ActivityPageTemplate({ activity, tours }: Props) {
               ))}
             </div>
           </section>
+          )}
 
           {/* ── Season ── */}
           <section id="act-season" className="act-section">

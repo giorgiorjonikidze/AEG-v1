@@ -15,7 +15,19 @@ const TABS = [
 export default function ActivityJumpNav() {
   const [active, setActive] = useState(TABS[0].id)
   const [pinned, setPinned] = useState(false)
+  const [tabs, setTabs] = useState(TABS)
   const sentinelRef = useRef<HTMLDivElement>(null)
+
+  // Only show tabs whose section exists on this page (e.g. Difficulty/Gallery
+  // are omitted when absent), ordered to match the page's actual section order
+  // (which can differ per activity, e.g. Quick Facts moved up on Overlanding).
+  useEffect(() => {
+    const present = TABS
+      .map(t => ({ tab: t, el: document.getElementById(t.id) }))
+      .filter((x): x is { tab: typeof TABS[number]; el: HTMLElement } => x.el !== null)
+    present.sort((a, b) => a.el.getBoundingClientRect().top - b.el.getBoundingClientRect().top)
+    setTabs(present.map(x => x.tab))
+  }, [])
 
   useEffect(() => {
     const sentinel = sentinelRef.current
@@ -66,7 +78,7 @@ export default function ActivityJumpNav() {
           className="act-jnav-scroll"
           style={{ maxWidth: 1240, margin: '0 auto', padding: '0 clamp(20px,5vw,48px)', display: 'flex', gap: 2, overflowX: 'auto', scrollbarWidth: 'none' }}
         >
-          {TABS.map(tab => (
+          {tabs.map(tab => (
             <button
               key={tab.id}
               onClick={() => scrollTo(tab.id)}

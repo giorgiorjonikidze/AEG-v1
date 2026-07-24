@@ -42,6 +42,8 @@ export interface ActivityData {
   faq: { q: string; a: string }[]
   categoryTag: string
   gallery: string[]
+  /** When true, the Quick Facts section renders right after the Overview (default: after the Gallery). Per-activity layout override. */
+  factsAfterIntro?: boolean
 }
 
 export const ACTIVITIES_DATA: ActivityData[] = [
@@ -322,60 +324,59 @@ export const ACTIVITIES_DATA: ActivityData[] = [
     slug: 'overlanding',
     name: 'Overlanding',
     tagline: 'Off-road into Georgia\'s remotest highlands — places the road ends and the real adventure begins.',
-    heroImage: '/images/tours/jairph-Edx0NpJ29fQ-unsplash.jpg',
+    heroImage: '/images/overlanding-hero.jpg',
+    factsAfterIntro: true,
     metaTitle: 'Overlanding Tours in Georgia',
-    metaDescription: 'Guided 4x4 overlanding tours in Georgia: Tusheti, Svaneti Military Road, Khevsureti. Remote highland access in expert hands. Private tours.',
+    metaDescription: 'Guided 4x4 overlanding tours in Georgia: Tusheti, Highland Adjara, Vashlovani National Park. Remote highland access in expert hands. Private tours.',
     categoryTag: 'Overlanding',
     gallery: [
-      '/images/activities/overlanding.jpg',
-      '/images/tours/jairph-Edx0NpJ29fQ-unsplash.jpg',
-      '/images/tours/jason-gardner-LU-o3CbeZhU-unsplash.jpg',
-      '/images/tours/nino-gakhokia-24d9N5UsVYs-unsplash.jpg',
-      '/images/svaneti.jpg',
-      '/images/tours/andrew-rusinas-aFFKmsFoldc-unsplash.jpg',
+      '/images/gallery/overlanding/overlanding-1.jpg',
+      '/images/gallery/overlanding/overlanding-2.jpg',
+      '/images/gallery/overlanding/overlanding-3.jpg',
+      '/images/gallery/overlanding/overlanding-4.jpg',
+      '/images/gallery/overlanding/overlanding-5.jpg',
+      '/images/gallery/overlanding/overlanding-6.jpg',
+      '/images/gallery/overlanding/overlanding-7.jpg',
     ],
-    intro: `Some of Georgia's most spectacular landscapes are only reachable by 4x4 — and that's precisely why they feel like the end of the world in the best possible way. The Abano Pass road to Tusheti is one of the most dramatic mountain drives in Europe: steep, unpaved, and unforgettable. The Svaneti Military Road climbs through empty valleys to hamlets that time forgot. Khevsureti's stone-built fortresses sit at the end of tracks that most cars can't handle. Overlanding in Georgia means getting to places the hiking crowds haven't reached yet — and doing it with a guide who knows every turn, every mud patch, and every shortcut.`,
+    intro: `Some of Georgia's most spectacular landscapes are only reachable by 4x4 — and that's precisely why they feel like the end of the world in the best possible way. The Abano Pass road to Tusheti is one of the most dramatic mountain drives in Europe: steep, unpaved, and unforgettable. Highland Adjara hides forest tracks and remote mountain villages high above the Black Sea coast, where the tarmac gives out and the real country begins. And down in the far southeast, Vashlovani National Park opens into a completely different Georgia — semi-desert badlands, deep canyons, and open savanna that only a capable 4x4 can cross. Overlanding in Georgia means getting to places the hiking crowds haven't reached yet — and doing it with a guide who knows every turn, every mud patch, and every shortcut.`,
     whyUs: [
       'Experienced 4x4 drivers who know these routes in all conditions, including early-season mud and late-season snow.',
       'Well-maintained expedition vehicles with recovery gear on every trip.',
       'Flexible itineraries — push further or turn back based on real conditions, not a fixed schedule.',
     ],
     quickFacts: [
-      { icon: 'difficulty', label: 'Difficulty range',  value: 'Scenic drives → Full expedition-style routes' },
-      { icon: 'clock',      label: 'Typical length',    value: 'Day trips to week-long expeditions' },
-      { icon: 'calendar',   label: 'Best season',       value: 'Jun–Sep for high routes; May & Oct for lower passes' },
-      { icon: 'fitness',    label: 'Fitness needed',    value: 'No physical exertion required — just the appetite for adventure' },
-      { icon: 'check',      label: 'Usually included',  value: 'Vehicle, experienced driver-guide, fuel, recovery equipment' },
+      { icon: 'wheel', label: 'Self-drive option', value: 'Take the wheel yourself, with your friend or partner beside you — or alone' },
+      { icon: 'car',   label: 'Vehicles',          value: 'Land Cruiser, 4Runner, Xterra, Hilux' },
+      { icon: 'home',  label: 'Accommodation',     value: 'Family guesthouses with local food, or roof-top tents' },
+      { icon: 'clock', label: 'Tour length',       value: 'Flexible — we can extend or shorten any of our tours' },
+      { icon: 'pin',   label: 'Starting point',    value: 'Tbilisi or Kutaisi, depending on your flights' },
     ],
     regions: [
       { slug: 'kakheti',         name: 'Tusheti (Kakheti)',  description: 'The legendary Abano Pass and the remote tower villages of the Tush highlands.',  image: '/images/tours/gio-chanturia-2aGoA1zcWfI-unsplash.jpg' },
-      { slug: 'samegrelo',         name: 'Upper Svaneti',      description: 'The Svaneti Military Road and remote valley tracks above Mestia.',                 image: '/images/svaneti.jpg' },
-      { slug: 'shida-kartli',    name: 'Khevsureti',         description: 'Medieval fortresses and stone villages at the end of mountain dirt tracks.',        image: '/images/tours/jason-gardner-LU-o3CbeZhU-unsplash.jpg' },
+      { slug: 'adjara',          name: 'Highland Adjara',    description: 'Forest tracks and remote mountain villages high above the Black Sea coast.',        image: '/images/overlanding-hero.jpg' },
+      { slug: 'kakheti',         name: 'Vashlovani',         description: 'Semi-desert badlands, deep canyons, and open savanna — 4x4-only country.',          image: '/images/gallery/overlanding/overlanding-2.jpg' },
       { slug: 'racha-lechkhumi', name: 'Racha',              description: 'Wild river valleys and empty highland roads far from the tourist trail.',           image: '/images/tours/nadav-fima-ULn5jbPuHx8-unsplash.jpg' },
     ],
-    difficultyLevels: [
-      { level: 'Easy',        description: 'Paved or well-graded mountain roads. Scenic and accessible, no serious off-roading.',                           experience: 'No requirements. Suitable for all including families.' },
-      { level: 'Moderate',    description: 'Unpaved mountain roads, river crossings, loose surfaces — manageable in dry conditions.',                       experience: 'Comfortable with rough terrain. No prior experience needed.' },
-      { level: 'Challenging', description: 'Technical passes, serious off-roading, possible snow crossings. Expedition-style.',                             experience: 'Adventurous mindset. Early/late season routes add real challenge.' },
-    ],
+    difficultyLevels: [],
     seasons: [
-      { period: 'Jun – Sep', note: 'All high passes open. Best window for Tusheti, Khevsureti, and Upper Svaneti routes.', type: 'prime' },
-      { period: 'May & Oct', note: 'Many routes accessible but conditions vary. Mud and late/early snow possible on high passes.', type: 'good' },
+      { period: 'Jun – Sep', note: 'All high passes open — the best window for Tusheti and the high mountain roads of Highland Adjara.', type: 'prime' },
+      { period: 'May & Oct', note: 'Many routes accessible but conditions vary; mud and early/late snow possible on high passes. Also the ideal, cooler season for the lowland desert tracks of Vashlovani National Park.', type: 'good' },
       { period: 'Nov – Apr', note: 'Most highland passes closed by snow. Winter overlanding in lower elevations possible for experienced operators.', type: 'limited' },
     ],
     practical: [
-      { heading: 'Vehicles',       body: 'We use high-clearance 4x4 vehicles (Land Cruiser, Delica) with all-terrain tyres, recovery gear, and communication equipment.' },
-      { heading: 'Road conditions', body: 'High mountain roads in Georgia are often unpaved, narrow, and have steep drop-offs. Your driver is experienced — trust the process.' },
+      { heading: 'Vehicles',       body: 'We use high-clearance 4x4 vehicles (Land Cruiser, 4Runner, Xterra, Hilux) with all-terrain tyres, recovery gear, and communication equipment.' },
+      { heading: 'Road conditions', body: 'Expect a bit of everything — smooth gravel, unpaved mountain tracks, muddy stretches, and shallow river crossings, all part of the fun. No experience is needed on your side: our drivers know these routes in every condition and pick the safe line every time, so you can simply relax and enjoy the ride.' },
+      { heading: 'Take the wheel yourself', body: 'This is your adventure, so you can be more than a passenger — confident drivers are welcome to take the wheel on suitable sections, with our guide right beside you coaching every river crossing, mud patch and switchback. There is nothing quite like driving these mountains under your own steam.' },
       { heading: 'Fuel & supplies', body: 'Remote routes have no petrol stations. We plan fuel stops carefully and carry reserves on longer expeditions.' },
-      { heading: 'Accommodation',  body: 'Family guesthouses in highland villages are a real highlight — simple, warm, and often extraordinary food.' },
+      { heading: 'Accommodation',  body: 'Family guesthouses in highland villages are a real highlight — simple, warm, and often extraordinary food. On the most remote routes we sometimes camp out instead: sleeping in roof-top tents on the vehicles, cooking meals out in the wild, and gathering around the campfire under the stars.' },
       { heading: 'What to pack',   body: 'Warm and waterproof layers, comfortable clothes for long vehicle days, camera, and an adventurous mindset.' },
     ],
     faq: [
       { q: 'Do I need to be fit for overlanding?',       a: 'No — overlanding is primarily vehicle-based. You should be comfortable with long hours of rough driving, but no physical exertion is required.' },
-      { q: 'Is the Abano Pass road really that dramatic?', a: 'Yes. It\'s one of the most dramatic mountain roads in Europe — steep, narrow, and with sheer drops. Your driver knows every metre of it, but it\'s genuinely not for the faint-hearted.' },
+      { q: 'Do I need experience with 4x4 driving?',     a: 'Not at all. If you choose to take the wheel, your guide is right beside you to talk you through every obstacle and the specifics of handling a 4x4 — no prior off-road experience needed.' },
+      { q: 'Do I need an International Driving Permit to drive in Georgia?', a: 'Georgia lets foreign visitors drive on their valid national licence, so most guests are fine with the licence they already have. We still recommend bringing an International Driving Permit alongside it — especially if your licence isn\'t in the Latin alphabet — as it makes any roadside check simpler.' },
+      { q: 'Are the vehicles insured?',                  a: 'Yes — all of our vehicles are fully insured, so you can focus on the adventure while we take care of the cover and paperwork.' },
       { q: 'Can we combine overlanding with hiking?',     a: 'Absolutely — many of our best itineraries mix 4x4 access with short treks to viewpoints, villages, or waterfalls you can\'t reach by road.' },
-      { q: 'How many people per vehicle?',               a: 'Typically 4–6 passengers per vehicle. Larger groups use multiple vehicles, which adds to the expedition feel.' },
-      { q: 'What if the pass is blocked?',               a: 'We always have contingency routes planned. Mountain conditions are checked the morning of departure, and we\'ll adjust the itinerary rather than take unnecessary risks.' },
     ],
   },
 
