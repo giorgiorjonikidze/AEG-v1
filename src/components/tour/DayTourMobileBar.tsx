@@ -16,7 +16,8 @@ export default function DayTourMobileBar({ tour }: { tour: TourData }) {
 
   const rate = RATE(tour)
   const max = MAX(tour)
-  const total = travelers * rate
+  // Tiered group pricing (total for the whole group) when defined, else flat per-person.
+  const total = tour.groupPrices?.[travelers - 1] ?? travelers * rate
   const currency = tour.currency
 
   useEffect(() => {
@@ -106,7 +107,7 @@ export default function DayTourMobileBar({ tour }: { tour: TourData }) {
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, marginTop: 14, background: '#FAF8F3', border: '1px solid #EDE4D6', borderRadius: 13, padding: '9px 10px 9px 14px' }}>
                 <span style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
                   <span style={{ fontSize: 13.5, fontWeight: 600, color: '#1E1C19', lineHeight: 1.2 }}>Travelers</span>
-                  <span style={{ fontSize: 11.5, color: '#A8A296', lineHeight: 1.2 }}>Min {MIN} · Max {max}</span>
+                  <span style={{ fontSize: 11.5, color: '#A8A296', lineHeight: 1.2 }}>{tour.groupSizeLabel ? `Min ${MIN} · Larger groups on request` : `Min ${MIN} · Max ${max}`}</span>
                 </span>
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: '#FFFFFF', border: '1px solid #EDE4D6', borderRadius: 11, padding: 4 }}>
                   <button type="button" aria-label="Decrease travelers" onClick={() => step(-1)} disabled={travelers <= MIN}
@@ -130,7 +131,7 @@ export default function DayTourMobileBar({ tour }: { tour: TourData }) {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px 14px' }}>
               {[
                 { svg: <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="#C09F7E" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>, label: 'Duration', value: tour.quickFacts.duration },
-                { svg: <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="#C09F7E" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"><path d="M16 19v-1a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v1"/><circle cx="9" cy="7" r="3.2"/><path d="M22 19v-1a4 4 0 0 0-3-3.85"/><path d="M16 4.2A4 4 0 0 1 16 11"/></svg>, label: 'Group size', value: `Up to ${max}` },
+                { svg: <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="#C09F7E" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"><path d="M16 19v-1a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v1"/><circle cx="9" cy="7" r="3.2"/><path d="M22 19v-1a4 4 0 0 0-3-3.85"/><path d="M16 4.2A4 4 0 0 1 16 11"/></svg>, label: 'Group size', value: tour.groupSizeLabel ?? `Up to ${max}` },
                 { svg: <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="#C09F7E" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"><path d="M3 20h18"/><path d="m4 17 5-9 4 6 3-4 4 7"/></svg>, label: 'Difficulty', value: tour.quickFacts.difficulty },
                 { svg: <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="#C09F7E" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>, label: 'Best season', value: 'May – Oct' },
               ].map(f => (

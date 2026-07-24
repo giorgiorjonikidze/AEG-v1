@@ -19,7 +19,9 @@ export default function DayTourBookingCard({ tour }: Props) {
 
   const rate = RATE(tour)
   const max = MAX(tour)
-  const total = travelers * rate
+  // Tiered group pricing (total for the whole group) when defined, else flat per-person.
+  const total = tour.groupPrices?.[travelers - 1] ?? travelers * rate
+  const perPerson = Math.round(total / travelers)
   const currency = tour.currency
 
   useEffect(() => { setMounted(true) }, [])
@@ -67,7 +69,7 @@ export default function DayTourBookingCard({ tour }: Props) {
           <span style={{ fontSize: 15, fontWeight: 500, color: '#A8A296' }}>total for {travelers} {travelers === 1 ? 'traveler' : 'travelers'}</span>
         </div>
 
-        <div style={{ fontSize: 13.5, lineHeight: 1.5, color: '#A8A296', marginTop: 8 }}>Full day · Kazbegi · {currency}{rate} per person</div>
+        <div style={{ fontSize: 13.5, lineHeight: 1.5, color: '#A8A296', marginTop: 8 }}>Full day · Kazbegi · {currency}{perPerson} per person</div>
 
         <div style={{ height: 1, background: '#EDE4D6', margin: '18px 0' }} />
 
@@ -75,7 +77,7 @@ export default function DayTourBookingCard({ tour }: Props) {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
           <span style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
             <span style={{ fontSize: 14, fontWeight: 600, color: '#1E1C19' }}>Travelers</span>
-            <span style={{ fontSize: 12.5, color: '#A8A296' }}>Min {MIN} · Max {max}</span>
+            <span style={{ fontSize: 12.5, color: '#A8A296' }}>{tour.groupSizeLabel ? `Min ${MIN} · Larger groups on request` : `Min ${MIN} · Max ${max}`}</span>
           </span>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: '#FAF8F3', border: '1px solid #EDE4D6', borderRadius: 11, padding: 4 }}>
             <button type="button" aria-label="Decrease travelers" onClick={() => step(-1)} disabled={travelers <= MIN}
@@ -98,7 +100,7 @@ export default function DayTourBookingCard({ tour }: Props) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 13 }}>
           {[
             { icon: 'clock', label: 'Duration', value: tour.quickFacts.duration },
-            { icon: 'users', label: 'Group size', value: `Up to ${max} people` },
+            { icon: 'users', label: 'Group size', value: tour.groupSizeLabel ?? `Up to ${max} people` },
             { icon: 'mountain', label: 'Difficulty', value: tour.quickFacts.difficulty },
             { icon: 'sun', label: 'Best season', value: 'May – Oct' },
           ].map(f => (

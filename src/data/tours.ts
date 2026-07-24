@@ -27,6 +27,13 @@ export interface TourData {
   isDayTour?: boolean
   perPersonRate?: number
   maxTravelers?: number
+  /** Total price (in `currency`) by group size for day tours with tiered pricing.
+   *  Index 0 = 1 traveler, index 1 = 2 travellers, … When set, this overrides
+   *  the flat `perPersonRate × travellers` calculation. */
+  groupPrices?: number[]
+  /** Overrides the "Group size" display (e.g. 'Unlimited') on day-tour cards.
+   *  When set, the booking stepper hides its max and shows "Larger groups on request". */
+  groupSizeLabel?: string
   quickFacts: { duration: string; start: string; end: string; activity: string; difficulty: string; accommodation: string }
   summaryCards: { icon: string; label: string; value: string }[]
   overview: string
@@ -58,7 +65,7 @@ export const TOURS: TourData[] = [
     region: 'Svaneti, Georgia',
     category: 'Trekking',
     emotionalLine: 'No need for knees of steel. Explore all the gems of Svaneti without back-breaking climbs.',
-    price: 1200,
+    price: 850,
     currency: '€',
     overviewHeading: 'Discover the wild heart of Svaneti',
     heroImage: '/images/tours/ice-towers-hero.avif',
@@ -217,12 +224,16 @@ export const TOURS: TourData[] = [
     region: 'Kazbegi / Georgian Military Highway',
     category: 'Day Tour',
     emotionalLine: 'One unforgettable day from Tbilisi to the foot of Mount Kazbek — fortresses, alpine passes, and a hilltop church above the clouds.',
-    price: 95,
+    price: 100,
     currency: '€',
     isDayTour: true,
-    perPersonRate: 95,
-    maxTravelers: 12,
-    heroImage: '/images/tours/andrew-rusinas-aFFKmsFoldc-unsplash.jpg',
+    perPersonRate: 100,
+    maxTravelers: 10,
+    // Tiered group pricing (total for the whole group), mirroring 11regions.com
+    // converted USD→EUR and rounded. Index 0 = 1 traveler … index 9 = 10 travellers.
+    groupPrices: [100, 135, 160, 190, 280, 360, 440, 440, 510, 560],
+    groupSizeLabel: 'Unlimited',
+    heroImage: '/images/tours/kazbegi-ananuri.jpg',
     quickFacts: {
       duration: '~10.5 hours',
       start: 'Tbilisi',
@@ -234,56 +245,59 @@ export const TOURS: TourData[] = [
     summaryCards: [
       { icon: 'clock',     label: 'Duration',       value: '~10.5 hours' },
       { icon: 'map-pin',   label: 'Start / End',    value: 'Tbilisi' },
-      { icon: 'users',     label: 'Group size',      value: 'Up to 12 people' },
+      { icon: 'users',     label: 'Group size',      value: 'Unlimited' },
       { icon: 'activity',  label: 'Activity',        value: 'Sightseeing, culture, mountains' },
       { icon: 'compass',   label: 'Tour type',       value: 'Guided day tour' },
       { icon: 'star',      label: 'Best for',        value: 'All ages, families, first-timers' },
     ],
-    overview: `Trade the city for the high Caucasus on this full-day journey north along the historic Georgian Military Highway. You'll stand above the turquoise Zhinvali Reservoir at the Ananuri fortress, pause for Georgian wine and alpine honey, watch two rivers of different colours meet at the Aragvi confluence, and take in sweeping mountain views from the Gudauri viewpoint and Friendship Monument. The finale: a rugged 4×4 ride up to the Gergeti Trinity Church, perched at 2,170 m beneath the snow-capped Mount Kazbek — one of Georgia's most iconic sights. You'll be back in Tbilisi by evening, full of mountain air and photographs.`,
+    overview: `Trade the city for the high Caucasus on this full-day journey north along the historic Georgian Military Highway. You'll stand above the turquoise Zhinvali Reservoir at the Ananuri fortress, pause for a taste of alpine honey, watch two rivers of different colours meet at the Aragvi confluence, and take in sweeping mountain views from the Gudauri viewpoint and Friendship Monument. The finale: we drive you all the way up to the Gergeti Trinity Church, perched at 2,170 m beneath the snow-capped Mount Kazbek — one of Georgia's most iconic sights. You'll be back in Tbilisi by evening, full of mountain air and photographs.`,
     highlights: [
       'Turquoise Zhinvali Reservoir and the 17th-century Ananuri fortress',
-      'Georgian wine and alpine honey tasting',
+      'Alpine honey tasting at a local roadside stop',
       'The "Black & White" Aragvi river confluence',
       'Panoramic Caucasus views from the Gudauri viewpoint and Friendship Monument',
-      'A 4×4 ride to the iconic Gergeti Trinity Church beneath Mount Kazbek',
+      'A ride up to the iconic Gergeti Trinity Church beneath Mount Kazbek',
     ],
-    routeFlow: 'Tbilisi → Zhinvali Reservoir → Ananuri → (wine & honey tasting) → Aragvi confluence → Gudauri Viewpoint → Stepantsminda → Gergeti Trinity Church → Tbilisi',
+    routeFlow: 'Tbilisi → Zhinvali Reservoir → Ananuri → (honey tasting) → Aragvi confluence → Gudauri Viewpoint → Stepantsminda → Gergeti Trinity Church → Tbilisi',
     routePins: ['Tbilisi', 'Zhinvali Reservoir', 'Ananuri', 'Aragvi confluence', 'Gudauri Viewpoint', 'Stepantsminda', 'Gergeti Trinity Church'],
+    mapRoute: ['Tbilisi', 'Zhinvali Reservoir', 'Ananuri', 'Gudauri', 'Stepantsminda', 'Gergeti Trinity Church'],
     stops: [
       { name: 'Zhinvali Reservoir', time: '~15 min', description: 'First stop above the bright turquoise lake — one of the most photogenic spots on the Military Highway.', tags: ['Photo stop'] },
       { name: 'Ananuri Fortress', time: '~45 min', description: 'Explore the striking 17th-century fortress and church complex perched on the water\'s edge.', tags: ['Visit', 'Guided', 'Walk'] },
-      { name: 'Wine & Honey Tasting', time: '~20 min', description: 'Sample Georgian wine and alpine honey at a local roadside stop — a sweet pause between sights.', tags: ['Tasting', 'Local'] },
+      { name: 'Honey Tasting', time: '~20 min', description: 'Sample local alpine honey at a roadside stop — a sweet pause between sights.', tags: ['Tasting', 'Local'] },
       { name: 'Black & White Aragvi Confluence', time: '~10 min', description: 'Where two tributaries of the Aragvi River meet but keep their different colours — a striking natural phenomenon.', tags: ['Photo stop'] },
       { name: 'Gudauri Viewpoint & Friendship Monument', time: '~30 min', description: 'Panoramic views over the Devil\'s Valley at 2,200 m, and the famous Soviet-era mosaic monument.', tags: ['Sightseeing', 'Walk'] },
       { name: 'Stepantsminda (Kazbegi)', time: '~30 min', description: 'The mountain town at the foot of Mount Kazbek. Free time to wander and grab lunch.', tags: ['Free time', 'Lunch'] },
-      { name: 'Gergeti Trinity Church', time: '~40 min', description: 'A 4×4 ride up to the iconic hilltop church at 2,170 m, framed by the glaciers of Mount Kazbek above.', tags: ['Visit', '4×4', 'Sightseeing'] },
+      { name: 'Gergeti Trinity Church', time: '~40 min', description: 'We drive you up to the iconic hilltop church at 2,170 m, framed by the glaciers of Mount Kazbek above.', tags: ['Visit', 'Sightseeing'] },
     ],
     itinerary: [],
     difficultyByDay: [],
     difficultyMessage: 'Easy. Mostly driving with short, gentle walks at each stop — suitable for most ages and fitness levels. The day is long (~10.5 h) with significant time on the road.',
     accommodation: [],
     foodCulture: [
-      'Wine and alpine honey tasting included',
+      'Alpine honey tasting included',
       'Lunch at your own expense in Stepantsminda',
       'Local roadside market stops en route',
     ],
     included: [
+      'Morning pickup from your hotel in Tbilisi',
       'Professional English-speaking guide',
       'Air-conditioned transport from and to Tbilisi',
-      'Wine & honey tasting',
+      'Drive all the way up to Gergeti Trinity Church in our own vehicle',
+      'Honey tasting',
     ],
     notIncluded: [
       'Lunch and drinks',
-      '4×4 jeep Stepantsminda → Gergeti Trinity Church (≈ 20 GEL, paid locally)',
-      'Optional entry fees and extra tastings',
+      'Optional extra tastings and souvenirs',
       'Tips (discretionary)',
     ],
     whatToBring: [
       'Warm jacket and layers (cold at Gergeti even in summer)',
+      'Umbrella or a light rain jacket, just in case',
       'Comfortable walking shoes',
       'Sun protection and sunglasses',
       'Camera or phone',
-      'Some cash for lunch and the 4×4',
+      'Some cash for lunch',
     ],
     season: [
       { month: 'Mar', rating: 'good' },
@@ -293,26 +307,27 @@ export const TOURS: TourData[] = [
       { month: 'Jul', rating: 'excellent' },
       { month: 'Aug', rating: 'excellent' },
       { month: 'Sep', rating: 'excellent' },
-      { month: 'Oct', rating: 'good' },
+      { month: 'Oct', rating: 'excellent' },
       { month: 'Nov', rating: 'good' },
     ],
     gallery: [
-      { src: '/images/tours/andrew-rusinas-aFFKmsFoldc-unsplash.jpg', alt: 'Mount Kazbek and Gergeti Trinity Church' },
-      { src: '/images/tours/vasily-ledovsky-7Nl6vSXdDhE-unsplash.jpg', alt: 'Zhinvali Reservoir turquoise waters' },
-      { src: '/images/tours/nadav-fima-ULn5jbPuHx8-unsplash.jpg', alt: 'Ananuri Fortress on the reservoir' },
-      { src: '/images/tours/gio-chanturia-2aGoA1zcWfI-unsplash.jpg', alt: 'Georgian wine and honey tasting' },
-      { src: '/images/tours/jason-gardner-LU-o3CbeZhU-unsplash.jpg', alt: 'Gudauri viewpoint panorama' },
-      { src: '/images/tours/nino-gakhokia-24d9N5UsVYs-unsplash.jpg', alt: 'Stepantsminda village and mountain views' },
+      { src: '/images/tours/kazbegi-ananuri.jpg', alt: 'Ananuri fortress and church complex above the Zhinvali Reservoir' },
+      { src: '/images/tours/kazbegi-gallery-3.jpg', alt: 'The Russia–Georgia Friendship Monument at Gudauri, ringed by snowy peaks' },
+      { src: '/images/tours/kazbegi-gallery-1.jpg', alt: 'Stepantsminda (Kazbegi) town in the valley beneath snow-dusted Caucasus peaks' },
+      { src: '/images/tours/kazbegi-gallery-2.jpg', alt: 'Snow-capped Mount Kazbek above the mountain road to Stepantsminda' },
+      { src: '/images/tours/kazbegi-gallery-4.jpg', alt: 'Mount Kazbek wrapped in cloud above the Stepantsminda valley' },
+      { src: '/images/tours/kazbegi-gallery-5.jpg', alt: 'Gergeti Trinity Church silhouetted beneath Mount Kazbek' },
     ],
     faq: [
       { q: 'Is this tour suitable for families and kids?', a: 'Yes — the walks at each stop are short and gentle, making this a great day out for families with children of most ages.' },
+      { q: 'Is the tour free for children?', a: 'Children under 12 travel free of charge, as long as there is space available in the vehicle. Please tell us the number and ages of any children when you enquire so we can arrange the right vehicle.' },
       { q: 'How much walking is there?', a: 'Very little. Most of the day is spent driving. The walks at each stop are 10–45 minutes on easy terrain — no hiking boots needed.' },
-      { q: 'Is the 4×4 to Gergeti included?', a: 'The 4×4 ride from Stepantsminda up to Gergeti Trinity Church is not included in the tour price. It costs approximately 20 GEL per person and is paid directly to the driver in cash on the day.' },
-      { q: 'What happens if the weather is bad?', a: 'Mountain weather in Kazbegi can change fast — Gergeti may be cloudy when Tbilisi is sunny. We monitor conditions daily. If access to the church is unsafe, your guide will adapt the plan and suggest the best alternative.' },
+      { q: 'Do we drive all the way up to Gergeti Trinity Church?', a: 'Yes — we take you all the way up to the church in our own vehicle. There is no separate jeep fee; the drive up is included in the tour.' },
+      { q: 'What happens if the weather is bad?', a: 'Mountain weather in Kazbegi can change fast — Gergeti may be cloudy when Tbilisi is sunny. We monitor conditions daily and will adapt the itinerary to suit the weather, or reschedule your tour to another day if needed.' },
       { q: 'Is lunch included?', a: 'No. Lunch is at your own expense in Stepantsminda. There are several good local restaurants near the town centre.' },
-      { q: 'Is hotel pickup available?', a: 'Currently we use a central meeting point in Tbilisi. Let us know your hotel in the enquiry and we\'ll do our best to accommodate you.' },
+      { q: 'Is hotel pickup available?', a: 'Yes — we pick you up from your hotel in Tbilisi in the morning. Just share your accommodation details when you enquire.' },
       { q: 'Is this a private tour?', a: 'Yes — all our tours are private. Your day trip runs just for you and your companions, with total flexibility on timing and pace.' },
-      { q: 'How cold does it get at Gergeti?', a: 'Even in summer, temperatures at 2,170 m can be noticeably cooler than Tbilisi. Bring a warm jacket and layers — you\'ll be glad you did at the top.' },
+      { q: 'How cold does it get at Gergeti?', a: 'Even in summer, temperatures at 2,170 m can be noticeably cooler than Tbilisi. Bring a warm jacket and layers — and it\'s worth packing an umbrella or a light rain jacket just in case, as mountain weather can turn quickly.' },
     ],
     relatedTours: [
       { slug: 'ice-and-towers-svaneti', name: 'Ice and Towers, Svaneti', region: 'Svaneti', duration: '9 days', difficulty: 'Easy–Moderate', image: '/images/tours/ice-towers-hero.avif' },
@@ -487,7 +502,7 @@ Pricing is per person and varies by group size. Fully guided (our guide drives):
     ],
     relatedTours: [
       { slug: 'ice-and-towers-svaneti', name: 'Ice and Towers, Svaneti', region: 'Svaneti', duration: '9 days', difficulty: 'Easy–Moderate', image: '/images/tours/ice-towers-hero.avif' },
-      { slug: 'kazbegi-day-trip', name: 'Kazbegi Day Trip', region: 'Kazbegi', duration: '1 day', difficulty: 'Easy', image: '/images/tours/andrew-rusinas-aFFKmsFoldc-unsplash.jpg' },
+      { slug: 'kazbegi-day-trip', name: 'Kazbegi Day Trip', region: 'Kazbegi', duration: '1 day', difficulty: 'Easy', image: '/images/tours/kazbegi-day-hero.jpg' },
       { slug: 'overland-guria-adjara', name: 'Overland: Guria & Adjara', region: 'Adjara', duration: '7 days', difficulty: 'Moderate', image: '/images/tours/overlanding/dg-06.jpg' },
       { slug: 'vashlovani-overland-expedition', name: 'Vashlovani Semi-Desert Overland Expedition', region: 'Kakheti', duration: '7 days', difficulty: 'Moderate', image: '/images/tours/overlanding/dg-05.jpg' },
     ],
@@ -776,7 +791,7 @@ Pricing is per person. The full-camp program (with dining tent and full kitchen)
     relatedTours: [
       { slug: 'enduro-mtb-tusheti', name: 'Enduro MTB Expedition in Tusheti', region: 'Tusheti', duration: '4 days', difficulty: 'Hard', image: '/images/tours/biking/mtb-group.jpg' },
       { slug: 'ice-and-towers-svaneti', name: 'Ice and Towers, Svaneti', region: 'Svaneti', duration: '9 days', difficulty: 'Easy–Moderate', image: '/images/tours/ice-towers-hero.avif' },
-      { slug: 'kazbegi-day-trip', name: 'Kazbegi Day Trip', region: 'Kazbegi', duration: '1 day', difficulty: 'Easy', image: '/images/tours/andrew-rusinas-aFFKmsFoldc-unsplash.jpg' },
+      { slug: 'kazbegi-day-trip', name: 'Kazbegi Day Trip', region: 'Kazbegi', duration: '1 day', difficulty: 'Easy', image: '/images/tours/kazbegi-day-hero.jpg' },
       { slug: 'discover-georgia-as-a-local', name: 'Discover Georgia as a Local', region: 'Multi-Region', duration: '10 days', difficulty: 'Moderate', image: '/images/tours/overlanding/dg-04.jpg' },
     ],
   },
@@ -903,7 +918,7 @@ You can join from Kutaisi as a roughly five-hour experience, or from Tbilisi as 
     ],
     relatedTours: [
       { slug: 'canyoning-day-adventure', name: 'Canyoning Day Adventure in Imereti', region: 'Imereti', duration: '1 day', difficulty: 'Moderate', image: '/images/tours/canyoning/canyoning-waterfall-rappel.jpg' },
-      { slug: 'kazbegi-day-trip', name: 'Kazbegi Day Trip', region: 'Kazbegi', duration: '1 day', difficulty: 'Easy', image: '/images/tours/andrew-rusinas-aFFKmsFoldc-unsplash.jpg' },
+      { slug: 'kazbegi-day-trip', name: 'Kazbegi Day Trip', region: 'Kazbegi', duration: '1 day', difficulty: 'Easy', image: '/images/tours/kazbegi-day-hero.jpg' },
       { slug: 'discover-georgia-as-a-local', name: 'Discover Georgia as a Local', region: 'Multi-Region', duration: '10 days', difficulty: 'Moderate', image: '/images/tours/overlanding/dg-04.jpg' },
       { slug: 'ice-and-towers-svaneti', name: 'Ice and Towers, Svaneti', region: 'Svaneti', duration: '9 days', difficulty: 'Moderate', image: '/images/tours/ice-towers-hero.avif' },
     ],
@@ -1627,7 +1642,7 @@ It's an easy day-trip add-on to any western-Georgia itinerary. Join from Kutaisi
     ],
     relatedTours: [
       { slug: 'melouri-cave-caving', name: 'Wild Caving Experience in Melouri Cave', region: 'Imereti', duration: '1 day', difficulty: 'Moderate', image: '/images/tours/caving/melouri-river-passage.jpg' },
-      { slug: 'kazbegi-day-trip', name: 'Kazbegi Day Trip', region: 'Kazbegi', duration: '1 day', difficulty: 'Easy', image: '/images/tours/andrew-rusinas-aFFKmsFoldc-unsplash.jpg' },
+      { slug: 'kazbegi-day-trip', name: 'Kazbegi Day Trip', region: 'Kazbegi', duration: '1 day', difficulty: 'Easy', image: '/images/tours/kazbegi-day-hero.jpg' },
       { slug: 'discover-georgia-as-a-local', name: 'Discover Georgia as a Local', region: 'Multi-Region', duration: '10 days', difficulty: 'Moderate', image: '/images/tours/overlanding/dg-04.jpg' },
       { slug: 'cycling-expedition-tusheti', name: 'Cycling Expedition in Tusheti', region: 'Tusheti', duration: '6 days', difficulty: 'Challenging', image: '/images/tours/biking/mtb-open-road.jpg' },
     ],

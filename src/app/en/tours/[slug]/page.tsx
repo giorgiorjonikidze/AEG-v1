@@ -65,13 +65,13 @@ export default function TourPage({ params }: { params: { slug: string } }) {
 
         <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 28px', display: 'grid', gridTemplateColumns: '1fr 384px', gap: 56, alignItems: 'start' }}
           className="tour-layout">
-          <style>{`
+          <style dangerouslySetInnerHTML={{ __html: `
             .tour-layout > * { min-width: 0; }
             @media (max-width: 1024px) {
               .tour-layout { grid-template-columns: 1fr !important; }
               .tour-sidebar { display: none !important; }
             }
-          `}</style>
+          ` }} />
 
           {/* Main content column */}
           <div>

@@ -9,7 +9,7 @@ const QUICK_FACTS = (tour: TourData) => tour.isDayTour ? [
   { label: 'Start / End', value: `${tour.quickFacts.start} / ${tour.quickFacts.end}` },
   { label: 'Activity', value: tour.quickFacts.activity },
   { label: 'Difficulty', value: tour.quickFacts.difficulty },
-  { label: 'Group size', value: `Up to ${tour.maxTravelers ?? 12}` },
+  { label: 'Group size', value: tour.groupSizeLabel ?? `Up to ${tour.maxTravelers ?? 12}` },
 ] : [
   { label: 'Tour type', value: 'Private' },
   { label: 'Duration', value: tour.quickFacts.duration },

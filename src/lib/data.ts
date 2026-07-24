@@ -40,7 +40,7 @@ export const FEATURED_TOURS = [
     activity: 'Trekking & Hiking',
     duration: '9 days',
     difficulty: 'Moderate',
-    price: '€2,490',
+    price: '€850',
     badge: 'New',
   },
   {

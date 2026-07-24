@@ -1,6 +1,17 @@
 'use client'
 import type { TourData } from '@/data/tours'
 
+// Draws a driving route through the tour's waypoints when `mapRoute` is set,
+// otherwise falls back to a simple region pin.
+function mapEmbedSrc(tour: TourData): string {
+  const enc = (place: string) => encodeURIComponent(`${place}, Georgia`)
+  if (tour.mapRoute && tour.mapRoute.length >= 2) {
+    const [origin, ...rest] = tour.mapRoute
+    return `https://maps.google.com/maps?saddr=${enc(origin)}&daddr=${rest.map(enc).join('+to:')}&output=embed`
+  }
+  return `https://maps.google.com/maps?q=${encodeURIComponent(tour.region)}&z=9&output=embed`
+}
+
 export default function DayTourItinerary({ tour }: { tour: TourData }) {
   const stops = tour.stops ?? []
 
@@ -62,7 +73,7 @@ export default function DayTourItinerary({ tour }: { tour: TourData }) {
         <div style={{ borderRadius: 16, overflow: 'hidden', border: '1px solid #ECE7DC', boxShadow: '0 4px 20px -8px rgba(30,28,25,.14)' }}>
           <iframe
             title="Kazbegi day tour route map"
-            src="https://maps.google.com/maps?q=kazbegi+georgia&z=9&output=embed"
+            src={mapEmbedSrc(tour)}
             width="100%" height="380"
             style={{ display: 'block', border: 0 }}
             loading="lazy"

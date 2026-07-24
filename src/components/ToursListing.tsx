@@ -17,14 +17,14 @@ const TOURS_DATA: Tour[] = [
   { id: 'discover-georgia-as-a-local', name: 'Discover Georgia as a Local', region: 'Svaneti', activity: 'overlanding', days: 10, difficulty: 'Moderate', price: 1000, hook: 'Ten days, one 4x4, six regions — cave cities, glacier valleys and villages the road forgot.', isNew: true, beginner: false, family: false, winter: false, order: 0 },
   { id: 'vashlovani-overland-expedition', name: 'Vashlovani Semi-Desert Overland Expedition', region: 'Kakheti', activity: 'overlanding', days: 7, difficulty: 'Moderate', price: 600, hook: 'Canyons, mud volcanoes and big skies on the Azeri border — 7 days of semi-desert off-road.', isNew: true, beginner: false, family: false, winter: false, order: 1 },
   { id: 'overland-guria-adjara', name: 'Overland Adventure: Mystical Mountains of Guria & Adjara', region: 'Adjara', activity: 'overlanding', days: 7, difficulty: 'Moderate', price: 800, hook: 'Misty cloud-kingdoms, hidden alpine lakes and a fortress above the clouds — off-road through Upper Adjara.', isNew: true, beginner: false, family: false, winter: false, order: 2 },
-  { id: 'ice-and-towers-svaneti', name: 'Ice and Towers, Svaneti', region: 'Svaneti', activity: 'trekking', days: 9, difficulty: 'Moderate', price: 1200, hook: 'Nine days of glaciers, medieval towers and high-altitude passes in the Caucasus crown.', isNew: true, beginner: false, family: false, winter: false, order: 3 },
+  { id: 'ice-and-towers-svaneti', name: 'Ice and Towers, Svaneti', region: 'Svaneti', activity: 'trekking', days: 9, difficulty: 'Moderate', price: 850, hook: 'Nine days of glaciers, medieval towers and high-altitude passes in the Caucasus crown.', isNew: true, beginner: false, family: false, winter: false, order: 3 },
   { id: 'chaukhi-mountaineering-camp', name: 'Chaukhi Massif Mountaineering Camp', region: 'Kazbegi', activity: 'summit', days: 8, difficulty: 'Challenging', price: 1500, hook: 'Learn the ropes and stand on three summits in the "Georgian Dolomites".', isNew: true, beginner: false, family: false, winter: false, order: 4, note: 'Training camp' },
   { id: 'enduro-mtb-tusheti', name: 'Enduro MTB Expedition in Tusheti', region: 'Tusheti', activity: 'biking', days: 4, difficulty: 'Challenging', price: 734, hook: 'Big-mountain enduro beyond the Abano Pass — remote villages and endless descents.', isNew: true, beginner: false, family: false, winter: false, order: 5 },
   { id: 'cycling-expedition-tusheti', name: 'Cycling Expedition in Tusheti', region: 'Tusheti', activity: 'biking', days: 6, difficulty: 'Challenging', price: 850, hook: '6-day gravel endurance expedition — big climbs, remote villages, full board.', isNew: true, beginner: false, family: false, winter: false, order: 6 },
   { id: 'trans-georgia-tbilisi-batumi', name: 'Trans-Georgia Traverse: Tbilisi to the Black Sea', region: 'Adjara', activity: 'biking', days: 7, difficulty: 'Challenging', price: 1276, hook: 'Cross a whole country by bike — Tbilisi over the Goderdzi Pass to the Black Sea at Batumi.', isNew: true, beginner: false, family: false, winter: false, order: 5 },
   { id: 'canyoning-day-adventure', name: 'Canyoning Day Adventure in Imereti', region: 'Imereti', activity: 'canyoning', days: 1, difficulty: 'Moderate', price: 110, hook: 'Rappel live waterfalls, slide natural chutes and jump into cold green pools — a full day in a wild canyon.', isNew: true, beginner: true, family: false, winter: false, order: 7 },
   { id: 'melouri-cave-caving', name: 'Wild Caving Experience in Melouri Cave', region: 'Imereti', activity: 'caving', days: 1, difficulty: 'Moderate', price: 95, hook: 'Wade an underground river by headlamp into a genuine wild cave near Kutaisi.', isNew: true, beginner: true, family: false, winter: false, order: 8 },
-  { id: 'kazbegi-day-trip', name: 'Kazbegi Day Trip', region: 'Kazbegi', activity: 'mixed', days: 1, difficulty: 'Easy', price: 95, hook: 'Ananuri, Gudauri and Gergeti Trinity Church in one perfect day from Tbilisi.', isNew: true, beginner: true, family: true, winter: false, order: 9 },
+  { id: 'kazbegi-day-trip', name: 'Kazbegi Day Trip', region: 'Kazbegi', activity: 'mixed', days: 1, difficulty: 'Easy', price: 100, hook: 'Ananuri, Gudauri and Gergeti Trinity Church in one perfect day from Tbilisi.', isNew: true, beginner: true, family: true, winter: false, order: 9 },
 ]
 
 const ACTIVITY_META = [
@@ -60,7 +60,7 @@ const PMIN = 0, PMAX = 3000, STEP = 10
 const TOUR_PHOTOS: Record<string, string> = {
   'vashlovani-overland-expedition': '/images/tours/overlanding/dg-05.jpg',
   'ice-and-towers-svaneti': '/images/tours/ice-towers-hero.avif',
-  'kazbegi-day-trip':       '/images/tours/andrew-rusinas-aFFKmsFoldc-unsplash.jpg',
+  'kazbegi-day-trip':       '/images/tours/kazbegi-day-hero.jpg',
   'discover-georgia-as-a-local': '/images/tours/overlanding/dg-04.jpg',
   'enduro-mtb-tusheti':          '/images/tours/biking/mtb-group.jpg',
   'chaukhi-mountaineering-camp': '/images/tours/summit/chaukhi-ridge-team.jpg',
