@@ -32,7 +32,7 @@ function formReducer(s: FormState, action: FormAction): FormState {
     case 'set': return { ...s, [action.k]: action.v, errors: { ...s.errors, [action.k]: undefined, contact: undefined } }
     case 'setErrors': return { ...s, errors: action.e }
     case 'submit': return { ...s, errors: {}, submitted: true }
-    case 'step': return { ...s, travelers: Math.max(1, Math.min(16, s.travelers + action.d)) }
+    case 'step': return { ...s, travelers: Math.max(1, Math.min(12, s.travelers + action.d)) }
     case 'toggleFlexible': return { ...s, flexible: !s.flexible, errors: { ...s.errors, dates: undefined } }
     case 'reset': return { ...initialForm }
     default: return s
@@ -280,7 +280,7 @@ export function InquiryCard({ tourName, tourMeta, whatsappNumber = WHATSAPP_NUMB
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: 14 }}>
                   <StepBtn label="Remove a traveler" onClick={() => dispatch({ type: 'step', d: -1 })} disabled={s.travelers <= 1}>&minus;</StepBtn>
                   <span style={{ minWidth: 22, textAlign: 'center', fontSize: 17, fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>{s.travelers}</span>
-                  <StepBtn label="Add a traveler" onClick={() => dispatch({ type: 'step', d: 1 })} disabled={s.travelers >= 16}>+</StepBtn>
+                  <StepBtn label="Add a traveler" onClick={() => dispatch({ type: 'step', d: 1 })} disabled={s.travelers >= 12}>+</StepBtn>
                 </div>
               </div>
             )}

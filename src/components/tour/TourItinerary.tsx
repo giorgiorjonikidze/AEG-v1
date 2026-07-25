@@ -45,7 +45,7 @@ function buildStats(day: DayInput): DayStat[] {
   if (day.stats.elevation) stats.push({ icon: 'mountain', caption: 'Elevation', value: day.stats.elevation, optional: false })
   if (day.stats.surface) stats.push({ icon: 'route', caption: 'Surface', value: day.stats.surface, optional: false })
   if (day.stats.drive) stats.push({ icon: 'car', caption: 'Drive', value: day.stats.drive, optional: false })
-  stats.push({ icon: 'moon', caption: 'Overnight', value: day.stats.overnight, optional: false })
+  if (day.stats.overnight) stats.push({ icon: 'moon', caption: 'Overnight', value: day.stats.overnight, optional: false })
   if (day.stats.optional) stats.push({ icon: 'plus', caption: 'Optional', value: day.stats.optional, optional: true })
   return stats
 }
