@@ -22,12 +22,12 @@ export interface Guide {
 
 export const GUIDES: Guide[] = [
   {
-    key: 'cotne',
+    key: 'tsotne',
     img: '/images/guides/cotne.png',
-    name: 'Cotne',
+    name: 'Tsotne',
     role: 'Founder & Lead Guide',
     disciplines: ['Trekking', 'Overlanding', 'Mountaineering', 'Climbing'],
-    bio: "Our Schumacher of the mud and an ibex of the mountains. Cotne has spent half his life on the trail — and knows every path, tree, and stone in Georgia by heart.",
+    bio: "Our Schumacher of the mud and an ibex of the mountains. Tsotne has spent half his life on the trail — and knows every path, tree, and stone in Georgia by heart.",
     cert: 'IFMGA Trekking Guide · Overland Guide · Alpine Guide · Ski Guide',
     langs: 'Georgian · English',
     socials: [
