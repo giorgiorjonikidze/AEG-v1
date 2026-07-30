@@ -35,13 +35,35 @@ export default function AboutPage() {
     <>
       <div style={{ background: '#FAF8F3', color: '#1E1C19', fontFamily: 'var(--font-hanken), system-ui, sans-serif' }}>
 
-        {/* ── Intro ── */}
-        <section style={{ padding: 'clamp(120px,16vh,170px) clamp(20px,5vw,48px) clamp(48px,7vh,72px)' }}>
-          <div style={{ maxWidth: 880, margin: '0 auto' }}>
-            <div style={{ fontSize: 12, letterSpacing: '.2em', textTransform: 'uppercase', color: '#C75A37', fontWeight: 600, marginBottom: 16 }}>About Us</div>
-            <h1 style={{ fontFamily: 'var(--font-spectral), serif', fontWeight: 500, fontSize: 'clamp(36px,5.5vw,60px)', lineHeight: 1.05, letterSpacing: '-.5px', margin: '0 0 24px' }}>
+        {/* ── Hero collage ── */}
+        <section style={{ position: 'relative', width: '100%', minHeight: 'clamp(460px,66vh,640px)', overflow: 'hidden', background: '#14110E', display: 'flex', alignItems: 'flex-end' }}>
+          {/* photo mosaic */}
+          <style>{`
+            .about-collage { grid-template-columns: repeat(8, 1fr); }
+            @media (max-width: 900px) { .about-collage { grid-template-columns: repeat(6, 1fr); } }
+            @media (max-width: 540px) { .about-collage { grid-template-columns: repeat(4, 1fr); } }
+          `}</style>
+          <div className="about-collage" aria-hidden="true" style={{ position: 'absolute', inset: 0, display: 'grid', gridAutoRows: '1fr' }}>
+            {Array.from({ length: 32 }, (_, i) => (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img key={i} src={`/images/about/collage/tile-${String(i + 1).padStart(2, '0')}.jpg`} alt=""
+                style={{ width: '100%', height: '100%', aspectRatio: '1 / 1', objectFit: 'cover', display: 'block' }} />
+            ))}
+          </div>
+          {/* readability overlay: dark at top (nav) and bottom (title), photos visible in the middle */}
+          <div aria-hidden="true" style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(20,17,14,.82) 0%, rgba(20,17,14,.30) 20%, rgba(20,17,14,.20) 52%, rgba(20,17,14,.72) 84%, rgba(20,17,14,.90) 100%)' }} />
+          {/* headline */}
+          <div style={{ position: 'relative', width: '100%', maxWidth: 1180, margin: '0 auto', padding: 'clamp(40px,7vh,72px) clamp(20px,5vw,48px)' }}>
+            <div style={{ fontSize: 12, letterSpacing: '.2em', textTransform: 'uppercase', color: '#F0A57F', fontWeight: 600, marginBottom: 16 }}>About Us</div>
+            <h1 style={{ fontFamily: 'var(--font-spectral), serif', fontWeight: 500, color: '#fff', fontSize: 'clamp(34px,5.2vw,58px)', lineHeight: 1.06, letterSpacing: '-.5px', margin: 0, maxWidth: '18ch', textShadow: '0 2px 30px rgba(0,0,0,.35)' }}>
               A Small Team of Georgian Guides Who Never Really Came Down From the Mountains
             </h1>
+          </div>
+        </section>
+
+        {/* ── Intro ── */}
+        <section style={{ padding: 'clamp(48px,8vh,84px) clamp(20px,5vw,48px) clamp(40px,6vh,64px)' }}>
+          <div style={{ maxWidth: 880, margin: '0 auto' }}>
             <p style={{ fontSize: 18, lineHeight: 1.75, color: '#5C564E', margin: 0, maxWidth: '62ch' }}>
               Adventure Experts Georgia was founded by local, certified guides who have spent years leading
               travelers through the Caucasus — across Svaneti&apos;s glacier valleys, into the wild caves of
