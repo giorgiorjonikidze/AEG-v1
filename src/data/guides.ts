@@ -28,7 +28,7 @@ export const GUIDES: Guide[] = [
     role: 'Founder & Lead Guide',
     disciplines: ['Trekking', 'Overlanding', 'Mountaineering', 'Climbing'],
     bio: "Our Schumacher of the mud and an ibex of the mountains. Tsotne has spent half his life on the trail — and knows every path, tree, and stone in Georgia by heart.",
-    cert: 'IFMGA Trekking Guide · Overland Guide · Alpine Guide · Ski Guide',
+    cert: 'Trekking Guide · Overland Guide · Alpine Guide · Ski Guide',
     langs: 'Georgian · English',
     socials: [
       { type: 'instagram', url: 'https://www.instagram.com/ts.mountain_/' },
