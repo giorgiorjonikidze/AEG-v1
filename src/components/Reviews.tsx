@@ -29,10 +29,9 @@ function initials(name: string) {
 }
 
 export default function Reviews({ rows = false, tourSlug }: { rows?: boolean; tourSlug?: string }) {
-  // Feature any review tagged for this tour first.
-  const ordered = tourSlug
-    ? [...REVIEWS].sort((a, b) => Number(b.tourSlug === tourSlug) - Number(a.tourSlug === tourSlug))
-    : REVIEWS
+  // A review only appears on the tour it was written for.
+  const shown = REVIEWS.filter(r => r.tourSlug === tourSlug)
+  if (shown.length === 0) return null
 
   return (
     <section style={{ background: '#F5F0E8', padding: '80px 0 88px', color: '#1E1C19', fontFamily: 'var(--font-hanken), sans-serif' }}>
@@ -64,7 +63,7 @@ export default function Reviews({ rows = false, tourSlug }: { rows?: boolean; to
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: rows ? 'repeat(auto-fit, minmax(300px, 1fr))' : 'repeat(auto-fit, minmax(320px, 1fr))', gap: 20 }}>
-          {ordered.map(r => (
+          {shown.map(r => (
             <figure key={r.author} style={{ background: '#fff', borderRadius: 5, padding: '28px', boxShadow: '0 4px 24px -12px rgba(30,28,25,.14)', display: 'flex', flexDirection: 'column', gap: 16, margin: 0 }}>
               <Stars rating={r.rating} size={17} />
               <blockquote style={{ fontFamily: 'var(--font-spectral), serif', fontSize: 19, fontWeight: 500, lineHeight: 1.45, margin: 0, color: '#1E1C19' }}>
