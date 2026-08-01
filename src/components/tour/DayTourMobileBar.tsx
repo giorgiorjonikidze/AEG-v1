@@ -37,7 +37,7 @@ export default function DayTourMobileBar({ tour }: { tour: TourData }) {
     setTravelers(t => Math.max(MIN, Math.min(max, t + d)))
   }
 
-  const waMsg = `Hi! I'd like to ask about the Kazbegi day trip for ${travelers} ${travelers === 1 ? 'traveler' : 'travelers'}.`
+  const waMsg = `Hi! I'd like to ask about the ${tour.name} for ${travelers} ${travelers === 1 ? 'traveler' : 'travelers'}.`
 
   return (
     <>
@@ -95,7 +95,7 @@ export default function DayTourMobileBar({ tour }: { tour: TourData }) {
               {tour.category}
             </div>
             <h3 style={{ fontFamily: "'Spectral',Georgia,serif", fontWeight: 600, fontSize: 22, lineHeight: 1.14, letterSpacing: '-.2px', margin: '0 0 4px', color: '#1E1C19' }}>{tour.name}</h3>
-            <div style={{ fontSize: 12.5, color: '#A8A296', lineHeight: 1.4 }}>Full day · {tour.region}</div>
+            <div style={{ fontSize: 12.5, color: '#A8A296', lineHeight: 1.4 }}>Full day · {tour.dayArea ?? tour.region}</div>
 
             {/* Live price + stepper */}
             <div>
@@ -147,7 +147,7 @@ export default function DayTourMobileBar({ tour }: { tour: TourData }) {
           </div>
 
           {/* Inquiry form */}
-          <InquiryCard tourName={tour.name} tourMeta={`Full day · ${tour.region}`} compact defaultTravelers={travelers} hideTravelers />
+          <InquiryCard tourName={tour.name} tourMeta={`Full day · ${tour.dayArea ?? tour.region}`} compact defaultTravelers={travelers} hideTravelers />
         </div>
       </div>
     </>

@@ -42,7 +42,7 @@ export default function DayTourBookingCard({ tour }: Props) {
     setTravelers(t => Math.max(MIN, Math.min(max, t + d)))
   }
 
-  const waMsg = `Hi! I'd like to book the Kazbegi day trip for ${travelers} ${travelers === 1 ? 'traveler' : 'travelers'}.`
+  const waMsg = `Hi! I'd like to book the ${tour.name} for ${travelers} ${travelers === 1 ? 'traveler' : 'travelers'}.`
 
   return (
     <>
@@ -69,7 +69,7 @@ export default function DayTourBookingCard({ tour }: Props) {
           <span style={{ fontSize: 15, fontWeight: 500, color: '#A8A296' }}>total for {travelers} {travelers === 1 ? 'traveler' : 'travelers'}</span>
         </div>
 
-        <div style={{ fontSize: 13.5, lineHeight: 1.5, color: '#A8A296', marginTop: 8 }}>Full day · Kazbegi · {currency}{perPerson} per person</div>
+        <div style={{ fontSize: 13.5, lineHeight: 1.5, color: '#A8A296', marginTop: 8 }}>Full day · {tour.dayArea ?? tour.region} · {currency}{perPerson} per person</div>
 
         <div style={{ height: 1, background: '#EDE4D6', margin: '18px 0' }} />
 
@@ -146,7 +146,7 @@ export default function DayTourBookingCard({ tour }: Props) {
               <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
             </button>
             <div style={{ padding: '28px 28px 32px' }}>
-              <InquiryCard tourName={tour.name} tourMeta={`Full day · ${tour.region}`} defaultTravelers={travelers} />
+              <InquiryCard tourName={tour.name} tourMeta={`Full day · ${tour.dayArea ?? tour.region}`} defaultTravelers={travelers} />
             </div>
           </div>
         </div>,

@@ -72,7 +72,7 @@ export default function DayTourItinerary({ tour }: { tour: TourData }) {
       <div style={{ marginTop: 40 }}>
         <div style={{ borderRadius: 16, overflow: 'hidden', border: '1px solid #ECE7DC', boxShadow: '0 4px 20px -8px rgba(30,28,25,.14)' }}>
           <iframe
-            title="Kazbegi day tour route map"
+            title={`${tour.name} route map`}
             src={mapEmbedSrc(tour)}
             width="100%" height="380"
             style={{ display: 'block', border: 0 }}
@@ -81,7 +81,7 @@ export default function DayTourItinerary({ tour }: { tour: TourData }) {
           />
         </div>
         <p style={{ margin: '10px 0 0', fontSize: 12, color: '#A8A296', textAlign: 'center' }}>
-          Georgian Military Highway — Kazbegi region
+          {tour.region}
         </p>
       </div>
 

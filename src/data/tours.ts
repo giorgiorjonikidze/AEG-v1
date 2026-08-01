@@ -34,6 +34,9 @@ export interface TourData {
   /** Overrides the "Group size" display (e.g. 'Unlimited') on day-tour cards.
    *  When set, the booking stepper hides its max and shows "Larger groups on request". */
   groupSizeLabel?: string
+  /** Short area label shown on the day-tour price card (e.g. 'Kazbegi', 'Tskaltubo').
+   *  Falls back to `region` when unset. */
+  dayArea?: string
   quickFacts: { duration: string; start: string; end: string; activity: string; difficulty: string; accommodation: string }
   summaryCards: { icon: string; label: string; value: string }[]
   overview: string
@@ -222,6 +225,7 @@ export const TOURS: TourData[] = [
     slug: 'kazbegi-day-trip',
     name: 'Kazbegi Day Trip — Ananuri, Gudauri & Gergeti',
     region: 'Kazbegi / Georgian Military Highway',
+    dayArea: 'Kazbegi',
     category: 'Day Tour',
     emotionalLine: 'One unforgettable day from Tbilisi to the foot of Mount Kazbek — fortresses, alpine passes, and a hilltop church above the clouds.',
     price: 100,
@@ -799,12 +803,13 @@ Pricing is per person. The full-camp program (with dining tent and full kitchen)
     slug: 'melouri-cave-caving',
     name: 'Wild Caving Experience in Melouri Cave',
     region: 'Imereti — near Kutaisi, Georgia',
+    dayArea: 'Tskaltubo',
     category: 'Caving',
     emotionalLine: 'Trade daylight for headlamps — cross an underground river into the wild heart of the Georgian karst.',
-    price: 95,
+    price: 89,
     currency: '€',
     isDayTour: true,
-    perPersonRate: 95,
+    perPersonRate: 89,
     maxTravelers: 8,
     heroImage: '/images/tours/caving/melouri-river-passage.jpg',
     quickFacts: {
@@ -1522,6 +1527,7 @@ Pricing is per person and varies by group size. Fully guided (our guide drives, 
     slug: 'canyoning-day-adventure',
     name: 'Canyoning Day Adventure in Imereti',
     region: 'Imereti — near Kutaisi, Georgia',
+    dayArea: 'Tskaltubo',
     category: 'Canyoning',
     emotionalLine: 'Rappel down living waterfalls, slide natural chutes, and jump into cold green pools — a full day inside a wild Georgian canyon.',
     price: 110,
