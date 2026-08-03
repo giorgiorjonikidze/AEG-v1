@@ -111,14 +111,14 @@ export const FEATURED_TOURS = [
   {
     id: 'melouri-cave-caving',
     href: '/en/tours/melouri-cave-caving',
-    image: '/images/tours/caving/melouri-river-passage.jpg',
+    image: '/images/tours/caving/melouri-ladder-descent.jpg',
     name: 'Wild Caving in Melouri Cave',
     hook: 'Wade an underground river by headlamp',
     region: 'Imereti',
     activity: 'Caving',
     duration: '1 day',
     difficulty: 'Moderate',
-    price: '€95',
+    price: '€86',
     badge: 'New',
   },
   {

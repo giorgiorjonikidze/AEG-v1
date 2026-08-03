@@ -23,7 +23,7 @@ const TOURS_DATA: Tour[] = [
   { id: 'cycling-expedition-tusheti', name: 'Cycling Expedition in Tusheti', region: 'Tusheti', activity: 'biking', days: 6, difficulty: 'Challenging', price: 850, hook: '6-day gravel endurance expedition — big climbs, remote villages, full board.', isNew: true, beginner: false, family: false, winter: false, order: 6 },
   { id: 'trans-georgia-tbilisi-batumi', name: 'Trans-Georgia Traverse: Tbilisi to the Black Sea', region: 'Adjara', activity: 'biking', days: 7, difficulty: 'Challenging', price: 1276, hook: 'Cross a whole country by bike — Tbilisi over the Goderdzi Pass to the Black Sea at Batumi.', isNew: true, beginner: false, family: false, winter: false, order: 5 },
   { id: 'canyoning-day-adventure', name: 'Canyoning Day Adventure in Imereti', region: 'Imereti', activity: 'canyoning', days: 1, difficulty: 'Moderate', price: 110, hook: 'Rappel live waterfalls, slide natural chutes and jump into cold green pools — a full day in a wild canyon.', isNew: true, beginner: true, family: false, winter: false, order: 7 },
-  { id: 'melouri-cave-caving', name: 'Wild Caving Experience in Melouri Cave', region: 'Imereti', activity: 'caving', days: 1, difficulty: 'Moderate', price: 95, hook: 'Wade an underground river by headlamp into a genuine wild cave near Kutaisi.', isNew: true, beginner: true, family: false, winter: false, order: 8 },
+  { id: 'melouri-cave-caving', name: 'Wild Caving Experience in Melouri Cave', region: 'Imereti', activity: 'caving', days: 1, difficulty: 'Moderate', price: 86, hook: 'Wade an underground river by headlamp into a genuine wild cave near Kutaisi.', isNew: true, beginner: true, family: false, winter: false, order: 8 },
   { id: 'kazbegi-day-trip', name: 'Kazbegi Day Trip', region: 'Kazbegi', activity: 'mixed', days: 1, difficulty: 'Easy', price: 100, hook: 'Ananuri, Gudauri and Gergeti Trinity Church in one perfect day from Tbilisi.', isNew: true, beginner: true, family: true, winter: false, order: 9 },
 ]
 
@@ -64,7 +64,7 @@ const TOUR_PHOTOS: Record<string, string> = {
   'discover-georgia-as-a-local': '/images/tours/overlanding/dg-04.jpg',
   'enduro-mtb-tusheti':          '/images/tours/biking/mtb-group.jpg',
   'chaukhi-mountaineering-camp': '/images/tours/summit/chaukhi-ridge-team.jpg',
-  'melouri-cave-caving':         '/images/tours/caving/melouri-river-passage.jpg',
+  'melouri-cave-caving':         '/images/tours/caving/melouri-ladder-descent.jpg',
   'cycling-expedition-tusheti':  '/images/tours/biking/mtb-open-road.jpg',
   'trans-georgia-tbilisi-batumi': '/images/tours/biking/trans-georgia-hero.jpg',
   'overland-guria-adjara':       '/images/tours/overlanding/dg-06.jpg',

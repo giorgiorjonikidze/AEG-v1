@@ -264,7 +264,7 @@ export const REGIONS_DATA: RegionData[] = [
         difficulty: 'Moderate',
         isNew: true,
         badge: 'New',
-        image: '/images/tours/caving/melouri-river-passage.jpg',
+        image: '/images/tours/caving/melouri-ladder-descent.jpg',
         href: '/en/tours/melouri-cave-caving',
       },
       {
