@@ -8,6 +8,10 @@ export interface EnquiryPayload {
   source: 'tour' | 'contact'
   tourName?: string
   tourMeta?: string
+  /** 'group' when enquiring about a fixed-date departure, else 'private'. */
+  bookingType?: 'group' | 'private'
+  /** Human label of the chosen group departure, e.g. "6 – 12 Sep 2026". */
+  departure?: string
   name: string
   email?: string
   phone?: string

@@ -3,7 +3,7 @@ export default function LocalTeamSection() {
     'Certified professional guides',
     'Licensed & insured',
     'Born-and-raised local experts',
-    'Private tours only',
+    'Private or small-group tours',
   ]
 
   return (

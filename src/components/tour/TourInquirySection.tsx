@@ -11,6 +11,11 @@ interface InquiryCardProps {
   compact?: boolean
   hideTravelers?: boolean
   defaultTravelers?: number
+  /** Prefill the date field (ISO 'YYYY-MM-DD') — used when a group departure is chosen. */
+  defaultDateStart?: string
+  /** Human label of the chosen group departure, e.g. "6 – 12 Sep 2026".
+   *  When set, the card shows a locked departure chip and tags the enquiry as a group booking. */
+  departureLabel?: string
 }
 
 type FormState = {
@@ -45,8 +50,12 @@ const initialForm: FormState = {
   errors: {}, submitted: false,
 }
 
-export function InquiryCard({ tourName, tourMeta, whatsappNumber = WHATSAPP_NUMBER, compact = false, hideTravelers = false, defaultTravelers }: InquiryCardProps) {
-  const [s, dispatch] = useReducer(formReducer, { ...initialForm, travelers: defaultTravelers ?? initialForm.travelers })
+export function InquiryCard({ tourName, tourMeta, whatsappNumber = WHATSAPP_NUMBER, compact = false, hideTravelers = false, defaultTravelers, defaultDateStart, departureLabel }: InquiryCardProps) {
+  const [s, dispatch] = useReducer(formReducer, {
+    ...initialForm,
+    travelers: defaultTravelers ?? (departureLabel ? 1 : initialForm.travelers),
+    dateStart: defaultDateStart ?? initialForm.dateStart,
+  })
   const [sending, setSending] = useState(false)
   const [sendError, setSendError] = useState<string | null>(null)
   const mountedAt = useRef(Date.now())
@@ -82,7 +91,7 @@ export function InquiryCard({ tourName, tourMeta, whatsappNumber = WHATSAPP_NUMB
     const em = s.email.trim(), wa = s.whatsapp.trim()
     if (!em && !wa) e.contact = 'Add an email or phone number so we can reach you.'
     else if (em && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) e.email = "That email doesn't look right."
-    if (!s.flexible && !s.dateStart) e.dates = 'Pick a date, or choose "Flexible".'
+    if (!departureLabel && !s.flexible && !s.dateStart) e.dates = 'Pick a date, or choose "Flexible".'
     return e
   }
 
@@ -93,6 +102,7 @@ export function InquiryCard({ tourName, tourMeta, whatsappNumber = WHATSAPP_NUMB
       '',
       `Name: ${s.name.trim()}`,
     ]
+    if (departureLabel) lines.push(`Departure: ${departureLabel} (group)`)
     if (s.email.trim()) lines.push(`Email: ${s.email.trim()}`)
     if (s.whatsapp.trim()) lines.push(`Phone: ${s.whatsapp.trim()}`)
     lines.push(`Dates: ${s.flexible ? 'Flexible / not sure yet' : s.dateStart}`)
@@ -108,6 +118,8 @@ export function InquiryCard({ tourName, tourMeta, whatsappNumber = WHATSAPP_NUMB
       source: 'tour',
       tourName,
       tourMeta,
+      bookingType: departureLabel ? 'group' : 'private',
+      departure: departureLabel || undefined,
       name: s.name.trim(),
       email: s.email.trim() || undefined,
       phone: s.whatsapp.trim() || undefined,
@@ -210,6 +222,18 @@ export function InquiryCard({ tourName, tourMeta, whatsappNumber = WHATSAPP_NUMB
           )}
 
           <div style={{ padding: '18px 32px 0', display: 'flex', flexDirection: 'column', gap: 17 }}>
+            {/* Selected group departure */}
+            {departureLabel && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: 11, background: 'rgba(46,64,52,.06)', border: '1px solid rgba(46,64,52,.18)', borderRadius: 12, padding: '11px 14px' }}>
+                <span style={{ display: 'inline-flex', flex: 'none', width: 30, height: 30, borderRadius: 8, background: '#2E4034', alignItems: 'center', justifyContent: 'center' }}>
+                  <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="#FAF8F3" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/></svg>
+                </span>
+                <div style={{ minWidth: 0 }}>
+                  <div style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: '.9px', textTransform: 'uppercase', color: '#2E4034' }}>Group departure</div>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: '#1E1C19', lineHeight: 1.25 }}>{departureLabel}</div>
+                </div>
+              </div>
+            )}
             {/* Name */}
             <div>
               <label htmlFor="aeg-name" style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12.5, fontWeight: 600, letterSpacing: '.1px', color: '#1E1C19', marginBottom: 7 }}>
@@ -252,7 +276,8 @@ export function InquiryCard({ tourName, tourMeta, whatsappNumber = WHATSAPP_NUMB
               {E.email && <ErrMsg msg={E.email} />}
             </div>
 
-            {/* Dates */}
+            {/* Dates — hidden for fixed group departures (date is set by the departure) */}
+            {!departureLabel && (
             <div>
               <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12.5, fontWeight: 600, letterSpacing: '.1px', color: '#1E1C19', marginBottom: 7 }}>
                 Preferred travel dates<span style={{ color: '#C75A37' }}>*</span>
@@ -270,6 +295,7 @@ export function InquiryCard({ tourName, tourMeta, whatsappNumber = WHATSAPP_NUMB
               </div>
               {E.dates && <ErrMsg msg={E.dates} />}
             </div>
+            )}
 
             {/* Travelers */}
             {!hideTravelers && (

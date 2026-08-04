@@ -1,16 +1,27 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
-import type { TourData } from '@/data/tours'
+import type { TourData, GroupDeparture } from '@/data/tours'
 import { InquiryCard } from './TourInquirySection'
+import { DepartureRow } from './TourBookingCard'
 import { WHATSAPP_NUMBER } from '@/lib/contact'
+import { formatDepartureRange, departureFromPrice } from '@/lib/departures'
 
 export default function TourMobileBar({ tour, priceStr }: { tour: TourData; priceStr: string }) {
+  const departures = tour.groupDepartures ?? []
+  const hasGroup = departures.length > 0
+
   const [open, setOpen] = useState(false)
+  const [tab, setTab] = useState<'group' | 'private'>(hasGroup ? 'group' : 'private')
+  const [selectedDep, setSelectedDep] = useState<GroupDeparture | null>(null)
   const sheetRef = useRef<HTMLDivElement>(null)
   const scrimRef = useRef<HTMLDivElement>(null)
 
   const waNum = WHATSAPP_NUMBER
   const waHref = `https://wa.me/${waNum}`
+
+  const groupFrom = departureFromPrice(departures)
+  const groupPriceStr = groupFrom != null ? `${tour.currency}${groupFrom.toLocaleString()}` : priceStr
+  const barPriceStr = hasGroup ? groupPriceStr : priceStr
 
   useEffect(() => {
     const sh = sheetRef.current
@@ -25,11 +36,16 @@ export default function TourMobileBar({ tour, priceStr }: { tour: TourData; pric
     return () => { document.body.style.overflow = '' }
   }, [open])
 
+  // reset the group sub-view whenever the sheet closes
+  useEffect(() => {
+    if (!open) { setSelectedDep(null); setTab(hasGroup ? 'group' : 'private') }
+  }, [open, hasGroup])
+
   const factDuration = tour.quickFacts.duration
   const factGroup = 'Max 8 people'
   const factDifficulty = tour.quickFacts.difficulty
   const factSeason = 'Jun – Sep'
-  const tourMeta = `${tour.quickFacts.duration} · Mestia & Ushguli`
+  const tourMeta = `${tour.quickFacts.duration} · ${tour.region}`
 
   return (
     <>
@@ -38,6 +54,8 @@ export default function TourMobileBar({ tour, priceStr }: { tour: TourData; pric
         @media(max-width:1024px){ .aeg-m-bar { display: flex; } }
         .aeg-sheet-scroll::-webkit-scrollbar { width: 0; }
         @media(prefers-reduced-motion:reduce){ .aeg-m *{transition:none!important;animation:none!important} }
+        .aeg-mseg{flex:1;padding:10px 8px;border-radius:9px;border:none;background:transparent;color:#6F6A60;cursor:pointer;font-size:13.5px;font-weight:700;font-family:inherit;transition:background .16s ease,color .16s ease,box-shadow .16s ease;}
+        .aeg-mseg[data-on=true]{background:#FFFFFF;color:#1E1C19;box-shadow:0 1px 2px rgba(30,28,25,.16);}
         @supports(padding-bottom: env(safe-area-inset-bottom)){
           .aeg-m-bar { padding-bottom: calc(11px + env(safe-area-inset-bottom)) !important; }
         }
@@ -56,17 +74,17 @@ export default function TourMobileBar({ tour, priceStr }: { tour: TourData; pric
         <button onClick={() => setOpen(true)} type="button" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 1, background: 'none', border: 'none', padding: 0, cursor: 'pointer', textAlign: 'left', minWidth: 0, flex: 1, fontFamily: 'inherit' }}>
           <span style={{ display: 'inline-flex', alignItems: 'baseline', gap: 4, color: '#1E1C19' }}>
             <span style={{ fontSize: 11, color: '#A8A296', fontWeight: 500 }}>From</span>
-            <span style={{ fontSize: 18, fontWeight: 700, fontFamily: "'Spectral',serif", lineHeight: 1 }}>{priceStr}</span>
+            <span style={{ fontSize: 18, fontWeight: 700, fontFamily: "'Spectral',serif", lineHeight: 1 }}>{barPriceStr}</span>
             <span style={{ fontSize: 11, color: '#A8A296', fontWeight: 500 }}>/ person</span>
             <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="#C75A37" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: 1 }}><path d="m18 15-6-6-6 6"/></svg>
           </span>
           <span style={{ fontSize: 11.5, color: '#A8A296', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: 150 }}>{tour.name}</span>
         </button>
 
-        {/* Enquire CTA */}
+        {/* CTA — group tours show "Check dates" (opens the schedule) */}
         <button onClick={() => setOpen(true)} type="button"
-          style={{ flex: 'none', border: 'none', borderRadius: 12, background: '#C75A37', color: '#fff', fontFamily: 'inherit', fontSize: 15, fontWeight: 700, padding: '12px 22px', cursor: 'pointer', boxShadow: '0 8px 18px -8px rgba(199,90,55,.8)' }}>
-          Enquire
+          style={{ flex: 'none', border: 'none', borderRadius: 12, background: '#C75A37', color: '#fff', fontFamily: 'inherit', fontSize: 15, fontWeight: 700, padding: '12px 20px', cursor: 'pointer', boxShadow: '0 8px 18px -8px rgba(199,90,55,.8)' }}>
+          {hasGroup ? 'Check dates' : 'Enquire'}
         </button>
 
         {/* WhatsApp */}
@@ -110,43 +128,104 @@ export default function TourMobileBar({ tour, priceStr }: { tour: TourData; pric
         </div>
 
         <div style={{ padding: '6px 14px 26px' }}>
-          {/* Trip details card */}
-          <div style={{ background: '#FFFFFF', border: '1px solid rgba(30,28,25,.08)', borderRadius: 20, boxShadow: '0 18px 50px -32px rgba(30,28,25,.32)', padding: '22px 22px 20px', marginBottom: 14 }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 10.5, fontWeight: 600, letterSpacing: '1.3px', textTransform: 'uppercase', color: '#C75A37', marginBottom: 11 }}>
-              <svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg>
-              {tour.category}
-            </div>
-            <h3 style={{ fontFamily: "'Spectral',Georgia,serif", fontWeight: 600, fontSize: 23, lineHeight: 1.14, letterSpacing: '-.2px', margin: '0 0 4px', color: '#1E1C19' }}>{tour.name}</h3>
-            <div style={{ fontSize: 12.5, color: '#A8A296', lineHeight: 1.4 }}>{tourMeta}</div>
+          {hasGroup ? (
+            <>
+              {/* Group / Private toggle */}
+              {!selectedDep && (
+                <div style={{ display: 'flex', gap: 4, padding: 4, background: '#F3EDE3', borderRadius: 12, marginBottom: 16 }}>
+                  <button type="button" className="aeg-mseg" data-on={tab === 'group'} onClick={() => setTab('group')}>Join a group</button>
+                  <button type="button" className="aeg-mseg" data-on={tab === 'private'} onClick={() => setTab('private')}>Private trip</button>
+                </div>
+              )}
 
-            {/* Price */}
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: 7, marginTop: 15 }}>
-              <span style={{ fontSize: 10.5, fontWeight: 600, letterSpacing: '.14em', textTransform: 'uppercase', color: '#A8A296' }}>From</span>
-              <span style={{ fontFamily: "'Spectral',Georgia,serif", fontWeight: 600, fontSize: 31, lineHeight: 1, color: '#1E1C19' }}>{priceStr}</span>
-              <span style={{ fontSize: 13, fontWeight: 500, color: '#A8A296' }}>/ person</span>
-            </div>
-
-            <div style={{ height: 1, background: '#EDE4D6', margin: '17px 0' }} />
-
-            {/* Facts 2x2 */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px 14px' }}>
-              <FactRow icon="clock" label="Duration" value={factDuration} />
-              <FactRow icon="users" label="Group size" value={factGroup} />
-              <FactRow icon="mountain" label="Difficulty" value={factDifficulty} />
-              <FactRow icon="sun" label="Best season" value={factSeason} />
-            </div>
-          </div>
-
-          {/* Compact InquiryCard (no header — details shown above) */}
-          <InquiryCard
-            tourName={tour.name}
-            tourMeta={tourMeta}
-            whatsappNumber={waNum}
-            compact={true}
-            hideTravelers={false}
-          />
+              {tab === 'group' ? (
+                selectedDep ? (
+                  <>
+                    <button type="button" onClick={() => setSelectedDep(null)}
+                      style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: 13.5, fontWeight: 600, color: '#2E4034', padding: '0 0 12px' }}>
+                      <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                      All departures
+                    </button>
+                    <InquiryCard
+                      tourName={tour.name}
+                      tourMeta={tourMeta}
+                      whatsappNumber={waNum}
+                      compact={true}
+                      defaultDateStart={selectedDep.startDate}
+                      departureLabel={formatDepartureRange(selectedDep)}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                      {departures.map(dep => (
+                        <DepartureRow key={dep.id} dep={dep} currency={tour.currency} onReserve={() => setSelectedDep(dep)} />
+                      ))}
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: 7, marginTop: 16, fontSize: 12.5, lineHeight: 1.45, color: '#A8A296' }}>
+                      <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 1 }}><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+                      <span>No payment today — reserve your spot and we&apos;ll confirm the details first.</span>
+                    </div>
+                  </>
+                )
+              ) : (
+                <PrivateSheet tour={tour} priceStr={priceStr} tourMeta={tourMeta}
+                  facts={{ factDuration, factGroup, factDifficulty, factSeason }} hideGroupSize={hasGroup} waNum={waNum} />
+              )}
+            </>
+          ) : (
+            <PrivateSheet tour={tour} priceStr={priceStr} tourMeta={tourMeta}
+              facts={{ factDuration, factGroup, factDifficulty, factSeason }} waNum={waNum} />
+          )}
         </div>
       </div>
+    </>
+  )
+}
+
+function PrivateSheet({ tour, priceStr, tourMeta, facts, hideGroupSize, waNum }: {
+  tour: TourData; priceStr: string; tourMeta: string
+  facts: { factDuration: string; factGroup: string; factDifficulty: string; factSeason: string }
+  hideGroupSize?: boolean
+  waNum: string
+}) {
+  return (
+    <>
+      {/* Trip details card */}
+      <div style={{ background: '#FFFFFF', border: '1px solid rgba(30,28,25,.08)', borderRadius: 20, boxShadow: '0 18px 50px -32px rgba(30,28,25,.32)', padding: '22px 22px 20px', marginBottom: 14 }}>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 10.5, fontWeight: 600, letterSpacing: '1.3px', textTransform: 'uppercase', color: '#C75A37', marginBottom: 11 }}>
+          <svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg>
+          {tour.category}
+        </div>
+        <h3 style={{ fontFamily: "'Spectral',Georgia,serif", fontWeight: 600, fontSize: 23, lineHeight: 1.14, letterSpacing: '-.2px', margin: '0 0 4px', color: '#1E1C19' }}>{tour.name}</h3>
+        <div style={{ fontSize: 12.5, color: '#A8A296', lineHeight: 1.4 }}>{tourMeta}</div>
+
+        {/* Price */}
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 7, marginTop: 15 }}>
+          <span style={{ fontSize: 10.5, fontWeight: 600, letterSpacing: '.14em', textTransform: 'uppercase', color: '#A8A296' }}>From</span>
+          <span style={{ fontFamily: "'Spectral',Georgia,serif", fontWeight: 600, fontSize: 31, lineHeight: 1, color: '#1E1C19' }}>{priceStr}</span>
+          <span style={{ fontSize: 13, fontWeight: 500, color: '#A8A296' }}>/ person</span>
+        </div>
+
+        <div style={{ height: 1, background: '#EDE4D6', margin: '17px 0' }} />
+
+        {/* Facts 2x2 */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px 14px' }}>
+          <FactRow icon="clock" label="Duration" value={facts.factDuration} />
+          {!hideGroupSize && <FactRow icon="users" label="Group size" value={facts.factGroup} />}
+          <FactRow icon="mountain" label="Difficulty" value={facts.factDifficulty} />
+          <FactRow icon="sun" label="Best season" value={facts.factSeason} />
+        </div>
+      </div>
+
+      {/* Compact InquiryCard (no header — details shown above) */}
+      <InquiryCard
+        tourName={tour.name}
+        tourMeta={tourMeta}
+        whatsappNumber={waNum}
+        compact={true}
+        hideTravelers={false}
+      />
     </>
   )
 }

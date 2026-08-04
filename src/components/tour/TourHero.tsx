@@ -3,15 +3,17 @@ import Image from 'next/image'
 import Link from 'next/link'
 import type { TourData } from '@/data/tours'
 
+const tourTypeLabel = (tour: TourData) => (tour.groupDepartures?.length ? 'Group or private' : 'Private')
+
 const QUICK_FACTS = (tour: TourData) => tour.isDayTour ? [
-  { label: 'Tour type', value: 'Private' },
+  { label: 'Tour type', value: tourTypeLabel(tour) },
   { label: 'Duration', value: tour.quickFacts.duration },
   { label: 'Start / End', value: `${tour.quickFacts.start} / ${tour.quickFacts.end}` },
   { label: 'Activity', value: tour.quickFacts.activity },
   { label: 'Difficulty', value: tour.quickFacts.difficulty },
   { label: 'Group size', value: tour.groupSizeLabel ?? `Up to ${tour.maxTravelers ?? 12}` },
 ] : [
-  { label: 'Tour type', value: 'Private' },
+  { label: 'Tour type', value: tourTypeLabel(tour) },
   { label: 'Duration', value: tour.quickFacts.duration },
   { label: 'Start / End', value: `${tour.quickFacts.start} / ${tour.quickFacts.end}` },
   { label: 'Activity', value: tour.quickFacts.activity },
@@ -20,14 +22,24 @@ const QUICK_FACTS = (tour: TourData) => tour.isDayTour ? [
 ]
 
 export default function TourHero({ tour, priceStr }: { tour: TourData; priceStr: string }) {
+  const hasGroup = !tour.isDayTour && !!tour.groupDepartures?.length
+
+  function scrollToDates(e: React.MouseEvent) {
+    e.preventDefault()
+    document.getElementById('dates')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
   return (
     <section className="tp-hero" style={{ position: 'relative', minHeight: 'min(92vh, 780px)', display: 'flex', alignItems: 'flex-end', background: '#1E1C19', overflow: 'hidden' }}>
       <style>{`
         @keyframes heroFade { from { opacity:0; transform:scale(1.03) } to { opacity:1; transform:scale(1) } }
         .tour-hero-img { animation: heroFade 1.2s ease forwards; }
+        .tp-hero-cta:hover { filter: brightness(.93); transform: translateY(-1px); }
+        .tp-hero-cta:active { transform: translateY(0); }
         @media(max-width:768px){
           .tour-hero-grid { grid-template-columns: 1fr 1fr !important; }
         }
+        @media(prefers-reduced-motion:reduce){ .tp-hero-cta{transition:none!important;} }
       `}</style>
 
       {/* Hero image */}
@@ -57,11 +69,20 @@ export default function TourHero({ tour, priceStr }: { tour: TourData; priceStr:
           {tour.emotionalLine}
         </p>
 
-        {/* Price */}
-        <div style={{ display: 'inline-flex', alignItems: 'baseline', gap: 7, background: 'rgba(255,255,255,.1)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,.18)', borderRadius: 12, padding: '10px 18px', marginBottom: 44, fontFamily: 'var(--font-hanken), sans-serif' }}>
-          <span style={{ fontSize: 12, fontWeight: 600, color: 'rgba(255,255,255,.6)', letterSpacing: '.1em', textTransform: 'uppercase' }}>From</span>
-          <span style={{ fontFamily: 'var(--font-spectral), serif', fontSize: 28, fontWeight: 600, color: '#fff', lineHeight: 1 }}>{priceStr}</span>
-          <span style={{ fontSize: 13, color: 'rgba(255,255,255,.6)' }}>/ person</span>
+        {/* Price + CTA */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 14, marginBottom: 44 }}>
+          <div style={{ display: 'inline-flex', alignItems: 'baseline', gap: 7, background: 'rgba(255,255,255,.1)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,.18)', borderRadius: 12, padding: '10px 18px', fontFamily: 'var(--font-hanken), sans-serif' }}>
+            <span style={{ fontSize: 12, fontWeight: 600, color: 'rgba(255,255,255,.6)', letterSpacing: '.1em', textTransform: 'uppercase' }}>From</span>
+            <span style={{ fontFamily: 'var(--font-spectral), serif', fontSize: 28, fontWeight: 600, color: '#fff', lineHeight: 1 }}>{priceStr}</span>
+            <span style={{ fontSize: 13, color: 'rgba(255,255,255,.6)' }}>/ person</span>
+          </div>
+          {hasGroup && (
+            <a href="#dates" onClick={scrollToDates} className="tp-hero-cta"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: 9, background: '#C75A37', color: '#fff', textDecoration: 'none', borderRadius: 12, padding: '13px 22px', fontFamily: 'var(--font-hanken), sans-serif', fontSize: 15, fontWeight: 700, boxShadow: '0 10px 24px -12px rgba(199,90,55,.9)', transition: 'transform .15s ease, filter .15s ease' }}>
+              <svg width={17} height={17} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/></svg>
+              Check dates &amp; prices
+            </a>
+          )}
         </div>
 
         {/* Quick facts strip */}

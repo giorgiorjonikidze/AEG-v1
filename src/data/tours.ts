@@ -12,6 +12,26 @@ export interface DayStop {
   tags: string[]
 }
 
+/** A fixed-date group departure (join a scheduled small group).
+ *  Populate `groupDepartures` on a tour to turn on the Group/Private toggle
+ *  in its booking card. Prices are per person, in the tour's `currency`. */
+export interface GroupDeparture {
+  /** Stable id, e.g. 'traverse-2026-09-06' */
+  id: string
+  /** ISO start date 'YYYY-MM-DD' — used to prefill the enquiry date */
+  startDate: string
+  /** ISO end date 'YYYY-MM-DD' */
+  endDate: string
+  /** Per-person price for this departure, in the tour's currency */
+  price: number
+  /** Total spots on this departure */
+  spotsTotal: number
+  /** Spots still available (0 = sold out) */
+  spotsLeft: number
+  /** When true, the trip runs even below the usual minimum — shows a "Guaranteed" badge */
+  guaranteed?: boolean
+}
+
 export interface TourData {
   slug: string
   name: string
@@ -38,6 +58,9 @@ export interface TourData {
    *  Falls back to `region` when unset. */
   dayArea?: string
   quickFacts: { duration: string; start: string; end: string; activity: string; difficulty: string; accommodation: string }
+  /** Fixed-date group departures. When present, the booking card shows a
+   *  Group / Private toggle; when absent, the card behaves as before (private only). */
+  groupDepartures?: GroupDeparture[]
   summaryCards: { icon: string; label: string; value: string }[]
   overview: string
   highlights: string[]
@@ -1088,12 +1111,30 @@ Pricing is per person and scales with group size: €2,897 solo, then €1,440 /
       difficulty: 'Challenging — good fitness required',
       accommodation: 'Hotels + family guesthouses (full board)',
     },
+    // Group departures: dates finalised (Sat→Fri), price €1,350/person, max 6 riders.
+    // Update `spotsLeft` (and set `guaranteed: true` once a departure hits its
+    // minimum) as real bookings come in — all currently open, no bookings yet.
+    groupDepartures: [
+      { id: 'traverse-2026-09-05', startDate: '2026-09-05', endDate: '2026-09-11', price: 1350, spotsTotal: 6, spotsLeft: 6 },
+      { id: 'traverse-2026-09-19', startDate: '2026-09-19', endDate: '2026-09-25', price: 1350, spotsTotal: 6, spotsLeft: 6 },
+      { id: 'traverse-2026-10-03', startDate: '2026-10-03', endDate: '2026-10-09', price: 1350, spotsTotal: 6, spotsLeft: 6 },
+      { id: 'traverse-2026-10-17', startDate: '2026-10-17', endDate: '2026-10-23', price: 1350, spotsTotal: 6, spotsLeft: 6 },
+      { id: 'traverse-2027-06-05', startDate: '2027-06-05', endDate: '2027-06-11', price: 1350, spotsTotal: 6, spotsLeft: 6 },
+      { id: 'traverse-2027-06-19', startDate: '2027-06-19', endDate: '2027-06-25', price: 1350, spotsTotal: 6, spotsLeft: 6 },
+      { id: 'traverse-2027-07-03', startDate: '2027-07-03', endDate: '2027-07-09', price: 1350, spotsTotal: 6, spotsLeft: 6 },
+      { id: 'traverse-2027-07-17', startDate: '2027-07-17', endDate: '2027-07-23', price: 1350, spotsTotal: 6, spotsLeft: 6 },
+      { id: 'traverse-2027-08-07', startDate: '2027-08-07', endDate: '2027-08-13', price: 1350, spotsTotal: 6, spotsLeft: 6 },
+      { id: 'traverse-2027-08-21', startDate: '2027-08-21', endDate: '2027-08-27', price: 1350, spotsTotal: 6, spotsLeft: 6 },
+      { id: 'traverse-2027-09-04', startDate: '2027-09-04', endDate: '2027-09-10', price: 1350, spotsTotal: 6, spotsLeft: 6 },
+      { id: 'traverse-2027-09-18', startDate: '2027-09-18', endDate: '2027-09-24', price: 1350, spotsTotal: 6, spotsLeft: 6 },
+      { id: 'traverse-2027-10-02', startDate: '2027-10-02', endDate: '2027-10-08', price: 1350, spotsTotal: 6, spotsLeft: 6 },
+    ],
     summaryCards: [
       { icon: 'clock', label: 'Duration', value: '7 days / 6 nights' },
       { icon: 'map-pin', label: 'Starting point', value: 'Tbilisi (van shuttle clear of city traffic)' },
       { icon: 'map-pin', label: 'Ending point', value: 'Batumi, Black Sea coast' },
       { icon: 'mountain', label: 'The line', value: 'Tbilisi → Javakheti lakes → Goderdzi Pass → Batumi' },
-      { icon: 'users', label: 'Group size', value: '1–6 riders (pricing scales by number)' },
+      { icon: 'users', label: 'Booking', value: 'Join a group or go private' },
       { icon: 'activity', label: 'Riding', value: '~300 km — mostly quiet tarmac, ~20% gravel' },
       { icon: 'compass', label: 'High point', value: 'Goderdzi Pass, 2,025 m' },
       { icon: 'footprints', label: 'Fitness', value: 'Good fitness required — endurance, not technical' },
@@ -1179,10 +1220,9 @@ Semi-desert steppe, alpine lakes, medieval history, a high pass and a subtropica
       'Travel insurance documents (with cycling cover)',
     ],
     season: [
-      { month: 'May', rating: 'good' },
       { month: 'Jun', rating: 'excellent' },
       { month: 'Jul', rating: 'excellent' },
-      { month: 'Aug', rating: 'excellent' },
+      { month: 'Aug', rating: 'good' },
       { month: 'Sep', rating: 'excellent' },
       { month: 'Oct', rating: 'excellent' },
     ],
@@ -1202,9 +1242,9 @@ Semi-desert steppe, alpine lakes, medieval history, a high pass and a subtropica
       { q: 'Why ride Tbilisi to Batumi rather than a loop?', a: 'Because a point-to-point traverse lets the country change under your wheels — steppe, alpine lakes, a medieval cave-city, a high pass, and a subtropical coast, all in one week. You finish somewhere completely different from where you started, with your wheel in the Black Sea. It\'s the whole appeal of the trip.' },
       { q: 'When is the best time to ride it?', a: 'Late spring and early autumn are ideal — June and September especially. The Goderdzi Pass needs to be clear of snow (usually from June), and the low valleys and coast can be hot in mid-summer, so we ride them early in the day. We don\'t run this route in winter.' },
       { q: 'Are meals and accommodation included?', a: 'Yes. You get a hotel in Tbilisi, family guesthouses with full board along the route, and a hotel in Batumi, plus all meals including a welcome supra and a farewell dinner. Alcoholic drinks beyond those two meals are the only food cost not included.' },
-      { q: 'How does the pricing work for my group?', a: 'Every departure is private and priced per person by group size — it works out best value with more riders because the guide and support vehicle are shared, and a bike is included either way. Send us your group size and we\'ll reply with an exact quote.' },
+      { q: 'How does the pricing work?', a: 'Two ways. Join a fixed-date group departure and you pay a set price per person shown next to each date. Or book privately for your own group and the per-person price scales by size — best value with more riders, since the guide and support vehicle are shared. A bike is included either way. Send us your dates or group size and we\'ll reply with an exact quote.' },
       { q: 'What happens after we reach Batumi?', a: 'The tour ends in Batumi on the morning of Day 7. Many riders fly out of Batumi or carry on along the coast; we can also arrange a private transfer back to Tbilisi (about 5–6 hours, bikes included). Just tell us your onward plans when you book.' },
-      { q: 'Is this a private trip?', a: 'Yes — every departure is private, so it\'s perfect for a group of riding friends, with pricing that scales by your group size. Use "Request a Custom Version" in the enquiry form if you\'d like to adjust the route, pace or dates.' },
+      { q: 'Can I join a group, or is it private?', a: 'Both. You can join one of our fixed-date small-group departures — a handful of like-minded riders at a set price per person — or book the whole trip privately for just you and your friends on dates that suit you. Pick "Join a group" or "Private trip" on the booking card. Private trips are priced per person, scaling with the number of riders; use "Request a Custom Version" to adjust the route, pace or dates.' },
     ],
     relatedTours: [
       { slug: 'cycling-expedition-tusheti', name: 'Cycling Expedition in Tusheti', region: 'Tusheti', duration: '6 days', difficulty: 'Challenging', image: '/images/tours/biking/mtb-open-road.jpg' },

@@ -14,6 +14,7 @@ import TourRelated from '@/components/tour/TourRelated'
 import Reviews from '@/components/Reviews'
 import TourMobileBar from '@/components/tour/TourMobileBar'
 import TourBookingCard from '@/components/tour/TourBookingCard'
+import TourBookingSection from '@/components/tour/TourBookingSection'
 import DayTourItinerary from '@/components/tour/DayTourItinerary'
 import DayTourBookingCard from '@/components/tour/DayTourBookingCard'
 import DayTourMobileBar from '@/components/tour/DayTourMobileBar'
@@ -41,6 +42,7 @@ export default function TourPage({ params }: { params: { slug: string } }) {
   if (!tour) notFound()
 
   const priceStr = `${tour.currency}${tour.price.toLocaleString()}`
+  const hasGroup = !tour.isDayTour && !!tour.groupDepartures?.length
 
   return (
     <>
@@ -63,37 +65,56 @@ export default function TourPage({ params }: { params: { slug: string } }) {
         <TourHero tour={tour} priceStr={priceStr} />
         <TourJumpNav />
 
-        <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 28px', display: 'grid', gridTemplateColumns: '1fr 384px', gap: 56, alignItems: 'start' }}
-          className="tour-layout">
-          <style dangerouslySetInnerHTML={{ __html: `
-            .tour-layout > * { min-width: 0; }
-            @media (max-width: 1024px) {
-              .tour-layout { grid-template-columns: 1fr !important; }
-              .tour-sidebar { display: none !important; }
-            }
-          ` }} />
+        {hasGroup ? (
+          /* Group-departure tours: single column + wide booking section above FAQ (no sidebar) */
+          <>
+            <div style={{ maxWidth: 820, margin: '0 auto', padding: '0 28px' }}>
+              <TourOverview tour={tour} />
+              <TourItinerary tour={tour} />
+              <TourInclusions tour={tour} />
+              <TourGallery tour={tour} />
+            </div>
+            <div style={{ maxWidth: 1080, margin: '0 auto', padding: '36px 28px 8px' }}>
+              <TourBookingSection tour={tour} priceStr={priceStr} />
+            </div>
+            <div style={{ maxWidth: 820, margin: '0 auto', padding: '0 28px' }}>
+              <TourFAQ tour={tour} />
+              <Reviews rows tourSlug={tour.slug} />
+            </div>
+          </>
+        ) : (
+          <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 28px', display: 'grid', gridTemplateColumns: '1fr 384px', gap: 56, alignItems: 'start' }}
+            className="tour-layout">
+            <style dangerouslySetInnerHTML={{ __html: `
+              .tour-layout > * { min-width: 0; }
+              @media (max-width: 1024px) {
+                .tour-layout { grid-template-columns: 1fr !important; }
+                .tour-sidebar { display: none !important; }
+              }
+            ` }} />
 
-          {/* Main content column */}
-          <div>
-            <TourOverview tour={tour} />
-            {tour.isDayTour
-              ? <DayTourItinerary tour={tour} />
-              : <TourItinerary tour={tour} />
-            }
-            <TourInclusions tour={tour} />
-            <TourGallery tour={tour} />
-            <TourFAQ tour={tour} />
-            <Reviews rows tourSlug={tour.slug} />
-          </div>
+            {/* Main content column */}
+            <div>
+              <TourOverview tour={tour} />
+              {tour.isDayTour
+                ? <DayTourItinerary tour={tour} />
+                : <TourItinerary tour={tour} />
+              }
+              <TourInclusions tour={tour} />
+              <TourGallery tour={tour} />
+              <TourFAQ tour={tour} />
+              <Reviews rows tourSlug={tour.slug} />
+            </div>
 
-          {/* Sticky sidebar — desktop only */}
-          <div className="tour-sidebar" style={{ position: 'sticky', top: 100, paddingTop: 40 }}>
-            {tour.isDayTour
-              ? <DayTourBookingCard tour={tour} />
-              : <TourBookingCard tour={tour} priceStr={priceStr} />
-            }
+            {/* Sticky sidebar — desktop only */}
+            <div className="tour-sidebar" style={{ position: 'sticky', top: 100, paddingTop: 40 }}>
+              {tour.isDayTour
+                ? <DayTourBookingCard tour={tour} />
+                : <TourBookingCard tour={tour} priceStr={priceStr} />
+              }
+            </div>
           </div>
-        </div>
+        )}
 
         <TourRelated tour={tour} />
         <TailorMadeCTA />

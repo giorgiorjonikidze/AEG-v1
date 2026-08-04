@@ -88,7 +88,7 @@ const BELIEFS = [
   },
   {
     title: 'Small and personal',
-    text: 'Private departures only. No mixed groups, no strangers — your guide knows your name, your pace and when you need a coffee break.',
+    text: 'Private by default — your own group, no strangers. On select trips you can also join a scheduled small-group departure. Either way your guide knows your name, your pace and when you need a coffee break.',
   },
   {
     title: 'Beyond the postcard',
